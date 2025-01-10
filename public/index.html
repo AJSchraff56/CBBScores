@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Basketball Scores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <div>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+            <div id="login-error" class="error-message"></div>
+        </form>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-screen" class="hidden">
+        <h1>Admin Panel</h1>
+        <ul id="user-list"></ul>
+        <form id="add-user-form">
+            <input type="text" id="new-username" placeholder="New Username" required>
+            <input type="password" id="new-password" placeholder="New Password" required>
+            <button type="submit">Add User</button>
+        </form>
+    </div>
+
+    <!-- Main Site -->
+    <div id="site-screen" class="hidden">
+        <h1>College Basketball Scores</h1>
+        <div id="top25Container"></div>
+        <div id="conferenceContainer"></div>
+        <button id="logout-btn">Logout</button>
+    </div>
+
+    <script src="login.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
