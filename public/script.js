@@ -4,11 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     conferenceScores.classList.add('visible');
 });
 
-setInterval(() => {
-    console.log("Fetching scores...");
-    fetchScores();
-}, REFRESH_INTERVAL);
-
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM content loaded");
 
