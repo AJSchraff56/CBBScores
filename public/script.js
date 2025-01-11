@@ -707,9 +707,4 @@ conferenceFilter.addEventListener('change', () => {
     // Fetch scores on page load
     fetchScores();
  
-    // Set up auto-refresh
- setInterval(() => {
-    console.log("Refreshing scores...");
-    fetchScores();
-}, REFRESH_INTERVAL);
 });
