@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Idaho St": "#FF8400",
             "Illinois": "#F5873C",
             "Illinois St": "#E61731",
-            "Illinois-Chicago": "#234077",
+            "UIC": "#234077",
             "Indiana": "#A82B3D",
             "Indiana St": "#00669A",
             "Iona": "#910126",
