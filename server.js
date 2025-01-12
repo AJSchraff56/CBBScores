@@ -88,12 +88,7 @@ app.post('/login', (req, res) => {
     } else {
         res.status(401).send('Invalid username or password');
     }
-    if (response.ok) {
-                    const data = await response.json();
-                    if (data.isAdmin) {
-                        // Redirect admin to admin.html
-                        window.location.href = '/admin.html';
-});
+   
 app.get('/mscores.html', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'mscores.html'));
 });
