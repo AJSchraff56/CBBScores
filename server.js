@@ -88,6 +88,7 @@ app.post('/login', (req, res) => {
     } else {
         res.status(401).send('Invalid username or password');
     }
+});
    
 app.get('/mscores.html', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'mscores.html'));
