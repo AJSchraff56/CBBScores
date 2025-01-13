@@ -1,3 +1,5 @@
+console.log("script.js loaded");
+
 document.addEventListener('DOMContentLoaded', () => {
     conferenceScores.classList.add('visible');
 });
@@ -21,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let conferenceIntervalId = null; // Track conference cycling interval
     
 
-     // Function to calculate the refresh interval
-     function calculateRefreshInterval() {
+    // Function to calculate the refresh interval
+    function calculateRefreshInterval() {
         const totalPages = Math.ceil(top25Data.length / pageSize);
         return totalPages * 10000; // 10 seconds per page
     }
@@ -33,15 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
          if (refreshIntervalId) clearInterval(refreshIntervalId);
          const refreshInterval = calculateRefreshInterval();
          console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
-          refreshIntervalId = setInterval(() => {
-            fetchScores()
-                .then(() => startAutoRefresh()); // Restart auto-refresh after fetching scores
-        }, refreshInterval);
+         refreshIntervalId = setInterval(fetchScores, refreshInterval);
      }
-}
+
     // NCAA Team Colors Mapping
     const teamColors = {
-        // Add colors here 
+        // Add colors here based on Wikipedia data
             "Air Force": "#0061AA",
             "Akron": "#000E41",
             "Alabama": "#A80532",
@@ -161,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Idaho St": "#FF8400",
             "Illinois": "#F5873C",
             "Illinois St": "#E61731",
-            "UIC": "#234077",
+            "Illinois-Chicago": "#234077",
             "Indiana": "#A82B3D",
             "Indiana St": "#00669A",
             "Iona": "#910126",
@@ -254,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Notre Dame": "#00122B",
             "Oakland": "#998448",
             "Ohio": "#295A29",
-            "Ohio St": "#DE3121",
+            "Ohio State": "#DE3121",
             "Oklahoma": "#BA0034",
             "Oklahoma St": "#FF6500",
             "Old Dominion": "#00507D",
@@ -387,7 +386,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "Yale": "#004A81",
             "Youngstown St": "#E51937"
         }
-        
 
     // Fallback colors
     const defaultColor1 = "#333"; // Default dark gray
@@ -435,47 +433,12 @@ document.addEventListener('DOMContentLoaded', () => {
             populateConferenceDropdown(conferenceData);
             startTop25Cycle();
             startConferenceCycle();
-            
         } catch (error) {
             console.error('Error fetching scores:', error);
             top25Scores.innerHTML = '<p>Error loading Top 25 scores</p>';
             conferenceScores.innerHTML = '<p>Error loading scores</p>';
         }
     }
-    
-const conferenceMapping = {
-        1: "America East",
-        2: "Atlantic Coast",
-        3: "Atlantic 10",
-        4: "Big East",
-        5: "Big Sky",
-        6: "Big South",
-        7: "Big Ten",
-        8: "Big 12",
-        9: "Big West",
-        10: "Coastal Athletic",
-        11: "Conference USA",
-        12: "Ivy League",
-        13: "Metro Atlantic Athletic",
-        14: "Mid-American",
-        16: "Mid-Eastern Athletic",
-        18: "Missouri Valley",
-        19: "Northeast",
-        20: "Ohio Valley",
-        22: "Patriot League",
-        23: "Southeastern",
-        24: "Southern",
-        25: "Southland",
-        26: "Southwestern Athletic",
-        27: "Sun Belt",
-        29: "West Coast",
-        30: "Western Athletic",
-        44: "Mountain West",
-        45: "Horizon League",
-        46: "Atlantic Sun",
-        47: "Summit League",
-        62: "American Athletic",
-    };
     
     // Populate the conference dropdown
     function populateConferenceDropdown(games) {
@@ -508,29 +471,30 @@ const conferenceMapping = {
     
 
 // Rotate Top 25 Scores
-    function startTop25Cycle() {
-        if (!top25Data.length) {
-            top25Scores.innerHTML = '<p>No games available for Top 25.</p>';
-            return;
-        }
-
-        const totalPages = Math.ceil(top25Data.length / pageSize);
-        let currentPage = 0;
-
-        function updateScores() {
-            top25Scores.innerHTML = '';
-            const start = currentPage * pageSize;
-            const end = start + pageSize;
-            top25Data.slice(start, end).forEach(game => {
-                const card = createGameCard(game, true);
-                top25Scores.appendChild(card);
-            });
-            currentPage = (currentPage + 1) % totalPages;
-        }
-
-        updateScores();
-        setInterval(updateScores, 10000);
+   function startTop25Cycle() {
+    if (!top25Data.length) {
+        top25Scores.innerHTML = '<p>No games available for Top 25.</p>';
+        return;
     }
+
+    const totalPages = Math.ceil(top25Data.length / pageSize);
+    let currentPage = 0;
+
+    function updateScores() {
+        top25Scores.innerHTML = '';
+        const start = currentPage * pageSize;
+        const end = start + pageSize;
+        top25Data.slice(start, end).forEach(game => {
+            const card = createGameCard(game, true);
+            top25Scores.appendChild(card);
+        });
+        currentPage = (currentPage + 1) % totalPages;
+    }
+
+    updateScores();
+    setInterval(updateScores, 10000);
+}
+
 
       // Rotate Conference Scores
       function startConferenceCycle() {
@@ -625,6 +589,40 @@ function getConferenceName(conferenceId) {
     return "Unknown Conference";
 }
 
+const conferenceMapping = {
+    1: "America East",
+    2: "Atlantic Coast",
+    3: "Atlantic 10",
+    4: "Big East",
+    5: "Big Sky",
+    6: "Big South",
+    7: "Big Ten",
+    8: "Big 12",
+    9: "Big West",
+    10: "Coastal Athletic",
+    11: "Conference USA",
+    12: "Ivy League",
+    13: "Metro Atlantic Athletic",
+    14: "Mid-American",
+    16: "Mid-Eastern Athletic",
+    18: "Missouri Valley",
+    19: "Northeast",
+    20: "Ohio Valley",
+    22: "Patriot League",
+    23: "Southeastern",
+    24: "Southern",
+    25: "Southland",
+    26: "Southwestern Athletic",
+    27: "Sun Belt",
+    29: "West Coast",
+    30: "Western Athletic",
+    44: "Mountain West",
+    45: "Horizon League",
+    46: "Atlantic Sun",
+    47: "Summit League",
+    62: "American Athletic",
+};
+
 // Example usage when updating conference title
 conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
 
@@ -637,10 +635,11 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         const team1Color = teamColors[team1.name] || defaultColor1;
         const team2Color = teamColors[team2.name] || defaultColor2;
 
+
         const card = document.createElement('div');
         card.className = 'game-card';
         card.style.background = `linear-gradient(135deg, ${team2Color}, ${team1Color})`;
- 
+
       // Determine what to display in the status
 let displayStatus = '';
 if (game.status.includes('1st') || game.status.includes('2nd') || game.status.includes('3rd') || game.status.includes('4th') || game.status.includes('Overtime')) {
@@ -656,8 +655,9 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
 
 
 
-card.innerHTML = `
-    <div class="team-left">
+
+ card.innerHTML = `
+      <div class="team-left">
         <div class="team-logo-container">
             <img src="${team2.logo}" alt="${team2.name}" class="team-logo" />
             <div class="record">(${team2.record})</div> <!-- Record is under the logo -->
@@ -682,12 +682,12 @@ card.innerHTML = `
     return card;
 }
 
-// Handle Conference Filter Change
-conferenceFilter.addEventListener('change', () => {
-    selectedConference = conferenceFilter.value;
-    conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
-    startConferenceCycle();
-});
+    // Handle Conference Filter Change
+    conferenceFilter.addEventListener('change', () => {
+        selectedConference = conferenceFilter.value;
+        conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
+        startConferenceCycle();
+    });
 
     let mouseMoveTimeout = null; // Declare the timeout variable globally
 
@@ -708,5 +708,11 @@ conferenceFilter.addEventListener('change', () => {
     
 
     // Fetch scores on page load
-     fetchScores()
+    fetchScores();
+ 
+    // Set up auto-refresh
+ setInterval(() => {
+    console.log("Refreshing scores...");
+    fetchScores();
+}, REFRESH_INTERVAL);
 });
