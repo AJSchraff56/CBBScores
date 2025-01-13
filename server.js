@@ -103,6 +103,7 @@ app.get('/mscores.html', checkAuth, (req, res) => {
         res.redirect('/admin.html');
     } else {
         res.sendFile(path.join(__dirname, 'public', 'mscores.html'));
+    }
 });
 
 app.get('/wscores.html', checkAuth, (req, res) => {
@@ -110,6 +111,7 @@ app.get('/wscores.html', checkAuth, (req, res) => {
         res.redirect('/admin.html');
     } else {
         res.sendFile(path.join(__dirname, 'public', 'wscores.html'));
+     }
 });
 
 
