@@ -61,6 +61,7 @@ const conferenceMapping = {
 // Middleware for authentication
 function checkAuth(req, res, next) {
     if (req.session && req.session.user) {
+    console.log(`User authenticated: ${req.session.user.username}`);   
         next();
     } else {
         res.status(401).sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -70,6 +71,7 @@ function checkAuth(req, res, next) {
 // Middleware for admin access
 function checkAdmin(req, res, next) {
     if (req.session && req.session.user && req.session.user.isAdmin) {
+        console.log(`Admin access granted: ${req.session.user.username}`);
         next();
     } else {
         res.status(403).send('Forbidden: Admins only');
@@ -84,6 +86,7 @@ app.post('/login', (req, res) => {
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
         req.session.user = user;
+        console.log(`Login successful: ${username}`);
         res.status(200).send('Login successful');
     } else {
         res.status(401).send('Invalid username or password');
