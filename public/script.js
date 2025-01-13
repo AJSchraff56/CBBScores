@@ -33,7 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
          if (refreshIntervalId) clearInterval(refreshIntervalId);
          const refreshInterval = calculateRefreshInterval();
          console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
-         refreshIntervalId = setInterval(fetchScores, refreshInterval);
+         refreshIntervalId = setInterval(() => {
+            fetchScores()
+                .then(() => startAutoRefresh()); // Restart auto-refresh after fetching scores
+        }, refreshInterval);
      }
     // NCAA Team Colors Mapping
     const teamColors = {
