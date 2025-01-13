@@ -87,8 +87,13 @@ app.post('/login', (req, res) => {
     if (user) {
         req.session.user = user;
         console.log(`Login successful: ${username}`);
-        res.status(200).send('Login successful');
+        if (user.isAdmin) {
+            res.status(200).send({ message: 'Login successful', redirectTo: '/admin.html' });
+        } else {
+            res.status(200).send({ message: 'Login successful', redirectTo: '/scores.html' });
+        }
     } else {
+        console.log(`Login failed for: ${username}`);
         res.status(401).send('Invalid username or password');
     }
 });
