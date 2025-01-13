@@ -431,8 +431,6 @@ document.addEventListener('DOMContentLoaded', () => {
             populateConferenceDropdown(conferenceData);
             startTop25Cycle();
             startConferenceCycle();
-    
-            startAutoRefresh();
             
         } catch (error) {
             console.error('Error fetching scores:', error);
