@@ -16,25 +16,25 @@ document.addEventListener('DOMContentLoaded', () => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ username, password }),
-                });
+                })
 
-                if (response.ok) {
-                    const data = await response.json();
+               .then(response => response.json())
+                .then(data => {
                     if (data.isAdmin) {
-                        // Redirect admin to admin.html
                         window.location.href = '/admin.html';
                     } else {
-                        // Redirect regular user to scores.html
-                        window.location.href = '/scores.html';
+                        const selectedGender = document.querySelector('input[name="gender"]:checked').value;
+                        if (selectedGender === 'male') {
+                            window.location.href = '/mscores.html';
+                        } else if (selectedGender === 'female') {
+                            window.location.href = '/wscores.html';
+                        }
                     }
-                } else {
-                    // Display error message for invalid credentials
-                    loginError.textContent = 'Invalid username or password';
-                }
-            } catch (error) {
-                console.error('Login error:', error);
+                })
+                .catch (error) {
+                    console.error('Login error:', error);
                 loginError.textContent = 'An error occurred during login. Please try again.';
-            }
+            
         });
     }
 });
