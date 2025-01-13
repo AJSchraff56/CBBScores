@@ -708,11 +708,5 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     
 
     // Fetch scores on page load
-    fetchScores();
- 
-    // Set up auto-refresh
- setInterval(() => {
-    console.log("Refreshing scores...");
-    fetchScores();
-}, REFRESH_INTERVAL);
+    fetchScores().then(startAutoRefresh);
 });
