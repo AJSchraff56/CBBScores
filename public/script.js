@@ -1,5 +1,3 @@
-console.log("script.js loaded");
-
 document.addEventListener('DOMContentLoaded', () => {
     conferenceScores.classList.add('visible');
 });
