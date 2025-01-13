@@ -707,6 +707,6 @@ conferenceFilter.addEventListener('change', () => {
     
 
     // Fetch scores on page load
-    fetchScores().then(() => startAutoRefresh());
+    fetchScores().then(startAutoRefresh);
  
 });
