@@ -99,11 +99,17 @@ app.post('/login', (req, res) => {
 });
    
 app.get('/mscores.html', checkAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'mscores.html'));
+    if (req.session.user.isAdmin) {
+        res.redirect('/admin.html');
+    } else {
+        res.sendFile(path.join(__dirname, 'public', 'mscores.html'));
 });
 
 app.get('/wscores.html', checkAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'wscores.html'));
+     if (req.session.user.isAdmin) {
+        res.redirect('/admin.html');
+    } else {
+        res.sendFile(path.join(__dirname, 'public', 'wscores.html'));
 });
 
 
@@ -225,11 +231,6 @@ app.delete('/users/:username', checkAuth, checkAdmin, (req, res) => {
 // Serve admin.html
 app.get('/admin.html', checkAuth, checkAdmin, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
-});
-
-// Serve scores.html
-app.get('/scores.html', checkAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'scores.html'));
 });
 
 // Start server
