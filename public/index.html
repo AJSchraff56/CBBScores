@@ -3,27 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>College Basketball Scores</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="login-container">
-        <form class="login-form">
-            <h1>Log in</h1>
-            <div class="form-group">
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <div>
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="text" id="username" name="username" required>
             </div>
-            <div class="form-group">
+            <div>
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Log in</button>
-            <p class="signup-link">or, <a href="/signup.html">sign up</a></p>
+            <div>
+                <label>Select Gender:</label>
+                <label>
+                    <input type="radio" name="gender" value="men" required> Men
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="women" required> Women
+                </label>
+            </div>
+            <button type="submit">Login</button>
+            <div id="loginError" class="error-message"></div>
         </form>
+        
     </div>
-</body>
-</html>
 
     <!-- Admin Panel -->
     <div id="admin-screen" class="hidden">
@@ -41,6 +50,7 @@
         <h1>College Basketball Scores</h1>
         <div id="top25Container"></div>
         <div id="conferenceContainer"></div>
+            <div class="score-container" id="conferenceScores"></div>
         <button id="logout-btn">Logout</button>
     </div>
 
