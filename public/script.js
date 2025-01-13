@@ -433,7 +433,6 @@ document.addEventListener('DOMContentLoaded', () => {
             populateConferenceDropdown(conferenceData);
             startTop25Cycle();
             startConferenceCycle();
-            startAutoRefresh();
         } catch (error) {
             console.error('Error fetching scores:', error);
             top25Scores.innerHTML = '<p>Error loading Top 25 scores</p>';
