@@ -61,7 +61,7 @@ const conferenceMapping = {
 // Middleware for authentication
 function checkAuth(req, res, next) {
     if (req.session && req.session.user) {
-    console.log(`User authenticated: ${req.session.user.username}`);   
+        console.log(`User authenticated: ${req.session.user.username}`);
         next();
     } else {
         res.status(401).sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -78,8 +78,6 @@ function checkAdmin(req, res, next) {
     }
 }
 
-// Endpoints
-
 // Login endpoint
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
@@ -87,17 +85,14 @@ app.post('/login', (req, res) => {
     if (user) {
         req.session.user = user;
         console.log(`Login successful: ${username}`);
-        if (user.isAdmin) {
-            res.status(200).send({ message: 'Login successful', redirectTo: '/admin.html' });
-        } else {
-            res.status(200).send({ message: 'Login successful', redirectTo: '/scores.html' });
-        }
+        res.status(200).send({ message: 'Login successful', isAdmin: user.isAdmin });
     } else {
         console.log(`Login failed for: ${username}`);
         res.status(401).send('Invalid username or password');
     }
 });
-   
+
+// Update routes to include a check for admin users
 app.get('/mscores.html', checkAuth, (req, res) => {
     if (req.session.user.isAdmin) {
         res.redirect('/admin.html');
@@ -107,13 +102,17 @@ app.get('/mscores.html', checkAuth, (req, res) => {
 });
 
 app.get('/wscores.html', checkAuth, (req, res) => {
-     if (req.session.user.isAdmin) {
+    if (req.session.user.isAdmin) {
         res.redirect('/admin.html');
     } else {
         res.sendFile(path.join(__dirname, 'public', 'wscores.html'));
-     }
+    }
 });
 
+// Serve admin.html
+app.get('/admin.html', checkAuth, checkAdmin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
 
 // Logout endpoint
 app.post('/logout', (req, res) => {
@@ -168,6 +167,7 @@ app.get('/mscores', checkAuth, async (req, res) => {
         res.status(500).send('Failed to fetch scores');
     }
 });
+
 app.get('/wscores', checkAuth, async (req, res) => {
     console.log('GET /wscores route called');
     try {
@@ -228,11 +228,6 @@ app.delete('/users/:username', checkAuth, checkAdmin, (req, res) => {
     } else {
         res.status(404).send('User not found');
     }
-});
-
-// Serve admin.html
-app.get('/admin.html', checkAuth, checkAdmin, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
 // Start server
