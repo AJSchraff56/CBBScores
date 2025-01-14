@@ -384,14 +384,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return totalPages * 10000; // 10 seconds per page
     }
 
-     // Dynamically refresh the page based on the number of Top 25 pages
-     let refreshIntervalId;
-     function startAutoRefresh() {
-         if (refreshIntervalId) clearInterval(refreshIntervalId);
-         const refreshInterval = calculateRefreshInterval();
-         console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
-         refreshIntervalId = setInterval(fetchScores, refreshInterval);
-     }
+   // Function to start auto-refresh
+    let refreshIntervalId;
+    function startAutoRefresh() {
+        if (refreshIntervalId) clearInterval(refreshIntervalId);
+        const refreshInterval = calculateRefreshInterval();
+        console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
+        refreshIntervalId = setInterval(() => {
+            fetchScores().then(() => {
+                // Adjust refresh interval if data size changes
+                const newRefreshInterval = calculateRefreshInterval();
+                if (newRefreshInterval !== refreshInterval) {
+                    startAutoRefresh();
+                }
+            });
+        }, refreshInterval);
+    }
 
     // Fetch scores from the backend
     async function fetchScores() {
