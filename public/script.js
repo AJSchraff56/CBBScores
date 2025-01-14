@@ -24,20 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
  
 
- // Function to calculate the refresh interval
-     function calculateRefreshInterval() {
-        const totalPages = Math.ceil(top25Data.length / pageSize);
-        return totalPages * 10000; // 10 seconds per page
-    }
-
-     // Dynamically refresh the page based on the number of Top 25 pages
-     let refreshIntervalId;
-     function startAutoRefresh() {
-         if (refreshIntervalId) clearInterval(refreshIntervalId);
-         const refreshInterval = calculateRefreshInterval();
-         console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
-         refreshIntervalId = setInterval(fetchScores, refreshInterval);
-     }
 
     // NCAA Team Colors Mapping
     const teamColors = {
@@ -706,8 +692,25 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     if (conferenceFilter) {
         conferenceFilter.classList.remove('hidden');
     }
-    
+   
+ // Fetch scores on page load
+fetchScores();
  
+    // Function to calculate the refresh interval
+     function calculateRefreshInterval() {
+        const totalPages = Math.ceil(top25Data.length / pageSize);
+        return totalPages * 10000; // 10 seconds per page
+    }
+
+     // Dynamically refresh the page based on the number of Top 25 pages
+     let refreshIntervalId;
+     function startAutoRefresh() {
+         if (refreshIntervalId) clearInterval(refreshIntervalId);
+         const refreshInterval = calculateRefreshInterval();
+         console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
+         refreshIntervalId = setInterval(fetchScores, refreshInterval);
+     }
+
     // Set up auto-refresh
     startAutoRefresh();
 });
