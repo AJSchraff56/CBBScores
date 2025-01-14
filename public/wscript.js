@@ -22,21 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let top25Data = [], conferenceData = [];
     let conferenceIntervalId = null; // Track conference cycling interval
     
+ 
 
-    // Function to calculate the refresh interval
-    function calculateRefreshInterval() {
-        const totalPages = Math.ceil(top25Data.length / pageSize);
-        return totalPages * 10000; // 10 seconds per page
-    }
-
-     // Dynamically refresh the page based on the number of Top 25 pages
-     let refreshIntervalId;
-     function startAutoRefresh() {
-         if (refreshIntervalId) clearInterval(refreshIntervalId);
-         const refreshInterval = calculateRefreshInterval();
-         console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
-         refreshIntervalId = setInterval(fetchScores, refreshInterval);
-     }
 
     // NCAA Team Colors Mapping
     const teamColors = {
@@ -391,6 +378,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultColor1 = "#333"; // Default dark gray
     const defaultColor2 = "#444"; // Default slightly lighter gray
 
+    // Function to calculate the refresh interval
+     function calculateRefreshInterval() {
+        const totalPages = Math.ceil(top25Data.length / pageSize);
+        return totalPages * 10000; // 10 seconds per page
+    }
+
+   // Function to start auto-refresh
+    let refreshIntervalId;
+    function startAutoRefresh() {
+        if (refreshIntervalId) clearInterval(refreshIntervalId);
+        const refreshInterval = calculateRefreshInterval();
+        console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
+        refreshIntervalId = setInterval(() => {
+            fetchScores().then(() => {
+                // Adjust refresh interval if data size changes
+                const newRefreshInterval = calculateRefreshInterval();
+                if (newRefreshInterval !== refreshInterval) {
+                    startAutoRefresh();
+                }
+            });
+        }, refreshInterval);
+    }
+
     // Fetch scores from the backend
     async function fetchScores() {
         try {
@@ -705,14 +715,9 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     if (conferenceFilter) {
         conferenceFilter.classList.remove('hidden');
     }
-    
-
-    // Fetch scores on page load
-    fetchScores();
- 
-    // Set up auto-refresh
- setInterval(() => {
-    console.log("Refreshing scores...");
-    fetchScores();
-}, REFRESH_INTERVAL);
+   
+// Fetch scores on page load and start auto-refresh only after fetching scores
+    fetchScores().then(() => {
+        startAutoRefresh();
+    });
 });
