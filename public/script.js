@@ -24,13 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
  
 
-  // Function to refresh the page every minute
-    function startAutoRefresh() {
-        setInterval(() => {
-            console.log("Refreshing scores...");
-            fetchScores();
-        }, 60000); // 60 seconds
+ // Function to calculate the refresh interval
+     function calculateRefreshInterval() {
+        const totalPages = Math.ceil(top25Data.length / pageSize);
+        return totalPages * 10000; // 10 seconds per page
     }
+
+     // Dynamically refresh the page based on the number of Top 25 pages
+     let refreshIntervalId;
+     function startAutoRefresh() {
+         if (refreshIntervalId) clearInterval(refreshIntervalId);
+         const refreshInterval = calculateRefreshInterval();
+         console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
+         refreshIntervalId = setInterval(fetchScores, refreshInterval);
+     }
 
     // NCAA Team Colors Mapping
     const teamColors = {
