@@ -395,12 +395,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Adjust refresh interval if data size changes
                 const newRefreshInterval = calculateRefreshInterval();
                 if (newRefreshInterval !== refreshInterval) {
+                    clearInterval(refreshIntervalId);
                     startAutoRefresh();
                 }
-            });
-        }, refreshInterval);
-    }
-
+        } catch (error) {
+            console.error('Error during auto-refresh:', error);
+        }
+    }, refreshInterval);
+}
     // Fetch scores from the backend
     async function fetchScores() {
         try {
