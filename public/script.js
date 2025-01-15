@@ -395,7 +395,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Adjust refresh interval if data size changes
                 const newRefreshInterval = calculateRefreshInterval();
                 if (newRefreshInterval !== refreshInterval) {
-                    clearInterval(refreshIntervalId);
                     startAutoRefresh();
                 }
         } catch (error) {
