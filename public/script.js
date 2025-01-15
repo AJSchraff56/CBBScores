@@ -397,11 +397,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (newRefreshInterval !== refreshInterval) {
                     startAutoRefresh();
                 }
-        } catch (error) {
-            console.error('Error during auto-refresh:', error);
-        }
-    }, refreshInterval);
-}
+            });
+        }, refreshInterval);
+    }
     // Fetch scores from the backend
     async function fetchScores() {
         try {
