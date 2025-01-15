@@ -8,31 +8,30 @@
 </head>
 <body>
     <!-- Login Screen -->
-    <div id="login-screen" class="login-container">
-        <h1>Login</h1>
-        <form id="loginForm">
-            <div>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div>
-                <label>Select Gender:</label>
-                <label>
-                    <input type="radio" name="gender" value="men" required> Men
-                </label>
-                <label>
-                    <input type="radio" name="gender" value="women" required> Women
-                </label>
-            </div>
-            <button type="submit">Login</button>
-            <div id="loginError" class="error-message"></div>
-        </form>
-        
-    </div>
+<div id="login-screen" class="login-wrapper">
+    <img src="path/to/logo.png" alt="Logo" class="login-logo">
+    <form id="loginForm" class="login-form">
+        <div>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label>Select Gender:</label>
+            <label>
+                <input type="radio" name="gender" value="men" required> Men
+            </label>
+            <label>
+                <input type="radio" name="gender" value="women" required> Women
+            </label>
+        </div>
+        <button type="submit">Login</button>
+        <div id="loginError" class="error-message"></div>
+    </form>
+</div>
 
     <!-- Admin Panel -->
     <div id="admin-screen" class="hidden">
