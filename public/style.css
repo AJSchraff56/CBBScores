@@ -3,6 +3,8 @@ body {
     font-family: 'Trebuchet MS', sans-serif;
     margin: auto;
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
     background-color: #121212; /* Dark background */
     color: #ffffff; /* Light text */
