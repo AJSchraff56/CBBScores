@@ -16,6 +16,13 @@ body {
     margin-top: 20px; /* Adjust the value as needed */
 }
 
+.browser-warning {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ff4d4d;
+}
+
 .hidden {
     display: none;
 }
