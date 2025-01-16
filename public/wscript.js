@@ -400,7 +400,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, refreshInterval);
     }
-
     // Fetch scores from the backend
     async function fetchScores() {
         try {
