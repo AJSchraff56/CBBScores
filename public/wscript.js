@@ -651,7 +651,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
 
       // Determine what to display in the status
 let displayStatus = '';
-if (game.status.includes('1st') || game.status.includes('2nd') || game.status.includes('3rd') || game.status.includes('4th') || game.status.includes('Overtime')) {
+if (game.status.includes('1st') || game.status.includes('2nd') || game.status.includes('3rd') || game.status.includes('4th') || game.status.includes('OT') || game.status.includes('2OT') || game.status.includes('3OT') || game.status.includes('4OT')) {
     // Ongoing game (e.g., "1st - 12:34", "2nd - 8:15", or "Overtime")
     displayStatus = game.status; // Display full status for ongoing games
 } else if (game.status.includes('-')) {
