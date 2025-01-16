@@ -19,8 +19,8 @@ app.use(session({
 
 // Users array
 const users = [
-    { username: 'test', password: 'admin', isAdmin: true },
-    { username: 'user1', password: 'password', isAdmin: false },
+    { username: 'admin', password: 'B!$hyB0y1028!', isAdmin: true },
+    { username: 'user1', password: 'B!$hyB0y1028!', isAdmin: false },
 ];
 
 // Conference Mapping
