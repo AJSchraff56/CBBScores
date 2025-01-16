@@ -12,6 +12,10 @@ body {
     overflow: hidden; /* Prevent scrolling */
 }
 
+.payment-button {
+    margin-top: 20px; /* Adjust the value as needed */
+}
+
 .hidden {
     display: none;
 }
