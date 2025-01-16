@@ -329,6 +329,7 @@ select.hidden {
 }
 
 .login-form button {
+    margin-top: 20px; /* Add margin to bump it down */
     padding: 10px 20px;
     border-radius: 5px;
     border: none;
