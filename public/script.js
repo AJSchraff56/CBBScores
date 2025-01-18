@@ -719,4 +719,22 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     fetchScores().then(() => {
         startAutoRefresh();
     });
-});
+
+    // Add the inactivity timeout function here
+    let inactivityTimeout;
+
+    function resetInactivityTimeout() {
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 6 * 60 * 60 * 1000); // 6 hours in milliseconds
+    }
+
+    document.addEventListener('mousemove', resetInactivityTimeout);
+    document.addEventListener('keypress', resetInactivityTimeout);
+    document.addEventListener('click', resetInactivityTimeout);
+    document.addEventListener('scroll', resetInactivityTimeout);
+    resetInactivityTimeout(); // Initialize the timeout when the script loads
+
+    });
+
