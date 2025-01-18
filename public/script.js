@@ -721,20 +721,30 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     });
 
     // Add the inactivity timeout function here
-    let inactivityTimeout;
+let inactivityTimeout;
 
-    function resetInactivityTimeout() {
-        clearTimeout(inactivityTimeout);
-        inactivityTimeout = setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 6 * 60 * 60 * 1000); // 6 hours in milliseconds
-    }
+function resetInactivityTimeout() {
+    clearTimeout(inactivityTimeout);
+    inactivityTimeout = setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 6 * 60 * 60 * 1000); // 6 hours in milliseconds
+}
 
-    document.addEventListener('mousemove', resetInactivityTimeout);
-    document.addEventListener('keypress', resetInactivityTimeout);
-    document.addEventListener('click', resetInactivityTimeout);
-    document.addEventListener('scroll', resetInactivityTimeout);
-    resetInactivityTimeout(); // Initialize the timeout when the script loads
+document.addEventListener('mousemove', () => {
+    resetInactivityTimeout();
+    if (!conferenceFilter) return; // Safety check if conferenceFilter is undefined
+    conferenceFilter.classList.remove('hidden'); // Show dropdown
+    clearTimeout(mouseMoveTimeout); // Clear the existing timeout
+    mouseMoveTimeout = setTimeout(() => {
+        conferenceFilter.classList.add('hidden'); // Hide dropdown after 3 seconds
+    }, 3000); // 3 seconds of inactivity
+});
 
-    });
+document.addEventListener('keypress', resetInactivityTimeout);
+document.addEventListener('click', resetInactivityTimeout);
+document.addEventListener('scroll', resetInactivityTimeout);
+resetInactivityTimeout(); // Initialize the timeout when the script loads
+
+});
+
 
