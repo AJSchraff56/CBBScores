@@ -719,5 +719,4 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     fetchScores().then(() => {
         startAutoRefresh();
     });
-
- 
+});
