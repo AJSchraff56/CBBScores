@@ -574,6 +574,7 @@ const teamNameOverrides = {
     "University of Southern California": "USC",
     "G Washington": "George Washington",
     // Add more overrides here as needed
+ };   
 
     // Utility to get the modified team name
 function getTeamName(originalName) {
