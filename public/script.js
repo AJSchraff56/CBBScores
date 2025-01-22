@@ -572,7 +572,6 @@ const teamNameOverrides = {
     "University of North Carolina": "UNC",
     "University of California, Los Angeles": "UCLA",
     "University of Southern California": "USC",
-    "G Washington": "George Washington",
     // Add more overrides here as needed
  };   
 
