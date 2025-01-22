@@ -21,6 +21,7 @@ app.use(session({
 const users = [
     { username: 'admin', password: 'B!$hyB0y1028!', isAdmin: true },
     { username: 'user1', password: 'B!$hyB0y1028!', isAdmin: false },
+    { username: 'GWAthletics', password: 'G0Rev$2025', isAdmin: false },
 ];
 
 // Conference Mapping
