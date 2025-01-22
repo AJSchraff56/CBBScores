@@ -9,7 +9,7 @@ body {
     background-color: #121212; /* Dark background */
     color: #ffffff; /* Light text */
     height: 100vh; /* Full viewport height */
-    overflow: hidden; /* Prevent scrolling */
+    overflow: visible; /* Prevent scrolling */
 }
 
 .payment-button {
