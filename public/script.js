@@ -567,6 +567,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
 
+    // Mapping for modified team names
+const teamNameOverrides = {
+    "University of North Carolina": "UNC",
+    "University of California, Los Angeles": "UCLA",
+    "University of Southern California": "USC",
+    "G Washington: "George Washington",
+    // Add more overrides here as needed
+
+    // Utility to get the modified team name
+function getTeamName(originalName) {
+    return teamNameOverrides[originalName] || originalName; // Use override if available, otherwise original name
+}
+
     // Mapping for modified conference names
 const conferenceNameOverrides = {
     "Atlantic Coast": "ACC",
@@ -643,6 +656,10 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         // Get team colors or use defaults
         const team1Color = teamColors[team1.name] || defaultColor1;
         const team2Color = teamColors[team2.name] || defaultColor2;
+
+            // Get overridden team names
+        const team1Name = getTeamName(team1.name);
+        const team2Name = getTeamName(team2.name);
 
 
         const card = document.createElement('div');
