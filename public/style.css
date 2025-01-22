@@ -351,25 +351,30 @@ select.hidden {
     background-color: #e60000;
 }
 
-
 .login-wrapper {
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    background-color: #121212;
 }
 
-.gif-wrapper {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.demo-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: block;
 }
 
-.center-gif {
-    max-width: 100%;
-    height: auto;
+.demo-button:hover {
+    background-color: #0056b3;
 }
+
 
 
