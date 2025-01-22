@@ -130,9 +130,7 @@ body {
     font-weight: bold; /* Ensure it's visually distinct */
     color: #ffffff; /* Adjust color if necessary */
     text-align: center; /* Align text properly */
-    white-space: normal; /* Allow text to wrap */
-    word-wrap: break-word; /* Break long words to wrap */
-    overflow: visible; /* Ensure text is visible */
+   
 }
 
 
