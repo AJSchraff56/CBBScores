@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Furman": "#3A1769",
             "Gardner-Webb": "#BF2C37",
             "George Mason": "#006539",
-            "George Washington": "#063065",
+            "G Washington": "#063065",
             "Georgetown": "#49487C",
             "Georgia": "#A0000B",
             "GA Southern": "#003775",
