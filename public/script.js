@@ -641,7 +641,7 @@ const conferenceMapping = {
     44: "Mountain West",
     45: "Horizon League",
     46: "Atlantic Sun",
-    47: "Summit League",
+    49: "Summit League",
     62: "American Athletic",
 };
 
