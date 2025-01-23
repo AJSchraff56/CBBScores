@@ -22,7 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let top25Data = [], conferenceData = [];
     let conferenceIntervalId = null; // Track conference cycling interval
     
- 
+ // Custom team names mapping
+const customTeamNames = {
+    "E Illinois": "Eastern Illinois",
+  
+    // Add more custom mappings as needed
+};
+
+// Utility to get the custom team name
+function getCustomTeamName(name) {
+    return customTeamNames[name] || name;
+}
 
 
     // NCAA Team Colors Mapping
@@ -417,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return {
                     matchup: event.name,
                     teams: competition.competitors.map(team => ({
-                        name: team.team.shortDisplayName,
+                        name: getCustomTeamName(team.team.shortDisplayName), // Use custom team name
                         score: team.score || "0",
                         logo: team.team.logo || '',
                         rank: team.curatedRank?.current || null,
@@ -566,19 +576,6 @@ document.addEventListener('DOMContentLoaded', () => {
         conferenceIntervalId = setInterval(updateScores, 10000); // Cycle every 10 seconds
     }
     
-
-    // Mapping for modified team names
-const teamNameOverrides = {
-    "University of North Carolina": "UNC",
-    "University of California, Los Angeles": "UCLA",
-    "University of Southern California": "USC",
-    "G Washington": "George Washington",
- };   
-
-    // Utility to get the modified team name
-function getTeamName(originalName) {
-    return teamNameOverrides[originalName] || originalName; // Use override if available, otherwise original name
-}
 
     // Mapping for modified conference names
 const conferenceNameOverrides = {
