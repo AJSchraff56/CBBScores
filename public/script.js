@@ -655,8 +655,8 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         const team2Color = teamColors[team2.name] || defaultColor2;
 
             // Get overridden team names
-        const team1Name = getTeamName(team1.name);
-        const team2Name = getTeamName(team2.name);
+        const team1Name = getCustomTeamName(team1.name);
+        const team2Name = getCustomTeamName(team2.name);
 
 
         const card = document.createElement('div');
