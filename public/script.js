@@ -25,7 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
  // Custom team names mapping
 const customTeamNames = {
     "E Illinois": "Eastern Illinois",
-  
+    "G Washington": "George Washington",
+    "Wichita St": "Wichita State",
+    "UAlbany": "Albany",
+    "Morehead St": "Morehead State",
     // Add more custom mappings as needed
 };
 
