@@ -64,7 +64,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow-y: auto; /* Enable scrolling if content overflows */
+    overflow-y: hidden; /* Enable scrolling if content overflows */
     scrollbar-width: thin;
     scrollbar-color: #444 #1e1e1e;
 }
