@@ -239,28 +239,6 @@ select.hidden {
     pointer-events: none !important;
 }
 
-
-/* Responsive design adjustments */
-@media (max-width: 768px) {
-    .content-wrapper {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .game-card {
-        height: auto;
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .team-logo {
-        margin-bottom: 5px;
-    }
-
-    .score {
-        font-size: 24px; /* Adjust score size for smaller screens */
-    }
-}
 .user-table {
     width: 100%;
     border-collapse: collapse;
