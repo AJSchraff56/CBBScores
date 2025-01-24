@@ -393,7 +393,8 @@ select.hidden {
 @media (min-width: 1024px) {
     .container {
         max-width: 1200px;
-        margin: auto;
+        margin: 0 auto;
+        width: 90%; /* Adjust to prevent stretching */
     }
 
     .score-container {
@@ -415,6 +416,3 @@ select.hidden {
 img, video {
     max-width: 100%;
     height: auto;
-}
-
-
