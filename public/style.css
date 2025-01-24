@@ -389,12 +389,18 @@ select.hidden {
     box-sizing: border-box;
 }
 
+/* Ensure content scales properly */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
 /* Media queries for large screens */
 @media (min-width: 1024px) {
     .container {
         max-width: 1200px;
         margin: 0 auto;
-        width: 90%; /* Adjust to prevent stretching */
+        width: 90%;
     }
 
     .score-container {
@@ -412,7 +418,23 @@ select.hidden {
     }
 }
 
-/* Ensure content scales properly */
-img, video {
-    max-width: 100%;
-    height: auto;
+/* Media queries for normal-sized screens */
+@media (max-width: 1023px) {
+    .container {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .score-container {
+        width: 100%;
+    }
+
+    .game-card {
+        height: auto;
+        flex-direction: column;
+    }
+
+    .score {
+        font-size: 30px; /* Adjust score size for normal screens */
+    }
+}
