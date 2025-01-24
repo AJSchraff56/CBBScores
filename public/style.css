@@ -111,8 +111,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    overflow: hidden; /* Ensure content does not overflow */
     gap: 20px;
+    flex: 1;
 }
 
 /* Team logo styling */
@@ -132,6 +132,7 @@ body {
     font-weight: bold; /* Ensure it's visually distinct */
     color: #ffffff; /* Adjust color if necessary */
     text-align: center; /* Align text properly */
+    flex: 1;
    
 }
 
@@ -150,8 +151,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 100%
-    overflow: hidden; /* Clips anything outside the boundaries */
+    flex-shrink: 0; /* Prevent shrinking */
+    max-width: 70px
+    overflow: visible; /* Clips anything outside the boundaries */
 }
 
 /* Team styling for right alignment */
