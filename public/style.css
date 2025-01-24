@@ -380,5 +380,41 @@ select.hidden {
     background-color: #0056b3;
 }
 
+/* Add this CSS to your existing style.css file */
+
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Media queries for large screens */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .score-container {
+        max-width: 100%;
+    }
+
+    .game-card {
+        height: auto;
+        flex-direction: row;
+        padding: 20px;
+    }
+
+    .score {
+        font-size: 36px; /* Adjust score size for larger screens */
+    }
+}
+
+/* Ensure content scales properly */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
 
 
