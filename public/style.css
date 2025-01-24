@@ -110,6 +110,8 @@ body {
 .team {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    overflow: hidden; /* Ensure content does not overflow */
     gap: 20px;
 }
 
@@ -124,14 +126,6 @@ body {
   
 }
 
-/* General team container styling */
-.team {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    overflow: hidden; /* Ensure content does not overflow */
-
-}
 /* Team name styling */
 .team-name {
     font-size: 20px; /* Adjust this value for desired size */
