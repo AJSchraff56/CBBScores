@@ -98,10 +98,11 @@ body {
     justify-content: space-between;
     align-items: center;
     background: #333;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border-radius: 10px;
     height: calc(100% / 4 - 10px); /* Ensure 4 cards fit with spacing */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Prevent overflow */
 }
 
 /* Team details inside the card */
@@ -430,6 +431,7 @@ img, video {
 
     .score-container {
         width: 100%;
+        overflow: hidden;
     }
 
     .game-card {
