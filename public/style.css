@@ -152,9 +152,12 @@ body {
 /* Logo container for both sides */
 .team-logo-container {
     display: flex;
-    flex-direction: column; /* Stack the logo and record vertically */
-    align-items: center; /* Center-align logo and record */
-    gap: 5px; /* Add spacing between logo and record */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px; /* Slightly larger to ensure logos fit */
+    height: 80px;
+    overflow: hidden; /* Clips anything outside the boundaries */
 }
 
 /* Team styling for right alignment */
