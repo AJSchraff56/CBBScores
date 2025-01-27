@@ -22,7 +22,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let top25Data = [], conferenceData = [];
     let conferenceIntervalId = null; // Track conference cycling interval
     
- 
+ // Custom team names mapping
+const customTeamNames = {
+    "E Illinois": "Eastern Illinois",
+    "G Washington": "George Washington",
+    "Wichita St": "Wichita State",
+    "UAlbany": "Albany",
+    "Morehead St": "Morehead State",
+    // Add more custom mappings as needed
+};
+
+// Utility to get the custom team name
+function getCustomTeamName(name) {
+    return customTeamNames[name] || name;
+}
 
 
     // NCAA Team Colors Mapping
@@ -124,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Furman": "#3A1769",
             "Gardner-Webb": "#BF2C37",
             "George Mason": "#006539",
-            "George Washington": "#063065",
+            "G Washington": "#063065",
             "Georgetown": "#49487C",
             "Georgia": "#A0000B",
             "GA Southern": "#003775",
@@ -417,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return {
                     matchup: event.name,
                     teams: competition.competitors.map(team => ({
-                        name: team.team.shortDisplayName,
+                        name: getCustomTeamName(team.team.shortDisplayName), // Use custom team name
                         score: team.score || "0",
                         logo: team.team.logo || '',
                         rank: team.curatedRank?.current || null,
@@ -628,7 +641,7 @@ const conferenceMapping = {
     44: "Mountain West",
     45: "Horizon League",
     46: "Atlantic Sun",
-    47: "Summit League",
+    49: "Summit League",
     62: "American Athletic",
 };
 
@@ -643,6 +656,10 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         // Get team colors or use defaults
         const team1Color = teamColors[team1.name] || defaultColor1;
         const team2Color = teamColors[team2.name] || defaultColor2;
+
+            // Get overridden team names
+        const team1Name = getCustomTeamName(team1.name);
+        const team2Name = getCustomTeamName(team2.name);
 
 
         const card = document.createElement('div');
