@@ -29,7 +29,19 @@ const customTeamNames = {
     "Wichita St": "Wichita State",
     "UAlbany": "Albany",
     "Morehead St": "Morehead State",
-    // Add more custom mappings as needed
+    "W Michigan": "Western Michigan",
+    "Michigan St": "Michigan State",
+    "C Michigan": "Central Michigan",
+    "N Illinois": "NIU",
+    "Miami OH": "Miami",
+    "E Michigan": "Eastern Michigan",
+    "S Illinois": "SIU",
+    "So Indiana": "Southern Indiana",
+    "Fresno St": "Fresno State",
+    "Colorado St": "Colorado State",
+    "San José St": "San José State",
+    "San Diego St": "San Diego State",
+    "Pitt": "Pittsburgh",
 };
 
 // Utility to get the custom team name
