@@ -64,36 +64,7 @@ function getCustomTeamName(name) {
 }
 
 
-// Convert EST time to local time
-function convertToLocalTime(estTime) {
-    try {
-        // Extract the time part (e.g., "6:00 PM EST" -> "6:00 PM")
-        const timePart = estTime.match(/\d{1,2}:\d{2} [APM]{2}/)[0];
 
-        if (!timePart) {
-            console.error("Invalid EST time format:", estTime);
-            return "Invalid time";
-        }
-
-        // Create a date object in EST (Eastern Time is UTC-5 or UTC-4 for daylight saving)
-        const estDate = new Date(`1970-01-01 ${timePart} EST`);
-
-        // Convert to user's local time zone
-        let localTime = new Intl.DateTimeFormat([], {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true
-        }).format(estDate);
-
-        // Remove leading zero if the hour doesn't start with "1"
-        localTime = localTime.replace(/^0(?=[2-9]:)/, '');
-
-        return localTime;
-    } catch (error) {
-        console.error("Error converting EST to local time:", error);
-        return "Invalid time";
-    }
-}
     // NCAA Team Colors Mapping
     const teamColors = {
         // Add colors here based on Wikipedia data
