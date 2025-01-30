@@ -104,6 +104,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     overflow: hidden; /* Prevent overflow */
     position: relative; /* Ensure child elements stay contained */
+    flex-wrap: wrap; /* Allow wrapping if necessary */
 }
 
 /* Team details inside the card */
