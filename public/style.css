@@ -199,7 +199,8 @@ body {
     font-size: 18px; /* Adjust font size as needed */
     color: #ffffff;
     text-align: center;
-    flex: 1; /* Allow the status to grow and fill available space */
+    width: 100%; /* Ensure it takes up the full width */
+    margin: 10px 0; /* Add some spacing for better layout */
     display: flex;
     justify-content: center; /* Horizontally center the text */
     align-items: center; /* Vertically center the text */
@@ -357,3 +358,31 @@ select.hidden {
     background-color: #0056b3;
 }
 
+/* Media query for larger screens */
+@media (min-width: 1200px) {
+    .game-card {
+        padding: 30px 30px; /* Increase padding for larger screens */
+        height: calc(100% / 4 - 20px); /* Adjust height for better spacing */
+    }
+
+    .team-logo {
+        width: 100px; /* Increase logo size */
+        height: 100px;
+    }
+
+    .team-name {
+        font-size: 24px; /* Increase font size for team names */
+    }
+
+    .score {
+        font-size: 48px; /* Increase font size for scores */
+    }
+
+    .section-title {
+        font-size: 40px; /* Increase font size for section titles */
+    }
+
+    .container {
+        padding: 40px; /* Increase container padding */
+    }
+}
