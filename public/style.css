@@ -134,6 +134,7 @@ body {
     color: #ffffff; /* Adjust color if necessary */
     text-align: center; /* Align text properly */
     flex: 1;
+    margin: 0; /* Remove any default margin */
    
 }
 
