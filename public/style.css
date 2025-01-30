@@ -127,7 +127,7 @@ body {
 
 /* Team name styling */
 .team-name {
-    font-size: 20px; /* Adjust this value for desired size */
+    font-size: 15px; /* Adjust this value for desired size */
     font-weight: bold; /* Ensure it's visually distinct */
     color: #ffffff; /* Adjust color if necessary */
     text-align: center; /* Align text properly */
