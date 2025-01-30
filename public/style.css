@@ -119,6 +119,8 @@ body {
 /* Team logo styling */
 .team-logo {
     border-radius: 50%;
+    width: 50px; /* Reduce the logo size */
+    height: 50px; /* Reduce the logo size */
     background-color: #ffffff; /* Fallback color for missing images */
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 15px rgba(0, 128, 255, 0.75); /* Glowing effect */
     filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.75)); /* Additional depth */
@@ -152,6 +154,8 @@ body {
     justify-content: center;
     flex-shrink: 0; /* Prevent shrinking */
     overflow: visible; /* Clips anything outside the boundaries */
+    width: 60px; /* Reduce the container size */
+    height: 60px; /* Reduce the container size */
 }
 
 /* Team styling for right alignment */
