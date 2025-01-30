@@ -66,22 +66,25 @@ function getCustomTeamName(name) {
 
 // Convert EST time to local time
 function convertToLocalTime(estTime) {
-    const options = { timeZone: 'America/New_York', hour12: true, hour: '2-digit', minute: '2-digit' };
+    const options = { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: true };
 
-    // Check if the time string includes a date part
-    const timeOnly = estTime.includes(' PM') || estTime.includes(' AM');
-    const [date, time] = timeOnly ? ['', estTime] : estTime.split(' - ');
-
-    if (!time) {
+    // Check if the time string includes "PM" or "AM"
+    const is12HourFormat = estTime.includes('PM') || estTime.includes('AM');
+    if (!is12HourFormat) {
         console.error("Invalid EST time format:", estTime);
         return "Invalid time"; // Return a fallback value if the time format is incorrect
     }
 
-    // Format the time string
-    const estTimeFormatted = time.replace(' PM', ' PM').replace(' AM', ' AM');
-    const estDate = new Date(`1970-01-01T${estTimeFormatted}:00`);
-    const localDate = estDate.toLocaleString([], options);
-    return localDate;
+    // Parse the time string and convert it to a Date object
+    const estDate = new Date(`1970-01-01T${estTime}`);
+    if (isNaN(estDate)) {
+        console.error("Invalid Date:", estTime);
+        return "Invalid time"; // Return a fallback value if the date is invalid
+    }
+
+    // Convert the EST time to local time using toLocaleTimeString
+    const localTime = estDate.toLocaleTimeString([], options);
+    return localTime;
 }
     // NCAA Team Colors Mapping
     const teamColors = {
