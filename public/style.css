@@ -167,6 +167,7 @@ body {
     flex-direction: row-reverse; /* Place the text to the left of the logo */
     text-align: right; /* Ensure the text is aligned properly */
     margin-left: auto;
+    margin-right: 0; /* Ensure no margin on the right side */
 }
 
 /* Team name and score details */
