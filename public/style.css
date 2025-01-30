@@ -167,6 +167,7 @@ body {
     justify-content: flex-end;
     gap: 10px; /* Add spacing between text and logo */
     flex-direction: row-reverse; /* Place the text to the left of the logo */
+    text-align: right; /* Ensure the text is aligned properly */
     
     
     
