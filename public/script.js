@@ -64,6 +64,15 @@ function getCustomTeamName(name) {
 }
 
 
+// Convert EST time to local time
+function convertToLocalTime(estTime) {
+    const options = { timeZone: 'America/New_York', hour12: false };
+    const [date, time] = estTime.split(' - ');
+    const estDate = new Date(`${date}T${time.replace(' PM', '').replace(' AM', '')}:00`);
+    const localDate = new Date(estDate.toLocaleString('en-US', options));
+    return localDate.toLocaleString([], { hour: '2-digit', minute: '2-digit' });
+}
+
     // NCAA Team Colors Mapping
     const teamColors = {
         // Add colors here based on Wikipedia data
@@ -699,7 +708,8 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     displayStatus = game.status; // Display full status for ongoing games
 } else if (game.status.includes('-')) {
     // Scheduled game (e.g., "1/8 - 9:00 PM EST")
-    displayStatus = game.status.split('-')[1]?.trim(); // Extract the time only
+    const time = game.status.split('-')[1]?.trim(); // Extract the time only
+    displayStatus = convertToLocalTime(time); // Convert to local time
 } else {
     // Default case for unrecognized statuses
     displayStatus = game.status;
