@@ -700,8 +700,7 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     displayStatus = game.status; // Display full status for ongoing games
 } else if (game.status.includes('-')) {
     // Scheduled game (e.g., "1/8 - 9:00 PM EST")
-    const time = game.status.split('-')[1]?.trim(); // Extract the time only
-    displayStatus = convertToLocalTime(time); // Convert to local time
+    displayStatus = game.status.split('-')[1]?.trim(); // Extract the time only
 } else {
     // Default case for unrecognized statuses
     displayStatus = game.status;
