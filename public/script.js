@@ -529,7 +529,7 @@ function getCustomTeamName(name) {
     const totalPages = Math.ceil(top25Data.length / pageSize);
     let currentPage = 0;
 
-    function updateScores() {
+   function updateScores() {
         top25Scores.innerHTML = '';
         const start = currentPage * pageSize;
         const end = start + pageSize;
