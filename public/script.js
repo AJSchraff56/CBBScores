@@ -42,6 +42,20 @@ const customTeamNames = {
     "San José St": "San José State",
     "San Diego St": "San Diego State",
     "Pitt": "Pittsburgh",
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Add more custom mappings as needed
 };
 
 // Utility to get the custom team name
