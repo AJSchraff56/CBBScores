@@ -68,22 +68,25 @@ function getCustomTeamName(name) {
 function convertToLocalTime(estTime) {
     try {
         // Extract the time part (e.g., "6:00 PM EST" -> "6:00 PM")
-        const timePart = estTime.match(/\d{1,2}:\d{2} [APM]{2}/)[0]; 
+        const timePart = estTime.match(/\d{1,2}:\d{2} [APM]{2}/)[0];
 
         if (!timePart) {
             console.error("Invalid EST time format:", estTime);
             return "Invalid time";
         }
 
-        // Create a date string with EST timezone offset (Eastern Time is UTC-5 or UTC-4 for daylight saving)
+        // Create a date object in EST (Eastern Time is UTC-5 or UTC-4 for daylight saving)
         const estDate = new Date(`1970-01-01 ${timePart} EST`);
 
         // Convert to user's local time zone
-        const localTime = new Intl.DateTimeFormat([], {
+        let localTime = new Intl.DateTimeFormat([], {
             hour: '2-digit',
             minute: '2-digit',
             hour12: true
         }).format(estDate);
+
+        // Remove leading zero if the hour doesn't start with "1"
+        localTime = localTime.replace(/^0(?=[2-9]:)/, '');
 
         return localTime;
     } catch (error) {
