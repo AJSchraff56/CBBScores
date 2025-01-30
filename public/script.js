@@ -66,25 +66,30 @@ function getCustomTeamName(name) {
 
 // Convert EST time to local time
 function convertToLocalTime(estTime) {
-    const options = { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: true };
+    try {
+        // Extract the time part (e.g., "6:00 PM EST" -> "6:00 PM")
+        const timePart = estTime.match(/\d{1,2}:\d{2} [APM]{2}/)[0]; 
 
-    // Check if the time string includes "PM" or "AM"
-    const is12HourFormat = estTime.includes('PM') || estTime.includes('AM');
-    if (!is12HourFormat) {
-        console.error("Invalid EST time format:", estTime);
-        return "Invalid time"; // Return a fallback value if the time format is incorrect
+        if (!timePart) {
+            console.error("Invalid EST time format:", estTime);
+            return "Invalid time";
+        }
+
+        // Create a date string with EST timezone offset (Eastern Time is UTC-5 or UTC-4 for daylight saving)
+        const estDate = new Date(`1970-01-01 ${timePart} EST`);
+
+        // Convert to user's local time zone
+        const localTime = new Intl.DateTimeFormat([], {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        }).format(estDate);
+
+        return localTime;
+    } catch (error) {
+        console.error("Error converting EST to local time:", error);
+        return "Invalid time";
     }
-
-    // Parse the time string and convert it to a Date object
-    const estDate = new Date(`1970-01-01T${estTime}`);
-    if (isNaN(estDate)) {
-        console.error("Invalid Date:", estTime);
-        return "Invalid time"; // Return a fallback value if the date is invalid
-    }
-
-    // Convert the EST time to local time using toLocaleTimeString
-    const localTime = estDate.toLocaleTimeString([], options);
-    return localTime;
 }
     // NCAA Team Colors Mapping
     const teamColors = {
