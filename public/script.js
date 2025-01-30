@@ -530,20 +530,14 @@ function getCustomTeamName(name) {
 
     function updateScores() {
         top25Scores.innerHTML = '';
-       
-        // Create a status-wrapper div
-        const statusWrapper = document.createElement('div');
-        statusWrapper.className = 'status-wrapper';
-
         const start = currentPage * pageSize;
         const end = start + pageSize;
         top25Data.slice(start, end).forEach(game => {
             const card = createGameCard(game, true);
-            statusWrapper.appendChild(card);
+            top25Scores.appendChild(card);
         });
-
-        top25Scores.appendChild(statusWrapper);
         currentPage = (currentPage + 1) % totalPages;
+    }
 
     updateScores();
     setInterval(updateScores, 10000);
