@@ -68,7 +68,14 @@ function getCustomTeamName(name) {
 function convertToLocalTime(estTime) {
     const options = { timeZone: 'America/New_York', hour12: false };
     const [date, time] = estTime.split(' - ');
-    const estDate = new Date(`${date}T${time.replace(' PM', '').replace(' AM', '')}:00`);
+
+    if (!date || !time) {
+        console.error("Invalid EST time format:", estTime);
+        return "Invalid time"; // Return a fallback value if the time format is incorrect
+    }
+
+    const estTimeFormatted = time.replace(' PM', '').replace(' AM', '');
+    const estDate = new Date(`${date}T${estTimeFormatted}:00`);
     const localDate = new Date(estDate.toLocaleString('en-US', options));
     return localDate.toLocaleString([], { hour: '2-digit', minute: '2-digit' });
 }
