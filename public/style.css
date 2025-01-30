@@ -362,6 +362,15 @@ select.hidden {
     background-color: #0056b3;
 }
 
+/* Wrapper for status alignment */
+.status-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensure it takes up the full width */
+    gap: 10px; /* Adjust spacing between statuses */
+
+
 /* Media query for larger screens */
 @media (min-width: 1200px) {
     .game-card {
