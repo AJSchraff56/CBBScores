@@ -156,6 +156,7 @@ body {
     overflow: visible; /* Clips anything outside the boundaries */
     width: 70px; /* Reduce the container size */
     height: 70px; /* Reduce the container size */
+    margin-left: auto; /* Ensure the container stays aligned to the right */
 }
 
 /* Team styling for right alignment */
