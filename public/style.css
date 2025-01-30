@@ -365,10 +365,6 @@ select.hidden {
         height: calc(100% / 4 - 20px); /* Adjust height for better spacing */
     }
 
-    .team-logo {
-        width: 100px; /* Increase logo size */
-        height: 100px;
-    }
 
     .team-name {
         font-size: 24px; /* Increase font size for team names */
