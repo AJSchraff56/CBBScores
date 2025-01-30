@@ -199,8 +199,7 @@ body {
     font-size: 18px; /* Adjust font size as needed */
     color: #ffffff;
     text-align: center;
-    width: 100%; /* Ensure it takes up the full width */
-    margin: 10px 0; /* Add some spacing for better layout */
+    flex: 1; /* Allow the status to grow and fill available space */
     display: flex;
     justify-content: center; /* Horizontally center the text */
     align-items: center; /* Vertically center the text */
