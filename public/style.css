@@ -128,7 +128,7 @@ body {
 
 /* Team name styling */
 .team-name {
-    font-size: 20px; /* Adjust this value for desired size */
+    font-size: 18px; /* Adjust this value for desired size */
     font-weight: bold; /* Ensure it's visually distinct */
     color: #ffffff; /* Adjust color if necessary */
     text-align: center; /* Align text properly */
@@ -142,7 +142,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 30px; /* Space between logo and text */
+    gap: 25px; /* Space between logo and text */
 }
 
 /* Logo container for both sides */
@@ -162,7 +162,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 30px; /* Add spacing between text and logo */
+    gap: 25px; /* Add spacing between text and logo */
     flex-direction: row-reverse; /* Place the text to the left of the logo */
     text-align: right; /* Ensure the text is aligned properly */
 }
