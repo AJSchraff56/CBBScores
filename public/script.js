@@ -42,27 +42,12 @@ const customTeamNames = {
     "San José St": "San José State",
     "San Diego St": "San Diego State",
     "Pitt": "Pittsburgh",
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Add more custom mappings as needed
 };
 
 // Utility to get the custom team name
 function getCustomTeamName(name) {
     return customTeamNames[name] || name;
 }
-
 
 
     // NCAA Team Colors Mapping
@@ -529,7 +514,7 @@ function getCustomTeamName(name) {
     const totalPages = Math.ceil(top25Data.length / pageSize);
     let currentPage = 0;
 
-   function updateScores() {
+    function updateScores() {
         top25Scores.innerHTML = '';
         const start = currentPage * pageSize;
         const end = start + pageSize;
