@@ -66,7 +66,7 @@ function getCustomTeamName(name) {
 
 // Convert EST time to local time
 function convertToLocalTime(estTime) {
-    const options = { timeZone: 'America/New_York', hour12: false };
+    const options = { timeZone: 'America/New_York', hour12: true, hour: '2-digit', minute: '2-digit' };
 
     // Check if the time string includes a date part
     const timeOnly = estTime.includes(' PM') || estTime.includes(' AM');
@@ -78,10 +78,10 @@ function convertToLocalTime(estTime) {
     }
 
     // Format the time string
-    const estTimeFormatted = time.replace(' PM', '').replace(' AM', '');
-    const estDate = date ? new Date(`${date}T${estTimeFormatted}:00`) : new Date(`1970-01-01T${estTimeFormatted}:00`); // Use a default date if not provided
-    const localDate = new Date(estDate.toLocaleString('en-US', options));
-    return localDate.toLocaleString([], { hour: '2-digit', minute: '2-digit' });
+    const estTimeFormatted = time.replace(' PM', ' PM').replace(' AM', ' AM');
+    const estDate = new Date(`1970-01-01T${estTimeFormatted}:00`);
+    const localDate = estDate.toLocaleString([], options);
+    return localDate;
 }
     // NCAA Team Colors Mapping
     const teamColors = {
