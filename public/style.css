@@ -17,7 +17,7 @@ body {
     display: flex;
     align-items: center; /* Ensure all statuses align to the same baseline */
     justify-content: center;
-    width: 100%;
+    width: 300px;
 }
 
 .payment-button {
