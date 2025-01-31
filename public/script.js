@@ -447,26 +447,34 @@ function getCustomTeamName(name) {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
+
             const data = await response.json();
             console.log("API Data Fetched:", data);
-    
+
             const games = data.events.map(event => {
                 const competition = event.competitions[0];
                 return {
                     matchup: event.name,
-                    teams: competition.competitors.map(team => ({
-                        name: getCustomTeamName(team.team.shortDisplayName), // Use custom team name
-                        score: team.score || "0",
-                        logo: team.team.logo || '',
-                        rank: team.curatedRank?.current || null,
-                        record: team.records?.find(r => r.name === "overall")?.summary || "N/A",
-                        conferenceId: parseInt(team.team.conferenceId, 10),
-                        conferenceName: team.team.conferenceName || conferenceMapping[team.team.conferenceId] || "Unknown",
-                    })),
+                    teams: competition.competitors.map(team => {
+                        const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "N/A";
+                        const confRecord = team.records?.find(r => r.name === "vsconf")?.summary;
+
+                        // Only include conference record if available
+                        const formattedRecord = confRecord ? `(${overallRecord}, ${confRecord})` : `(${overallRecord})`;
+
+                        return {
+                            name: getCustomTeamName(team.team.shortDisplayName), // Use custom team name
+                            score: team.score || "0",
+                            logo: team.team.logo || '',
+                            rank: team.curatedRank?.current || null,
+                            record: formattedRecord, // Use conditional formatting
+                            conferenceId: parseInt(team.team.conferenceId, 10),
+                            conferenceName: team.team.conferenceName || conferenceMapping[team.team.conferenceId] || "Unknown",
+                        };
+                    }),
                     status: event.status.type.shortDetail || "Scheduled",
-                };
-            });
+            };
+    });
     
             const top25 = games.filter(game =>
                 game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25)
