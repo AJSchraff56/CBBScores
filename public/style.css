@@ -169,7 +169,7 @@ body {
 .team-right {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-self: flex-end;
     gap: 25px; /* Add spacing between text and logo */
     flex-direction: row-reverse; /* Place the text to the left of the logo */
     text-align: right; /* Ensure the text is aligned properly */
