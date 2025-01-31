@@ -458,7 +458,7 @@ function getCustomTeamName(name) {
                     teams: competition.competitors.map(team => {
                         // Extract overall and conference records
                         const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "N/A";
-                        const confRecord = team.records?.find(r => r.name === "vsconf")?.summary;
+                        const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
 
                         // Format record: (overall, conf) or just (overall) if no conf record
                         const formattedRecord = confRecord ? `(${overallRecord}, ${confRecord})` : `(${overallRecord})`;
