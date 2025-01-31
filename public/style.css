@@ -12,7 +12,6 @@ body {
     overflow: visible; /* Prevent scrolling */
 }
 
-
 .payment-button {
     margin-top: 20px; /* Adjust the value as needed */
 }
@@ -203,7 +202,6 @@ body {
 .status {
     font-size: 18px; /* Adjust font size as needed */
     color: #ffffff;
-    flex: 0 0 10px; /* Adjust this value based on your layout */
     text-align: center;
     width: 100%; /* Ensure it takes up the full width */
     margin: 10px 0; /* Add some spacing for better layout */
