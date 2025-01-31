@@ -12,6 +12,14 @@ body {
     overflow: visible; /* Prevent scrolling */
 }
 
+/* Status wrapper to align all statuses evenly */
+.status-wrapper {
+    display: flex;
+    align-items: center; /* Ensure all statuses align to the same baseline */
+    justify-content: center;
+    width: 100%;
+}
+
 .payment-button {
     margin-top: 20px; /* Adjust the value as needed */
 }
