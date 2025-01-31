@@ -719,9 +719,6 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
             <div class="score">${team2.score}</div>
         </div>
     </div>
-
-    <!-- Status Wrapper for consistent alignment -->
-    <div class="status-wrapper">
         <div class="status">${displayStatus}</div>
     </div>
     
