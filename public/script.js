@@ -693,24 +693,26 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         card.style.background = `linear-gradient(135deg, ${team2Color}, ${team1Color})`;
 
 
-     // Function to convert EST time to local time
-    function convertToLocalTime(estTime) {
-    const [time, period, _est] = estTime.split(' '); // Extract time and AM/PM
+     // Function to convert EST time to user's local time
+function convertToLocalTime(estTime) {
+    const [time, period] = estTime.split(' ').slice(0, 2); // Extract "5:00 PM"
     if (!time || !period) return "Invalid Time"; // Fallback for unexpected formats
 
-    // Create a Date object with today's date in EST
-    const date = new Date();
+    // Extract hours and minutes
     const [hours, minutes] = time.split(':').map(Number);
 
     let estHours = hours;
     if (period === "PM" && hours !== 12) estHours += 12; // Convert PM hours
     if (period === "AM" && hours === 12) estHours = 0; // Convert 12 AM to 0
 
-    // Set time in EST (New York timezone)
-    date.setHours(estHours, minutes, 0, 0);
+    // Get today's date
+    const now = new Date();
 
-    // Convert to local time
-    return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+    // Create a date object in UTC based on EST (Eastern Time is UTC-5 or UTC-4 with DST)
+    const estDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), estHours + 5, minutes));
+
+    // Convert to the user's local timezone
+    return estDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
 }
 
       // Determine what to display in the status
