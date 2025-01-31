@@ -709,7 +709,7 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
 
 
  card.innerHTML = `
-      <div class="team-left">
+    <div class="team-left">
         <div class="team-logo-container">
             <img src="${team2.logo}" alt="${team2.name}" class="team-logo" />
             <div class="record">(${team2.record})</div> <!-- Record is under the logo -->
@@ -719,9 +719,12 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
             <div class="score">${team2.score}</div>
         </div>
     </div>
+
+    <div class="status-wrapper">
         <div class="status">${displayStatus}</div>
     </div>
-    <div class="team team-right">
+
+    <div class="team-right">
         <div class="team-logo-container">
             <img src="${team1.logo}" alt="${team1.name}" class="team-logo" />
             <div class="record">(${team1.record})</div> <!-- Record is under the logo -->
