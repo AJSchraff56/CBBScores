@@ -721,7 +721,6 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     </div>
         <div class="status">${displayStatus}</div>
     </div>
-    
     <div class="team team-right">
         <div class="team-logo-container">
             <img src="${team1.logo}" alt="${team1.name}" class="team-logo" />
