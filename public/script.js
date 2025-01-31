@@ -461,7 +461,7 @@ function getCustomTeamName(name) {
                         const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
 
                         // Format record: (overall, conf) or just (overall) if no conf record
-                        const formattedRecord = confRecord ? `(${overallRecord}, ${confRecord})` : `(${overallRecord})`;
+                        const formattedRecord = confRecord ? `${overallRecord}, ${confRecord}` : `${overallRecord}`;
 
                         return {
                             name: getCustomTeamName(team.team.shortDisplayName), // Use custom team name
