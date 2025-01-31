@@ -692,6 +692,29 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         card.className = 'game-card';
         card.style.background = `linear-gradient(135deg, ${team2Color}, ${team1Color})`;
 
+
+     // Function to convert EST time to user's local time
+function convertToLocalTime(estTime) {
+    const [time, period] = estTime.split(' ').slice(0, 2); // Extract "5:00 PM"
+    if (!time || !period) return "Invalid Time"; // Fallback for unexpected formats
+
+    // Extract hours and minutes
+    const [hours, minutes] = time.split(':').map(Number);
+
+    let estHours = hours;
+    if (period === "PM" && hours !== 12) estHours += 12; // Convert PM hours
+    if (period === "AM" && hours === 12) estHours = 0; // Convert 12 AM to 0
+
+    // Get today's date
+    const now = new Date();
+
+    // Create a date object in UTC based on EST (Eastern Time is UTC-5 or UTC-4 with DST)
+    const estDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), estHours + 5, minutes));
+
+    // Convert to the user's local timezone
+    return estDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+}
+
       // Determine what to display in the status
 let displayStatus = '';
 if (game.status.includes('1st') || game.status.includes('2nd') || game.status.includes('3rd') || game.status.includes('4th') || game.status.includes('OT') || game.status.includes('2OT') || game.status.includes('3OT') || game.status.includes('4OT')) {
@@ -699,7 +722,8 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     displayStatus = game.status; // Display full status for ongoing games
 } else if (game.status.includes('-')) {
     // Scheduled game (e.g., "1/8 - 9:00 PM EST")
-    displayStatus = game.status.split('-')[1]?.trim(); // Extract the time only
+    const timeString = game.status.split('-')[1]?.trim(); // Extract "5:00 PM EST"
+    displayStatus = convertToLocalTime(timeString); // Convert EST to local time
 } else {
     // Default case for unrecognized statuses
     displayStatus = game.status;
