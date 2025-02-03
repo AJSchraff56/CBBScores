@@ -418,3 +418,38 @@ select.hidden {
         padding: 40px; /* Increase container padding */
     }
 }
+
+
+/* Media query for 3:2 aspect ratio */
+@media (max-aspect-ratio: 3/2) {
+    .content-wrapper {
+        flex-direction: column; /* Stack containers vertically */
+        gap: 10px; /* Reduce gap between containers */
+    }
+
+    .container {
+        width: 100%;
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .section-title {
+        font-size: 28px; /* Adjust font size for section titles */
+    }
+
+    .score-container {
+        gap: 5px; /* Adjust gap between score cards */
+    }
+
+    .game-card {
+        padding: 15px; /* Adjust padding for game cards */
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    .team-name {
+        font-size: 16px; /* Adjust font size for team names */
+    }
+
+    .score {
+        font-size: 36px; /* Adjust font size for scores */
+    }
+}
