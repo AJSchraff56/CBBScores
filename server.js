@@ -81,17 +81,31 @@ function checkAdmin(req, res, next) {
     }
 }
 
-// Login endpoint
+// Update the login endpoint to handle routing to bsbscores.html
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
         req.session.user = user;
         console.log(`Login successful: ${username}`);
-        res.status(200).send({ message: 'Login successful', isAdmin: user.isAdmin });
+        
+        if (req.headers.referer && req.headers.referer.includes('bsbindex.html')) {
+            res.status(200).send({ message: 'Login successful', redirectUrl: 'bsbscores.html' });
+        } else {
+            res.status(200).send({ message: 'Login successful', isAdmin: user.isAdmin });
+        }
     } else {
         console.log(`Login failed for: ${username}`);
         res.status(401).send('Invalid username or password');
+    }
+});
+
+// Add this route for bsbindex.html
+app.get('/bsbindex.html', checkAuth, (req, res) => {
+    if (req.session.user.isAdmin) {
+        res.redirect('/admin.html');
+    } else {
+        res.sendFile(path.join(__dirname, 'public', 'bsbindex.html'));
     }
 });
 
