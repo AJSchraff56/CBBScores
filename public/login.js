@@ -23,11 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.isAdmin) {
                         window.location.href = '/admin.html';
                     } else {
-                        const selectedGender = document.querySelector('input[name="gender"]:checked').value;
-                        if (selectedGender === 'men') {
-                            window.location.href = '/mscores.html';
-                        } else if (selectedGender === 'women') {
-                            window.location.href = '/wscores.html';
+                        if (window.location.pathname === '/bsbindex.html') {
+                            window.location.href = '/bsbscores.html';
+                        } else {
+                            const selectedGender = document.querySelector('input[name="gender"]:checked').value;
+                            if (selectedGender === 'men') {
+                                window.location.href = '/mscores.html';
+                            } else if (selectedGender === 'women') {
+                                window.location.href = '/wscores.html';
+                            }
                         }
                     }
                 } else {
