@@ -11,6 +11,34 @@ body {
     height: 100vh; /* Full viewport height */
     overflow: visible; /* Prevent scrolling */
 }
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.centered-logo {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Adjust the gap between buttons */
+}
+
+.button-container a {
+    display: block;
+}
+
+
+
 
 .payment-button {
     margin-top: 20px; /* Adjust the value as needed */
