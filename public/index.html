@@ -1,76 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L9WKQBPXSW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-L9WKQBPXSW');
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Basketball Scores</title>
+    <title>GameBreak Displays </title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Login Screen -->
-<div id="login-screen" class="login-wrapper">
-    <a href="demo.html">
-        <button type="button" class="demo-button">Product Demo Video</button>
-    </a>
-    <img src="https://i.ibb.co/QNnFtGq/GB-CBB-Logo.png" alt="GB-CBB-Logo" border="0"></a>
-    <form id="loginForm" class="login-form">
-        <div>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+    <div class="landing-page">
+        <a href="https://ibb.co/ycnFHm3V"><img src="https://i.ibb.co/5gWhbX72/gbd-logo.png" alt="gbd-logo" border="0"></a>" alt="Site Logo" class="centered-logo">
+        <div class="button-container">
+            <a href="bbindex.html"><img src="path/to/button1.png" alt="Basketball"></a>
+            <a href="path/to/football-index.html"><img src="path/to/button2.png" alt="Football"></a>
+            <a href="path/to/baseball-index.html"><img src="path/to/button3.png" alt="Baseball"></a>
+            <a href="path/to/hockey-index.html"><img src="path/to/button4.png" alt="Hockey"></a>
         </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-       <div id="gender select" class="gender-selection">
-            <label>Select Gender:</label>
-            <label>
-                <input type="radio" name="gender" value="men" required> Men's
-            </label>
-            <label>
-                <input type="radio" name="gender" value="women" required> Women's
-            </label>
-        </div>
-        <button type="submit">Login</button>
-        <a href="https://buy.stripe.com/aEU0183HJ86sdlCdQQ" target="_blank">
-            <button type="button" class="payment-button">Go to Payment</button>
-        </a>
-        <div id="loginError" class="error-message"></div>
-    </form>
-    <p class="browser-warning">Ensure you are using a browser that does not have any extensions enabled, as that can affect site functionality.</p>
-</div>
-
-
-    <!-- Admin Panel -->
-    <div id="admin-screen" class="hidden">
-        <h1>Admin Panel</h1>
-        <ul id="user-list"></ul>
-        <form id="add-user-form">
-            <input type="text" id="new-username" placeholder="New Username" required>
-            <input type="password" id="new-password" placeholder="New Password" required>
-            <button type="submit">Add User</button>
-        </form>
     </div>
-
-    <!-- Main Site -->
-    <div id="site-screen" class="hidden">
-        <h1>College Basketball Scores</h1>
-        <div id="top25Container"></div>
-        <div id="conferenceContainer"></div>
-            <div class="score-container" id="conferenceScores"></div>
-        <button id="logout-btn">Logout</button>
-    </div>
-
-    <script src="login.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
