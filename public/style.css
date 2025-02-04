@@ -88,6 +88,7 @@ body.index {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     position: relative;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Section title styling */
@@ -108,7 +109,7 @@ body.index {
     overflow-y: hidden; /* Enable scrolling if content overflows */
     scrollbar-width: thin;
     scrollbar-color: #444 #1e1e1e;
-    background: rgba(0, 0, 0, 0.5);
+    
 }
 /* Fade effect for smooth transitions */
 .fade {
