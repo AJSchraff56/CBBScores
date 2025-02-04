@@ -108,7 +108,7 @@ function checkAdmin(req, res, next) {
     }
 }
 
-// Update the login endpoint to handle routing to bsbscores.html
+// Update the login endpoint to handle routing and session management for both user arrays
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const user = users.find(u => u.username === username && u.password === password);
@@ -117,12 +117,10 @@ app.post('/login', (req, res) => {
     if (user) {
         req.session.user = user;
         console.log(`Login successful: ${username}`);
-        
         res.status(200).send({ message: 'Login successful', isAdmin: user.isAdmin });
     } else if (bsbUser) {
         req.session.bsbUser = bsbUser;
         console.log(`BSB Login successful: ${username}`);
-        
         res.status(200).send({ message: 'Login successful', isAdmin: bsbUser.isAdmin });
     } else {
         console.log(`Login failed for: ${username}`);
