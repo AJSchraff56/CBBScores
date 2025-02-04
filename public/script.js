@@ -489,6 +489,11 @@ function getCustomTeamName(name) {
             conferenceData = games;
             
             populateConferenceDropdown(conferenceData);
+
+            setTimeout(() => {
+            console.log("Starting Top 25 Cycle...");
+            startTop25Cycle();
+        }, 500); // Small delay to ensure dropdown is populated
             
             startTop25Cycle();
             startConferenceCycle();
