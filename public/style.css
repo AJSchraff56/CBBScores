@@ -6,7 +6,9 @@ body {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    background-color: #121212; /* Dark background */
+    background-image: url('https://i.ibb.co/j93XGH2K/basketball-and-hardwood-basketball-court-floor-vie-2025-01-08-03-36-06-utc.jpg'); /* Add background image */
+    background-size: cover; /* Ensure the image covers the entire background */
+    background-position: center; /* Center the background image */
     color: #ffffff; /* Light text */
     height: 100vh; /* Full viewport height */
     overflow: visible; /* Prevent scrolling */
