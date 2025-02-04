@@ -6,13 +6,23 @@ body {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    background-image: url('https://i.ibb.co/j93XGH2K/basketball-and-hardwood-basketball-court-floor-vie-2025-01-08-03-36-06-utc.jpg'); /* Add background image */
     background-size: cover; /* Ensure the image covers the entire background */
     background-position: center; /* Center the background image */
     color: #ffffff; /* Light text */
     height: 100vh; /* Full viewport height */
     overflow: visible; /* Prevent scrolling */
 }
+
+/* Background image for mscores.html and wscores.html */
+body.mscores, body.wscores {
+    background-image: url('https://i.ibb.co/j93XGH2K/basketball-and-hardwood-basketball-court-floor-vie-2025-01-08-03-36-06-utc.jpg');
+}
+
+/* Background image for index.html */
+body.index {
+    background-image: url('https://i.ibb.co/N6rt46Xz/football-stadium-in-lights-2024-10-18-03-31-02-utc.jpg');
+}
+
 .landing-page {
     display: flex;
     flex-direction: column;
