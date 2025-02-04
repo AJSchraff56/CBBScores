@@ -484,5 +484,9 @@ select.hidden {
         width: 25%; /* Reduce width by 20% */
         height: 25%; /* Reduce height by 20% */
     }
+
+    .record {
+    white-space: nowrap; /* Ensure the record shows on one line */
+    }
 }
 
