@@ -108,6 +108,7 @@ body.index {
     overflow-y: hidden; /* Enable scrolling if content overflows */
     scrollbar-width: thin;
     scrollbar-color: #444 #1e1e1e;
+    background: rgba(0, 0, 0, 0.5);
 }
 /* Fade effect for smooth transitions */
 .fade {
