@@ -34,8 +34,8 @@ body.bsbscores, body.bsbindex {
     justify-content: center;
     height: 100vh;
     text-align: center;
+    width: 100%; /* Ensure the parent container takes full width */
 }
-
 
 .centered-logo {
     display: block;
@@ -46,9 +46,10 @@ body.bsbscores, body.bsbindex {
 
 .button-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px; /* Adjust the gap between buttons */
+    justify-content: center; /* Center buttons horizontally */
+    gap: 20px; /* Adjust spacing between buttons */
+    width: 100%; /* Ensure full width */
+    max-width: 800px; /* Set a max width if needed */
 }
 
 .button-container a {
