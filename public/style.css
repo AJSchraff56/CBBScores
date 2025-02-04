@@ -37,9 +37,10 @@ body.bsbscores, body.bsbindex {
 }
 
 .centered-logo {
+    display: block;
+    margin: 0 auto 20px auto; /* Center the logo and add bottom margin */
     max-width: 100%;
     height: auto;
-    margin-bottom: 20px;
 }
 
 .button-container {
