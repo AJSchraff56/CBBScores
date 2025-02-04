@@ -71,6 +71,26 @@ function checkAuth(req, res, next) {
     }
 }
 
+// Middleware for bsb authentication
+function checkBsbAuth(req, res, next) {
+    if (req.session && req.session.bsbUser) {
+        console.log(`BSB User authenticated: ${req.session.bsbUser.username}`);
+        next();
+    } else {
+        res.status(401).sendFile(path.join(__dirname, 'public', 'login.html'));
+    }
+}
+
+// Middleware for bsb admin access
+function checkBsbAdmin(req, res, next) {
+    if (req.session && req.session.bsbUser && req.session.bsbUser.isAdmin) {
+        console.log(`BSB Admin access granted: ${req.session.bsbUser.username}`);
+        next();
+    } else {
+        res.status(403).send('Forbidden: Admins only');
+    }
+}
+
 // Middleware for admin access
 function checkAdmin(req, res, next) {
     if (req.session && req.session.user && req.session.user.isAdmin) {
@@ -85,15 +105,18 @@ function checkAdmin(req, res, next) {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const user = users.find(u => u.username === username && u.password === password);
+    const bsbUser = bsbUsers.find(u => u.username === username && u.password === password);
+
     if (user) {
         req.session.user = user;
         console.log(`Login successful: ${username}`);
         
-        if (req.headers.referer && req.headers.referer.includes('bsbindex.html')) {
-            res.status(200).send({ message: 'Login successful', redirectUrl: 'bsbscores.html' });
-        } else {
-            res.status(200).send({ message: 'Login successful', isAdmin: user.isAdmin });
-        }
+        res.status(200).send({ message: 'Login successful', isAdmin: user.isAdmin });
+    } else if (bsbUser) {
+        req.session.bsbUser = bsbUser;
+        console.log(`BSB Login successful: ${username}`);
+        
+        res.status(200).send({ message: 'Login successful', isAdmin: bsbUser.isAdmin });
     } else {
         console.log(`Login failed for: ${username}`);
         res.status(401).send('Invalid username or password');
@@ -101,12 +124,26 @@ app.post('/login', (req, res) => {
 });
 
 // Add this route for bsbindex.html
-app.get('/bsbindex.html', checkAuth, (req, res) => {
-    if (req.session.user.isAdmin) {
-        res.redirect('/admin.html');
+app.get('/bsbindex.html', checkBsbAuth, (req, res) => {
+    if (req.session.bsbUser.isAdmin) {
+        res.redirect('/bsbadmin.html');
     } else {
         res.sendFile(path.join(__dirname, 'public', 'bsbindex.html'));
     }
+});
+
+// Add this route for sbscores.html
+app.get('/sbscores.html', checkBsbAuth, (req, res) => {
+    if (req.session.bsbUser.isAdmin) {
+        res.redirect('/bsbadmin.html');
+    } else {
+        res.sendFile(path.join(__dirname, 'public', 'sbscores.html'));
+    }
+});
+
+// Serve bsbadmin.html
+app.get('/bsbadmin.html', checkBsbAuth, checkBsbAdmin, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'bsbadmin.html'));
 });
 
 // Update routes to include a check for admin users
