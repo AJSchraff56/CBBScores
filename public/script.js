@@ -487,8 +487,9 @@ function getCustomTeamName(name) {
     
             top25Data = top25;
             conferenceData = games;
-    
+            
             populateConferenceDropdown(conferenceData);
+            
             startTop25Cycle();
             startConferenceCycle();
         } catch (error) {
