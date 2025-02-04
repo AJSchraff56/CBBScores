@@ -459,9 +459,10 @@ function getCustomTeamName(name) {
                         // Extract overall and conference records
                         const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "N/A";
                         const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
+                        const conferenceName = getConferenceName(team.team.conferenceId);
 
                         // Format record: (overall, conf) or just (overall) if no conf record
-                        const formattedRecord = confRecord ? `${overallRecord}, ${confRecord}` : `${overallRecord}`;
+                       const formattedRecord = confRecord ? `${overallRecord}\n${confRecord} ${conferenceName}` : `${overallRecord}`;
 
                         return {
                             name: getCustomTeamName(team.team.shortDisplayName), // Use custom team name
@@ -745,7 +746,7 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     <div class="team-left">
         <div class="team-logo-container">
             <img src="${team2.logo}" alt="${team2.name}" class="team-logo" />
-            <div class="record">(${team2.record})</div> <!-- Record is under the logo -->
+            <div class="record">(${team2.record.replace('\n', '<br>')})</div> <!-- Record is under the logo -->
         </div>
         <div>
             <div class="team-name">${isTop25 && team2.rank >= 1 && team2.rank <= 25 ? `#${team2.rank} ` : ''}${team2.name}</div>
@@ -760,7 +761,7 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     <div class="team-right">
         <div class="team-logo-container">
             <img src="${team1.logo}" alt="${team1.name}" class="team-logo" />
-            <div class="record">(${team1.record})</div> <!-- Record is under the logo -->
+            <div class="record">(${team1.record.replace('\n', '<br>')})</div> <!-- Record is under the logo -->
         </div>
         <div>
             <div class="team-name">${isTop25 && team1.rank >= 1 && team1.rank <= 25 ? `#${team1.rank} ` : ''}${team1.name}</div>
