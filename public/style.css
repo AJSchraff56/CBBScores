@@ -26,6 +26,7 @@ body.index {
 /* Background image for bsbscores.html */
 body.bsbscores, body.bsbindex {
     background-image: url('https://i.ibb.co/NnVTL66B/third-base-2024-09-22-11-19-04-utc.jpg');
+}
 
 .landing-page {
     display: flex;
