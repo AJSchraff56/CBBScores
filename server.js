@@ -17,13 +17,20 @@ app.use(session({
     saveUninitialized: true,
 }));
 
-// Users array
+// BB Users array
 const users = [
     { username: 'admin', password: 'B!$hyB0y1028!', isAdmin: true },
     { username: 'user1', password: 'B!$hyB0y1028!', isAdmin: false },
     { username: 'GWAthletics', password: 'G0Rev$2025', isAdmin: false },
     { username: 'UDAthletics', password: 'GoFly3r$2025', isAdmin: false },
     { username: 'AuburnAthletics', password: 'G0+!ger$', isAdmin: false },
+];
+
+// New user array for bsbscores.html and sbscores.html
+const bsbUsers = [
+    { username: 'bsbAdmin', password: 'BsbS3cret!', isAdmin: true },
+    { username: 'bsbUser1', password: 'B!ShyB0y1028!', isAdmin: false },
+    
 ];
 
 // Conference Mapping
