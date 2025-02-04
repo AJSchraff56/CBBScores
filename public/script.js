@@ -485,7 +485,7 @@ conferenceData = games;
 console.log("Mapped Games:", games);
 console.log("Top 25 Games:", top25Data);
     
-            top25Data = top25;
+            
             conferenceData = games;
             
             populateConferenceDropdown(conferenceData);
