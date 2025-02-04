@@ -451,39 +451,39 @@ function getCustomTeamName(name) {
             const data = await response.json();
             console.log("API Data Fetched:", data);
 
-           const games = data.events.map(event => {
-                const competition = event.competitions[0];
-                return {
-                    matchup: event.name,
-                    teams: competition.competitors.map(team => {
-                        // Extract overall and conference records
-                        const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "N/A";
-                        const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
-                        const conferenceName = getConferenceName(team.team.conferenceId);
+           top25Data = [];
+conferenceData = [];
 
-                        // Format record: (overall, conf) or just (overall) if no conf record
-                       const formattedRecord = confRecord ? `${overallRecord}\n${confRecord} ${conferenceName}` : `${overallRecord}`;
+const games = data.events.map(event => {
+    const competition = event.competitions[0];
+    return {
+        matchup: event.name,
+        teams: competition.competitors.map(team => {
+            const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "N/A";
+            const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
+            const conferenceName = getConferenceName(team.team.conferenceId); // Ensure it's assigned here
 
-                        return {
-                            name: getCustomTeamName(team.team.shortDisplayName), // Use custom team name
-                            score: team.score || "0",
-                            logo: team.team.logo || '',
-                            rank: team.curatedRank?.current || null,
-                            record: formattedRecord, // Updated record format
-                            conferenceId: parseInt(team.team.conferenceId, 10),
-                            conferenceName: team.team.conferenceName || conferenceMapping[team.team.conferenceId] || "Unknown",
-                };
+            const formattedRecord = confRecord ? `${overallRecord}\n${confRecord} ${conferenceName}` : `${overallRecord}`;
+
+            return {
+                name: getCustomTeamName(team.team.shortDisplayName),
+                score: team.score || "0",
+                logo: team.team.logo || '',
+                rank: team.curatedRank?.current || null,
+                record: formattedRecord, // Ensure conference name is assigned
+                conferenceId: parseInt(team.team.conferenceId, 10),
+                conferenceName: conferenceName, 
+            };
         }),
         status: event.status.type.shortDetail || "Scheduled",
     };
 });
-    
-            const top25 = games.filter(game =>
-                game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25)
-            );
-    
-            console.log("Mapped Games:", games);
-            console.log("Top 25 Games:", top25);
+
+top25Data = games.filter(game => game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25));
+conferenceData = games;
+
+console.log("Mapped Games:", games);
+console.log("Top 25 Games:", top25Data);
     
             top25Data = top25;
             conferenceData = games;
@@ -648,9 +648,9 @@ function getConferenceName(conferenceId) {
     const selected = conferenceFilter.querySelector(`option[value="${conferenceId}"]`);
     if (selected) {
         const originalName = selected.textContent;
-        return conferenceNameOverrides[originalName] || originalName; // Use override if available, otherwise original name
+        return conferenceNameOverrides[originalName] || originalName;
     }
-    return "Unknown Conference";
+    return conferenceMapping[conferenceId] || "Unknown Conference"; // Use mapping if dropdown isn't ready
 }
 
 const conferenceMapping = {
