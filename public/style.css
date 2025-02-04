@@ -250,9 +250,9 @@ body.bsbscores, body.bsbindex {
 
 /* Team record styling under logo */
 .record {
-    font-size: 14px;
+    font-size: 16px;
     color: #ffffff; /* Light gray color */
-    margin-top: 5px; /* Add space between logo and record */
+    margin-top: 7px; /* Add space between logo and record */
     text-align: center; /* Center-align the text */
 }
 
