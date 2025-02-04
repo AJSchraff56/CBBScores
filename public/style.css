@@ -474,5 +474,15 @@ select.hidden {
 
     .score {
         font-size: 36px; /* Adjust font size for scores */
+
+    .team-logo-container {
+        width: 56px; /* Reduce width by 20% */
+        height: 56px; /* Reduce height by 20% */
+    }
+
+    .team-logo {
+        width: 48px; /* Reduce width by 20% */
+        height: 48px; /* Reduce height by 20% */
     }
 }
+
