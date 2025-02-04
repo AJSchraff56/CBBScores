@@ -39,8 +39,9 @@ body.bsbscores, body.bsbindex {
 
 .centered-logo {
     display: block;
-    margin: 0 auto 20px auto; /* Centers logo */
-    max-width: 50%; /* Adjust to fit properly over all buttons */
+    margin: 0 auto; /* Center horizontally */
+    max-width: 100%;
+    height: auto;
 }
 
 .button-container {
