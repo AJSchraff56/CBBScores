@@ -110,6 +110,7 @@ body.bsbscores, body.bsbindex {
 /* Section title styling */
 .section-title {
     font-size: 34px;
+    margin-top: 5px;
     margin-bottom: 10px;
     text-align: center;
 }
