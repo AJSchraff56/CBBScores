@@ -102,7 +102,7 @@ body.bsbscores, body.bsbindex {
 /* Logo above section title styling */
 .logo-above-title {
     display: block;
-    margin: 20px auto; /* Center horizontally and add some spacing */
+    margin: 5px auto; /* Center horizontally and add some spacing */
     max-width: 100%;
     height: auto;
 }
