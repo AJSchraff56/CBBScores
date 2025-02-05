@@ -88,7 +88,7 @@ body.bsbscores, body.bsbindex {
 .container {
     width: 100%;
     flex: 1;
-    padding: 20px;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     background-color: #1e1e1e;
