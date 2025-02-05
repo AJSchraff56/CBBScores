@@ -435,7 +435,7 @@ function getCustomTeamName(name) {
                         score: team.score || "0",
                         logo: team.team.logo || '',
                         rank: team.curatedRank?.current || null,
-                        record: team.records?.find(r => r.name === "overall")?.summary || "N/A",
+                        record: team.records?.find(r => r.name === "overall")?.summary || "0-0",
                         conferenceId: parseInt(team.team.conferenceId, 10),
                         conferenceName: team.team.conferenceName || conferenceMapping[team.team.conferenceId] || "Unknown",
                     })),
