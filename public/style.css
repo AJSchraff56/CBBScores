@@ -508,6 +508,7 @@ select.hidden {
     }
 
     .record {
+        white-space: nowrap; /* Ensure the record shows on one line */
         margin: 0 30px;
     }
 }
