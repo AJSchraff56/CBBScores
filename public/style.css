@@ -506,7 +506,7 @@ select.hidden {
         display: flex;
         align-items: center; /* Vertically align logo containers */
         justify-content: center;
-        margin: 0 50px; /* Add margin to space out from score */
+        margin: 0 70px; /* Add margin to space out from score */
     }
 
     .team-logo {
