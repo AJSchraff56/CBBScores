@@ -473,10 +473,16 @@ select.hidden {
     }
 
     .game-card {
-        padding: 15px; /* Adjust padding for game cards */
+        display: grid;
+        grid-template-columns: 1fr auto 1fr; /* Three columns: team-left, status, team-right */
+        align-items: center;
+        background: #333;
+        padding: 20px 20px;
+        border-radius: 10px;
         height: calc(100% / 4 - 10px); /* Ensure 4 cards fit with spacing */
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        grid-template-columns: auto 1fr auto; /* Retain three columns: team-left, status, team-right */
+        overflow: hidden; /* Prevent overflow */
+        position: relative; /* Ensure child elements stay contained */
     }
 
     .team-name {
