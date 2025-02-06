@@ -483,10 +483,16 @@ select.hidden {
 
     .score {
         font-size: 36px; /* Adjust font size for scores */
+    }
+
+    .team-details {
+        order: 1; /* Swap position with .team-logo-container */
+    }
 
     .team-logo-container {
         width: 25px; /* Reduce width by 20% */
         height: 25px; /* Reduce height by 20% */
+        order: 2; /* Swap position with .team-details */
     }
 
     .team-logo {
