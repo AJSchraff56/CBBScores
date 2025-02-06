@@ -499,7 +499,7 @@ select.hidden {
         display: flex;
         align-items: center; /* Vertically align logo containers */
         justify-content: center;
-        margin: 0 10px; /* Add margin to space out from score */
+        margin: 0 30px; /* Add margin to space out from score */
     }
 
     .team-logo {
@@ -508,7 +508,7 @@ select.hidden {
     }
 
     .record {
-    white-space: nowrap; /* Ensure the record shows on one line */
+        margin: 0 30px;
     }
 }
 
