@@ -463,7 +463,7 @@ const games = data.events.map(event => {
             const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
             const conferenceName = getConferenceName(team.team.conferenceId); // Ensure it's assigned here
 
-            const formattedRecord = confRecord ? `${overallRecord}\n${confRecord} ${conferenceName}` : `${overallRecord}`;
+            const formattedRecord = confRecord ? `$overallRecord\n$confRecord` : `${overallRecord}`;
 
             return {
                 name: getCustomTeamName(team.team.shortDisplayName),
