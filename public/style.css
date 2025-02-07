@@ -462,7 +462,6 @@ select.hidden {
 
     .container {
         width: 100%;
-        padding: 10px; /* Adjust padding for smaller screens */
     }
 
     .section-title {
