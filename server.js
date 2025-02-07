@@ -142,7 +142,7 @@ app.get('/sbscores.html', checkBsbAuth, (req, res) => {
     if (req.session.bsbUser.isAdmin) {
         res.redirect('/bsbadmin.html');
     } else {
-        res.sendFile(path.join(__dirname, 'public', 'sbscores.html'));
+        res.sendFile(path.join(__dirname, 'public', 'sbindex.html'));
     }
 });
 
