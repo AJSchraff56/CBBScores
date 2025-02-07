@@ -463,6 +463,7 @@ select.hidden {
     .body{
         background-size: cover; /* Ensure the image covers the entire background */
         background-position: center; /* Center the background image */
+        background-repeat: no-repeat; /* Prevent background image from repeating */
     }
     
     .container {
