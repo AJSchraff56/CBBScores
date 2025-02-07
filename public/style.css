@@ -263,6 +263,7 @@ body.bsbscores, body.bsbindex {
     color: #ffffff; /* Light gray color */
     margin-top: 7px; /* Add space between logo and record */
     text-align: center; /* Center-align the text */
+    white-space: nowrap; /* Ensure the record shows on one line */
 }
 
 
