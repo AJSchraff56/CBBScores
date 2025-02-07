@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L9WKQBPXSW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-L9WKQBPXSW');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Softball Scores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="sbindex">
+    <!-- Login Screen -->
+<div id="login-screen" class="login-wrapper">
+    <a href="demo.html">
+        <button type="button" class="demo-button">Product Demo Video</button>
+    </a>
+    <img src="https://i.ibb.co/nsCkM3KM/GB-SB-Logo.png" border="0"></a>
+    <form id="loginForm" class="login-form">
+        <div>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+        <a href="https://buy.stripe.com/cN26pw0vxcmI3L2fYZ" target="_blank">
+            <button type="button" class="payment-button">Go to Payment</button>
+        </a>
+        <div id="loginError" class="error-message"></div>
+    </form>
+    <p class="browser-warning">Ensure you are using a browser that does not have any extensions enabled, as that can affect site functionality.</p>
+</div>
+
+
+    <!-- Admin Panel -->
+    <div id="admin-screen" class="hidden">
+        <h1>Admin Panel</h1>
+        <ul id="user-list"></ul>
+        <form id="add-user-form">
+            <input type="text" id="new-username" placeholder="New Username" required>
+            <input type="password" id="new-password" placeholder="New Password" required>
+            <button type="submit">Add User</button>
+        </form>
+    </div>
+
+    <!-- Main Site -->
+    <div id="site-screen" class="hidden">
+        <h1>College Softball Scores</h1>
+        <div id="top25Container"></div>
+        <div id="conferenceContainer"></div>
+            <div class="score-container" id="conferenceScores"></div>
+        <button id="logout-btn">Logout</button>
+    </div>
+
+    <script src="login.js"></script>
+    <script src="sbscript.js"></script>
+</body>
+</html>
