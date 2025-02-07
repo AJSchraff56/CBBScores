@@ -460,6 +460,11 @@ select.hidden {
         gap: 10px; /* Reduce gap between containers */
     }
 
+    .body{
+        background-size: cover; /* Ensure the image covers the entire background */
+        background-position: center; /* Center the background image */
+    }
+    
     .container {
         width: 100%;
     }
