@@ -418,7 +418,7 @@ function getCustomTeamName(name) {
     async function fetchScores() {
         try {
             console.log("Fetching scores...");
-            const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/softball/college-softball/scoreboard');
+            const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/baseball/college-softball/scoreboard?limit=500');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
