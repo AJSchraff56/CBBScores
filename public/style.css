@@ -28,6 +28,11 @@ body.bsbscores, body.bsbindex {
     background-image: url('https://i.ibb.co/NnVTL66B/third-base-2024-09-22-11-19-04-utc.jpg');
 }
 
+/* Background image for sbscores.html */
+body.sbscores, body.sbindex {
+    background-image: url('https://i.ibb.co/v4ymsKNF/closeup-of-a-dirty-softball-ball-2023-11-27-05-23-00-utc.jpg');
+}
+
 .landing-page {
     display: flex;
     flex-direction: column;
