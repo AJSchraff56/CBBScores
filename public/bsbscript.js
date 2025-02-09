@@ -802,12 +802,11 @@ function getCustomTeamName(name) {
         games.forEach(game => {
             game.teams.forEach(team => {
                 if (
-                    team.conferenceId &&
-                    !uniqueConferences.some(conf => conf.id === team.conferenceId)
+                    team.conferenceName &&
+                    !uniqueConferences.some(conf => conf.name === team.conferenceName)
                 ) {
                     uniqueConferences.push({
-                        id: team.conferenceId,
-                        name: team.conferenceName || conferenceMapping[team.conferenceId] || `Conference ${team.conferenceId}`,
+                        name: team.conferenceName,
                     });
                 }
             });
@@ -816,9 +815,9 @@ function getCustomTeamName(name) {
         uniqueConferences.sort((a, b) => a.name.localeCompare(b.name));
     
         conferenceFilter.innerHTML = '<option value="all">All Conferences</option>'; // Ensure 'All Conferences' is always first
-        uniqueConferences.forEach(({ id, name }) => {
+        uniqueConferences.forEach(({ name }) => {
             const option = document.createElement('option');
-            option.value = id;
+            option.value = name;
             option.textContent = name;
             conferenceFilter.appendChild(option);
         });
