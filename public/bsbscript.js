@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let selectedConference = 'all';
-    conferenceTitle.textContent = 'Division I Scores'; // Set initial title
     const pageSize = 4;
     let top25Data = [], conferenceData = [];
     let conferenceIntervalId = null; // Track conference cycling interval
@@ -815,7 +814,7 @@ function getCustomTeamName(name) {
     
         uniqueConferences.sort((a, b) => a.name.localeCompare(b.name));
     
-        conferenceFilter.innerHTML = '<option value="all">Division I</option>'; // Ensure 'All Conferences' is always first
+        conferenceFilter.innerHTML = '<option value="all">All Conferences</option>'; // Ensure 'All Conferences' is always first
         uniqueConferences.forEach(({ name }) => {
             const option = document.createElement('option');
             option.value = name;
