@@ -815,7 +815,7 @@ function getCustomTeamName(name) {
     
         uniqueConferences.sort((a, b) => a.name.localeCompare(b.name));
     
-        conferenceFilter.innerHTML = '<option value="all">All Conferences</option>'; // Ensure 'All Conferences' is always first
+        conferenceFilter.innerHTML = '<option value="all">Division I</option>'; // Ensure 'All Conferences' is always first
         uniqueConferences.forEach(({ name }) => {
             const option = document.createElement('option');
             option.value = name;
@@ -856,7 +856,7 @@ function getCustomTeamName(name) {
         if (conferenceIntervalId) clearInterval(conferenceIntervalId); // Clear any existing interval
     
         // Filter games based on the selected conference
-        const filteredGames = selectedConference === 'Division I'
+        const filteredGames = selectedConference === 'all'
             ? conferenceData // Show all games if "All Conferences" is selected
             : conferenceData.filter(game =>
                   game.teams.some(team => team.conferenceName === selectedConference)
