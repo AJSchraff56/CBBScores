@@ -914,6 +914,7 @@ function getCustomTeamName(name) {
 
     // Mapping for modified conference names
 const conferenceNameOverrides = {
+    "All": "Division I",
     "Atlantic Coast": "ACC",
     "Coastal Athletic": "CAA",
     "Metro Atlantic Athletic": "MAAC",
