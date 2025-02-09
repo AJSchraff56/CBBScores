@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let selectedConference = 'all';
+    conferenceTitle.textContent = 'Division I Scores'; // Set initial title
     const pageSize = 4;
     let top25Data = [], conferenceData = [];
     let conferenceIntervalId = null; // Track conference cycling interval
