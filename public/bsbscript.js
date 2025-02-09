@@ -856,7 +856,7 @@ function getCustomTeamName(name) {
         if (conferenceIntervalId) clearInterval(conferenceIntervalId); // Clear any existing interval
     
         // Filter games based on the selected conference
-        const filteredGames = selectedConference === 'all'
+        const filteredGames = selectedConference === 'Division I'
             ? conferenceData // Show all games if "All Conferences" is selected
             : conferenceData.filter(game =>
                   game.teams.some(team => team.conferenceName === selectedConference)
