@@ -768,6 +768,7 @@ function getCustomTeamName(name) {
                         logo: team.team.logo || '',
                         rank: team.curatedRank?.current || null,
                         record: team.records?.find(r => r.name === "overall")?.summary || "0-0",
+                        conferenceId: parseInt(team.team.conferenceId, 10),
                         conferenceName: teamToConference[getCustomTeamName(team.team.shortDisplayName)] || "Unknown", // Use hardcoded conference mapping
                     })),
                     status: event.status.type.shortDetail || "Scheduled",
@@ -857,13 +858,13 @@ function getCustomTeamName(name) {
         const filteredGames = selectedConference === 'all'
             ? conferenceData // Show all games if "All Conferences" is selected
             : conferenceData.filter(game =>
-                  game.teams.some(team => team.conferenceId === parseInt(selectedConference))
+                  game.teams.some(team => team.conferenceName === selectedConference)
               );
     
         if (!filteredGames.length) {
             // If no games match the selected conference
             conferenceScores.innerHTML = '<p>No games available for this conference.</p>';
-            conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
+            conferenceTitle.textContent = `${selectedConference} Scores`;
             return;
         }
     
@@ -897,7 +898,7 @@ function getCustomTeamName(name) {
                 });
     
                 // Update the conference title
-                conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
+                conferenceTitle.textContent = `${selectedConference} Scores`;
     
                 conferenceScores.classList.remove('fade'); // Remove fade-out effect
                 conferenceScores.classList.add('visible'); // Add fade-in effect
