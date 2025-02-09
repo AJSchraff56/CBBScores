@@ -768,7 +768,6 @@ function getCustomTeamName(name) {
                         logo: team.team.logo || '',
                         rank: team.curatedRank?.current || null,
                         record: team.records?.find(r => r.name === "overall")?.summary || "0-0",
-                        conferenceId: parseInt(team.team.conferenceId, 10),
                         conferenceName: teamToConference[getCustomTeamName(team.team.shortDisplayName)] || "Unknown", // Use hardcoded conference mapping
                     })),
                     status: event.status.type.shortDetail || "Scheduled",
