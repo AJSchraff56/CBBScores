@@ -392,6 +392,8 @@ function getCustomTeamName(name) {
     const defaultColor1 = "#333"; // Default dark gray
     const defaultColor2 = "#444"; // Default slightly lighter gray
 
+    
+
     // Function to calculate the refresh interval
      function calculateRefreshInterval() {
         const totalPages = Math.ceil(top25Data.length / pageSize);
@@ -437,7 +439,7 @@ function getCustomTeamName(name) {
                         rank: team.curatedRank?.current || null,
                         record: team.records?.find(r => r.name === "overall")?.summary || "0-0",
                         conferenceId: parseInt(team.team.conferenceId, 10),
-                        conferenceName: team.team.conferenceName || conferenceMapping[team.team.conferenceId] || "Unknown",
+                        conferenceName: teamToConference[getCustomTeamName(team.team.shortDisplayName)] || "Unknown", // Use hardcoded conference mapping
                     })),
                     status: event.status.type.shortDetail || "Scheduled",
                 };
