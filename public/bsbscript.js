@@ -723,9 +723,6 @@ function getCustomTeamName(name) {
         "Youngstown St": "Horizon League"
 };
 
-        
-        // Add more teams and their respective conferences
-    };
 
     // Function to calculate the refresh interval
      function calculateRefreshInterval() {
