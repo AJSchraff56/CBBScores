@@ -635,6 +635,7 @@ function getCustomTeamName(name) {
         "South Carolina St": "Mid-Eastern Athletic",
         "South Dakota": "Summit League",
         "South Dakota St": "Summit League",
+        "South Florida": "American Athletic",
         "Southeast Missouri St": "Ohio Valley",
         "Southeastern Louisiana": "Southland",
         "Southern": "Southwestern Athletic",
