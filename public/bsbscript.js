@@ -548,7 +548,7 @@ function getCustomTeamName(name) {
         "Mercer": "Southern",
         "Mercyhurst": "Northeast",
         "Merrimack": "Metro Atlantic Athletic",
-        "Miami (FL)": "Atlantic Coast",
+        "Miami": "Atlantic Coast",
         "Miami (OH)": "Mid-American",
         "Michigan": "Big Ten",
         "Michigan St": "Big Ten",
