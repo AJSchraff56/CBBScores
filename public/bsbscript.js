@@ -765,13 +765,13 @@ function getCustomTeamName(name) {
                 return {
                     matchup: event.name,
                     teams: competition.competitors.map(team => ({
-                        name: getCustomTeamName(team.team.DisplayName), // Use custom team name
+                        name: getCustomTeamName(team.team.shortDisplayName), // Use custom team name
                         score: team.score || "0",
                         logo: team.team.logo || '',
                         rank: team.curatedRank?.current || null,
                         record: team.records?.find(r => r.name === "overall")?.summary || "0-0",
                         conferenceId: parseInt(team.team.conferenceId, 10),
-                        conferenceName: teamToConference[getCustomTeamName(team.team.DisplayName)] || "Unknown", // Use hardcoded conference mapping
+                        conferenceName: teamToConference[getCustomTeamName(team.team.shortDisplayName)] || "Unknown", // Use hardcoded conference mapping
                     })),
                     status: event.status.type.shortDetail || "Scheduled",
                 };
