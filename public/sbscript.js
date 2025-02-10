@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    let selectedConference = 'all';
+    let selectedConference = 'All Conferences';
+    conferenceTitle.textContent = 'Division I Scores'; // Set initial title
     const pageSize = 4;
     let top25Data = [], conferenceData = [];
     let conferenceIntervalId = null; // Track conference cycling interval
@@ -30,6 +31,19 @@ const customTeamNames = {
     "Wichita St": "Wichita State",
     "UAlbany": "Albany",
     "Morehead St": "Morehead State",
+    "W Michigan": "Western Michigan",
+    "Michigan St": "Michigan State",
+    "C Michigan": "Central Michigan",
+    "N Illinois": "NIU",
+    "Miami OH": "Miami",
+    "E Michigan": "Eastern Michigan",
+    "S Illinois": "SIU",
+    "So Indiana": "Southern Indiana",
+    "Fresno St": "Fresno State",
+    "Colorado St": "Colorado State",
+    "San José St": "San José State",
+    "San Diego St": "San Diego State",
+    "Pitt": "Pittsburgh",
     // Add more custom mappings as needed
 };
 
@@ -392,6 +406,342 @@ function getCustomTeamName(name) {
     const defaultColor1 = "#333"; // Default dark gray
     const defaultColor2 = "#444"; // Default slightly lighter gray
 
+    // Team to conference mapping
+    const teamToConference = {
+        "Abilene Chrstn": "Western Athletic",
+        "Air Force": "Mountain West",
+        "Alabama": "Southeastern",
+        "Alabama A&M": "Southwestern Athletic",
+        "Alabama St": "Southwestern Athletic",
+        "Alcorn St": "Southwestern Athletic",
+        "American": "Patriot League",
+        "App St": "Sun Belt",
+        "Arizona": "Big 12",
+        "Arizona St": "Big 12",
+        "Arkansas": "Southeastern",
+        "Arkansas St": "Sun Belt",
+        "Auburn": "Southeastern",
+        "Austin Peay": "Atlantic Sun",
+        "Ball St": "Mid-American",
+        "Baylor": "Big 12",
+        "Bellarmine": "Atlantic Sun",
+        "Belmont": "Missouri Valley",
+        "Bethune": "Southwestern Athletic",
+        "Binghamton": "America East",
+        "Boise St": "Mountain West",
+        "Boston": "Patriot League",
+        "Boston College": "Atlantic Coast",
+        "Bowling Green": "Mid-American",
+        "Bradley": "Missouri Valley",
+        "Brown": "Ivy League",
+        "Bryant University": "America East",
+        "Bucknell": "Patriot League",
+        "Butler": "Big East",
+        "BYU": "Big 12",
+        "Cal Baptist": "Western Athletic",
+        "Cal Poly": "Big West",
+        "Cal St Bakersfield": "Big West",
+        "Fullerton": "Big West",
+        "Cal St Northridge": "Big West",
+        "Cal St Sacramento": "Big Sky",
+        "California": "Atlantic Coast",
+        "Campbell": "Coastal Athletic",
+        "Canisius": "Metro Atlantic Athletic",
+        "Central Michigan": "Mid-American",
+        "Charleston": "Coastal Athletic Association",
+        "Charleston So": "Big South",
+        "Charlotte": "American Athletic",
+        "Chicago St": "Northeast",
+        "Cincinnati": "Big 12",
+        "Clemson": "Atlantic Coast",
+        "Cleveland St": "Horizon League",
+        "Coastal Carolina": "Sun Belt",
+        "Colorado": "Big 12",
+        "Colorado St": "Mountain West",
+        "Columbia": "Ivy League",
+        "Colgate": "Patriot League",
+        "Coppin St": "Mid-Eastern Athletic",
+        "Creighton": "Big East",
+        "Dallas Baptist": "Conference USA",
+        "Dartmouth": "Ivy League",
+        "Davidson": "Atlantic 10",
+        "Dayton": "Atlantic 10",
+        "Delaware St": "Mid-Eastern Athletic",
+        "Denver": "Summit League",
+        "DePaul": "Big East",
+        "Detroit Mercy": "Horizon League",
+        "Drexel": "Coastal Athletic Association",
+        "Duke": "Atlantic Coast",
+        "Duquesne": "Atlantic 10",
+        "East Carolina": "American Athletic",
+        "East Texas A&M": "Southland",
+        "Eastern Illinois": "Ohio Valley",
+        "E Kentucky": "Atlantic Sun",
+        "E Michigan": "Mid-American",
+        "E Washington": "Big Sky",
+        "Elon": "Coastal Athletic",
+        "ETSU": "Southern",
+        "Evansville": "Missouri Valley",
+        "Fairfield": "Metro Atlantic Athletic",
+        "Fairleigh Dickinson": "Northeast",
+        "FGCU": "Atlantic Sun",
+        "Florida": "Southeastern",
+        "Florida A&M": "Southwestern Athletic",
+        "Florida Atlantic": "American Athletic",
+        "Florida St": "Atlantic Coast",
+        "Fordham": "Atlantic 10",
+        "Fresno St": "Mountain West",
+        "Furman": "Southern",
+        "Gardner-Webb": "Big South",
+        "Georgetown": "Big East",
+        "George Mason": "Atlantic 10",
+        "George Washington": "Atlantic 10",
+        "Georgia": "Southeastern",
+        "Georgia Southern": "Sun Belt",
+        "Georgia St": "Sun Belt",
+        "Georgia Tech": "Atlantic Coast",
+        "Gonzaga": "West Coast",
+        "Grambling St": "Southwestern Athletic",
+        "Grand Canyon": "Western Athletic",
+        "Green Bay": "Horizon League",
+        "Hampton": "Coastal Athletic",
+        "Hartford": "Conference of New England",
+        "Harvard": "Ivy League",
+        "Hawaii": "Big West",
+        "High Point": "Big South",
+        "Hofstra": "Coastal Athletic Association",
+        "Holy Cross": "Patriot League",
+        "Houston": "Big 12",
+        "Houston Baptist": "Southland",
+        "Howard": "Mid-Eastern Athletic",
+        "Idaho St": "Big Sky",
+        "Illinois": "Big Ten",
+        "Illinois St": "Missouri Valley",
+        "Indiana": "Big Ten",
+        "Indiana St": "Missouri Valley",
+        "Iona": "Metro Atlantic Athletic",
+        "Iowa": "Big Ten",
+        "Iowa St": "Big 12",
+        "IUPUI": "Horizon League",
+        "Jacksonville": "Atlantic Sun",
+        "Jacksonville St": "Conference USA",
+        "Jackson St": "Southwestern Athletic",
+        "James Madison": "Sun Belt",
+        "Kansas": "Big 12",
+        "Kansas St": "Big 12",
+        "Kennesaw St": "Conference USA",
+        "Kent St": "Mid-American",
+        "Kentucky": "Southeastern",
+        "La Salle": "Atlantic 10",
+        "Lafayette": "Patriot League",
+        "Lamar": "Southland",
+        "Le Moyne": "Northeast",
+        "Lehigh": "Patriot League",
+        "Liberty": "Conference USA",
+        "Lindenwood": "Ohio Valley",
+        "Lipscomb": "Atlantic Sun",
+        "Little Rock": "Ohio Valley",
+        "Long Beach St": "Big West",
+        "Longwood": "Big South",
+        "Long Island": "Northeast",
+        "Louisiana": "Sun Belt",
+        "Louisiana Monroe": "Sun Belt",
+        "Louisiana Tech": "Conference USA",
+        "Louisville": "Atlantic Coast",
+        "Loyola Chicago": "Atlantic 10",
+        "Loyola Maryland": "Patriot League",
+        "Loyola Marymount": "West Coast",
+        "LSU": "Southeastern",
+        "Manhattan": "Metro Atlantic Athletic",
+        "Marist": "Metro Atlantic Athletic",
+        "Marquette": "Big East",
+        "Marshall": "Sun Belt",
+        "Maryland": "Big Ten",
+        "McNeese": "Southland",
+        "Memphis": "American Athletic",
+        "Mercer": "Southern",
+        "Mercyhurst": "Northeast",
+        "Merrimack": "Metro Atlantic Athletic",
+        "Miami": "Atlantic Coast",
+        "Miami (OH)": "Mid-American",
+        "Michigan": "Big Ten",
+        "Michigan St": "Big Ten",
+        "Middle Tennessee": "Conference USA",
+        "Minnesota": "Big Ten",
+        "Mississippi St": "Southeastern",
+        "Mississippi Valley St": "Southwestern Athletic",
+        "Missouri": "Southeastern",
+        "Missouri St": "Missouri Valley",
+        "Monmouth": "Coastal Athletic",
+        "Montana St": "Big Sky",
+        "Morehead St": "Ohio Valley",
+        "Morgan St": "Mid-Eastern Athletic",
+        "Murray St": "Missouri Valley",
+        "NC State": "Atlantic Coast",
+        "Nebraska": "Big Ten",
+        "Nevada": "Mountain West",
+        "New Mexico": "Mountain West",
+        "New Mexico St": "Conference USA",
+        "NJIT": "America East",
+        "Nicholls": "Southland",
+        "Niagara": "Metro Atlantic Athletic",
+        "Norfolk St": "Mid-Eastern Athletic",
+        "North Carolina A&T": "Coastal Athletic",
+        "North Carolina Central": "Mid-Eastern Athletic",
+        "N Dakota St": "Summit League",
+        "Northeastern": "Coastal Athletic Association",
+        "Northern Arizona": "Big Sky",
+        "Northern Illinois": "Mid-American",
+        "Northern Kentucky": "Horizon League",
+        "North Florida": "Atlantic Sun",
+        "North Texas": "American Athletic",
+        "Northwestern": "Big Ten",
+        "Notre Dame": "Atlantic Coast",
+        "N'Western St": "Southland",
+        "Ohio": "Mid-American",
+        "Ohio State": "Big Ten",
+        "Oklahoma": "Southeastern",
+        "Oklahoma St": "Big 12",
+        "Ole Miss": "Southeastern",
+        "Old Dominion": "Sun Belt",
+        "Omaha": "Summit League",
+        "Oregon": "Big Ten",
+        "Oregon St": "Pac-12",
+        "Oral Roberts": "Summit League",
+        "Pacific": "West Coast",
+        "Penn State": "Big Ten",
+        "Pepperdine": "West Coast",
+        "Pitt": "Atlantic Coast",
+        "Portland": "West Coast",
+        "Portland St": "Big Sky",
+        "Prairie View A&M": "Southwestern Athletic",
+        "Presbyterian": "Big South",
+        "Princeton": "Ivy League",
+        "Providence": "Big East",
+        "Purdue": "Big Ten",
+        "Purdue FW": "Horizon League",
+        "Quinnipiac": "Metro Atlantic Athletic",
+        "Radford": "Big South",
+        "Rice": "American Athletic",
+        "Richmond": "Atlantic 10",
+        "Rider": "Metro Atlantic Athletic",
+        "Robert Morris": "Horizon League",
+        "Rutgers": "Big Ten",
+        "Sacred Heart": "Metro Atlantic Athletic",
+        "Saint Francis": "Northeast",
+        "Saint Joseph's": "Atlantic 10",
+        "Saint Louis": "Atlantic 10",
+        "Saint Mary's": "West Coast",
+        "Saint Peter's": "Metro Atlantic Athletic",
+        "Sam Houston": "Conference USA",
+        "Samford": "Southern",
+        "San Diego": "West Coast",
+        "San Diego St": "Mountain West",
+        "San Francisco": "West Coast",
+        "San Jose St": "Mountain West",
+        "Santa Clara": "West Coast",
+        "Seattle": "Western Athletic",
+        "Seton Hall": "Big East",
+        "Siena": "Metro Atlantic Athletic",
+        "SIU Edwardsville": "Ohio Valley",
+        "SMU": "Atlantic Coast",
+        "South Alabama": "Sun Belt",
+        "South Carolina": "Southeastern",
+        "South Carolina St": "Mid-Eastern Athletic",
+        "South Dakota": "Summit League",
+        "South Dakota St": "Summit League",
+        "South Florida": "American Athletic",
+        "Southeast Missouri St": "Ohio Valley",
+        "Southeastern Louisiana": "Southland",
+        "Southern": "Southwestern Athletic",
+        "Southern Illinois": "Missouri Valley",
+        "Southern Utah": "Western Athletic",
+        "Stanford": "Atlantic Coast",
+        "SF Austin": "Southland",
+        "Stetson": "Atlantic Sun",
+        "St. Bonaventure": "Atlantic 10",
+        "St. John's": "Big East",
+        "St. Peter's": "Metro Atlantic Athletic",
+        "Stonehill": "Northeast",
+        "Stony Brook": "Coastal Athletic",
+        "Syracuse": "Atlantic Coast",
+        "Texas A&M-CC": "Southland",
+        "Tarleton St": "Western Athletic",
+        "TCU": "Big 12",
+        "Temple": "American Athletic",
+        "Tennessee": "Southeastern",
+        "Tennessee St": "Ohio Valley",
+        "Tennessee Tech": "Ohio Valley",
+        "Texas": "Southeastern",
+        "Texas A&M": "Southeastern",
+        "Texas Southern": "Southwestern Athletic",
+        "Texas St": "Sun Belt",
+        "Texas Tech": "Big 12",
+        "The Citadel": "Southern",
+        "Toledo": "Mid-American",
+        "Towson": "Coastal Athletic",
+        "Troy": "Sun Belt",
+        "Tulane": "American Athletic",
+        "Tulsa": "American Athletic",
+        "UAB": "American Athletic",
+        "UCF": "Big 12",
+        "UCLA": "Big Ten",
+        "UC Davis": "Big West",
+        "UC Irvine": "Big West",
+        "UC Riverside": "Big West",
+        "UC San Diego": "Big West",
+        "Santa Barbara": "Big West",
+        "UConn": "Big East",
+        "UIC": "Missouri Valley",
+        "UMass": "Atlantic 10",
+        "UMass Lowell": "America East",
+        "UMBC": "America East",
+        "UMES": "Mid-Eastern Athletic",
+        "North Carolina": "Atlantic Coast",
+        "UNC Asheville": "Big South",
+        "UNC Greensboro": "Southern",
+        "UNC Wilmington": "Coastal Athletic Association",
+        "UNLV": "Mountain West",
+        "USC": "Big Ten",
+        "SC Upstate": "Big South",
+        "Utah": "Big 12",
+        "Utah St": "Mountain West",
+        "Utah Tech": "Western Athletic",
+        "Utah Valley": "Western Athletic",
+        "UT Arlington": "Western Athletic",
+        "UTEP": "Conference USA",
+        "UT Rio Grande Valley": "Southland",
+        "Valparaiso": "Missouri Valley",
+        "VCU": "Atlantic 10",
+        "Vanderbilt": "Southeastern",
+        "Vermont": "America East",
+        "Villanova": "Big East",
+        "Virginia": "Atlantic Coast",
+        "Virginia Tech": "Atlantic Coast",
+        "VMI": "Southern",
+        "Wagner": "Northeast",
+        "Wake Forest": "Atlantic Coast",
+        "Washington": "Big Ten",
+        "Washington St": "Pac-12",
+        "Weber St": "Big Sky",
+        "West Virginia": "Big 12",
+        "Western Carolina": "Southern",
+        "Western Illinois": "Ohio Valley",
+        "Western Kentucky": "Conference USA",
+        "W Michigan": "Mid-American",
+        "Wichita St": "American Athletic",
+        "William & Mary": "Coastal Athletic",
+        "Winthrop": "Big South",
+        "Wisconsin": "Big Ten",
+        "Wofford": "Southern",
+        "Wright St": "Horizon League",
+        "Wyoming": "Mountain West",
+        "Xavier": "Big East",
+        "Yale": "Ivy League",
+        "Youngstown St": "Horizon League"
+};
+
+
     // Function to calculate the refresh interval
      function calculateRefreshInterval() {
         const totalPages = Math.ceil(top25Data.length / pageSize);
@@ -437,7 +787,7 @@ function getCustomTeamName(name) {
                         rank: team.curatedRank?.current || null,
                         record: team.records?.find(r => r.name === "overall")?.summary || "0-0",
                         conferenceId: parseInt(team.team.conferenceId, 10),
-                        conferenceName: team.team.conferenceName || conferenceMapping[team.team.conferenceId] || "Unknown",
+                        conferenceName: teamToConference[getCustomTeamName(team.team.shortDisplayName)] || "Unknown", // Use hardcoded conference mapping
                     })),
                     status: event.status.type.shortDetail || "Scheduled",
                 };
@@ -470,12 +820,11 @@ function getCustomTeamName(name) {
         games.forEach(game => {
             game.teams.forEach(team => {
                 if (
-                    team.conferenceId &&
-                    !uniqueConferences.some(conf => conf.id === team.conferenceId)
+                    team.conferenceName &&
+                    !uniqueConferences.some(conf => conf.name === team.conferenceName)
                 ) {
                     uniqueConferences.push({
-                        id: team.conferenceId,
-                        name: team.conferenceName || conferenceMapping[team.conferenceId] || `Conference ${team.conferenceId}`,
+                        name: team.conferenceName,
                     });
                 }
             });
@@ -483,10 +832,10 @@ function getCustomTeamName(name) {
     
         uniqueConferences.sort((a, b) => a.name.localeCompare(b.name));
     
-        conferenceFilter.innerHTML = '<option value="all">All Conferences</option>'; // Ensure 'All Conferences' is always first
-        uniqueConferences.forEach(({ id, name }) => {
+        conferenceFilter.innerHTML = '<option value="All Conferences">All Conferences</option>'; // Ensure 'All Conferences' is always first
+        uniqueConferences.forEach(({ name }) => {
             const option = document.createElement('option');
-            option.value = id;
+            option.value = name;
             option.textContent = name;
             conferenceFilter.appendChild(option);
         });
@@ -524,16 +873,16 @@ function getCustomTeamName(name) {
         if (conferenceIntervalId) clearInterval(conferenceIntervalId); // Clear any existing interval
     
         // Filter games based on the selected conference
-        const filteredGames = selectedConference === 'all'
+        const filteredGames = selectedConference === 'All Conferences'
             ? conferenceData // Show all games if "All Conferences" is selected
             : conferenceData.filter(game =>
-                  game.teams.some(team => team.conferenceId === parseInt(selectedConference))
+                  game.teams.some(team => team.conferenceName === selectedConference)
               );
     
         if (!filteredGames.length) {
             // If no games match the selected conference
             conferenceScores.innerHTML = '<p>No games available for this conference.</p>';
-            conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
+            conferenceTitle.textContent = `${selectedConference} Scores`;
             return;
         }
     
@@ -567,7 +916,7 @@ function getCustomTeamName(name) {
                 });
     
                 // Update the conference title
-                conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
+                conferenceTitle.textContent = `${selectedConference} Scores`;
     
                 conferenceScores.classList.remove('fade'); // Remove fade-out effect
                 conferenceScores.classList.add('visible'); // Add fade-in effect
@@ -583,6 +932,7 @@ function getCustomTeamName(name) {
 
     // Mapping for modified conference names
 const conferenceNameOverrides = {
+    "All": "Division I",
     "Atlantic Coast": "ACC",
     "Coastal Athletic": "CAA",
     "Metro Atlantic Athletic": "MAAC",
@@ -667,6 +1017,29 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         card.className = 'game-card';
         card.style.background = `linear-gradient(135deg, ${team2Color}, ${team1Color})`;
 
+
+         // Function to convert EST time to user's local time
+function convertToLocalTime(estTime) {
+    const [time, period] = estTime.split(' ').slice(0, 2); // Extract "5:00 PM"
+    if (!time || !period) return "Invalid Time"; // Fallback for unexpected formats
+
+    // Extract hours and minutes
+    const [hours, minutes] = time.split(':').map(Number);
+
+    let estHours = hours;
+    if (period === "PM" && hours !== 12) estHours += 12; // Convert PM hours
+    if (period === "AM" && hours === 12) estHours = 0; // Convert 12 AM to 0
+
+    // Get today's date
+    const now = new Date();
+
+    // Create a date object in UTC based on EST (Eastern Time is UTC-5 or UTC-4 with DST)
+    const estDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), estHours + 5, minutes));
+
+    // Convert to the user's local timezone
+    return estDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+}
+
       // Determine what to display in the status
 let displayStatus = '';
 if (game.status.includes('1st') || game.status.includes('2nd') || game.status.includes('3rd') || game.status.includes('4th') || game.status.includes('OT') || game.status.includes('2OT') || game.status.includes('3OT') || game.status.includes('4OT')) {
@@ -674,7 +1047,8 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     displayStatus = game.status; // Display full status for ongoing games
 } else if (game.status.includes('-')) {
     // Scheduled game (e.g., "1/8 - 9:00 PM EST")
-    displayStatus = game.status.split('-')[1]?.trim(); // Extract the time only
+    const timeString = game.status.split('-')[1]?.trim(); // Extract "5:00 PM EST"
+    displayStatus = convertToLocalTime(timeString); // Convert EST to local time
 } else {
     // Default case for unrecognized statuses
     displayStatus = game.status;
@@ -684,24 +1058,28 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
 
 
  card.innerHTML = `
-      <div class="team-left">
+    <div class="team-left">
         <div class="team-logo-container">
             <img src="${team2.logo}" alt="${team2.name}" class="team-logo" />
-            <div class="record">(${team2.record})</div> <!-- Record is under the logo -->
+            <div class="record">${team2.record.replace('\n', '<br>')}</div> <!-- Record is under the logo -->
         </div>
         <div>
-            <div class="team-name">${isTop25 && team2.rank >= 1 && team2.rank <= 25 ? `#${team2.rank} ` : ''}${team2.name}</div>
+            <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2.name}</div>
             <div class="score">${team2.score}</div>
         </div>
     </div>
-    <div class="status">${displayStatus}</div>
-    <div class="team team-right">
+
+    <div class="status-wrapper">
+        <div class="status">${displayStatus}</div>
+    </div>
+
+    <div class="team-right">
         <div class="team-logo-container">
             <img src="${team1.logo}" alt="${team1.name}" class="team-logo" />
-            <div class="record">(${team1.record})</div> <!-- Record is under the logo -->
+            <div class="record">${team1.record.replace('\n', '<br>')}</div> <!-- Record is under the logo -->
         </div>
         <div>
-            <div class="team-name">${isTop25 && team1.rank >= 1 && team1.rank <= 25 ? `#${team1.rank} ` : ''}${team1.name}</div>
+           <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1.name}</div>
             <div class="score">${team1.score}</div>
         </div>
     </div>
