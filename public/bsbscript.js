@@ -449,6 +449,7 @@ function getCustomTeamName(name) {
         "Colgate": "Patriot League",
         "Coppin St": "Mid-Eastern Athletic",
         "Creighton": "Big East",
+        "Dallas Baptist": "Conference USA",
         "Dartmouth": "Ivy League",
         "Davidson": "Atlantic 10",
         "Dayton": "Atlantic 10",
