@@ -596,7 +596,7 @@ function getCustomTeamName(name) {
         "Oregon St": "Pac-12",
         "Oral Roberts": "Summit League",
         "Pacific": "West Coast",
-        "Penn St": "Big Ten",
+        "Penn State": "Big Ten",
         "Pepperdine": "West Coast",
         "Pitt": "Atlantic Coast",
         "Portland": "West Coast",
