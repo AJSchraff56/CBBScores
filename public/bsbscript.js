@@ -584,7 +584,7 @@ function getCustomTeamName(name) {
         "Northwestern": "Big Ten",
         "N'Western St": "Southland",
         "Ohio": "Mid-American",
-        "Ohio St": "Big Ten",
+        "Ohio State": "Big Ten",
         "Oklahoma": "Southeastern",
         "Oklahoma St": "Big 12",
         "Ole Miss": "Southeastern",
