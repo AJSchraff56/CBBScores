@@ -582,6 +582,7 @@ function getCustomTeamName(name) {
         "North Florida": "Atlantic Sun",
         "North Texas": "American Athletic",
         "Northwestern": "Big Ten",
+        "Notre Dame": "Atlantic Coast",
         "N'Western St": "Southland",
         "Ohio": "Mid-American",
         "Ohio State": "Big Ten",
