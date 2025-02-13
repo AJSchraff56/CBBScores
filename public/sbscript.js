@@ -654,7 +654,7 @@ function getCustomTeamName(name) {
         "Southeast Missouri St": "Ohio Valley",
         "Southeastern Louisiana": "Southland",
         "Southern": "Southwestern Athletic",
-        "Southern Illinois": "Missouri Valley",
+        "SIU": "Missouri Valley",
         "Southern Utah": "Western Athletic",
         "Stanford": "Atlantic Coast",
         "SF Austin": "Southland",
