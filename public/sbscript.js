@@ -487,7 +487,7 @@ function getCustomTeamName(name) {
         "FGCU": "Atlantic Sun",
         "Florida": "Southeastern",
         "Florida A&M": "Southwestern Athletic",
-        "Florida Atlantic": "American Athletic",
+        "FAU": "American Athletic",
         "Florida St": "Atlantic Coast",
         "Fordham": "Atlantic 10",
         "Fresno St": "Mountain West",
