@@ -729,7 +729,7 @@ function getCustomTeamName(name) {
         "Western Illinois": "Ohio Valley",
         "Western Kentucky": "Conference USA",
         "W Michigan": "Mid-American",
-        "Wichita St": "American Athletic",
+        "Wichita State": "American Athletic",
         "William & Mary": "Coastal Athletic",
         "Winthrop": "Big South",
         "Wisconsin": "Big Ten",
