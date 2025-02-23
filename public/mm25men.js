@@ -451,8 +451,7 @@ function getCustomTeamName(name) {
             const data = await response.json();
             console.log("API Data Fetched:", data);
 
-           top25Data = [];
-conferenceData = [];
+         
 
 const games = data.events.map(event => {
     const competition = event.competitions[0];
@@ -460,323 +459,108 @@ const games = data.events.map(event => {
         matchup: event.name,
         teams: competition.competitors.map(team => {
             const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "N/A";
-            const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
-            const conferenceName = getConferenceName(team.team.conferenceId); // Ensure it's assigned here
-
-            const formattedRecord = confRecord ? `${overallRecord}\n${confRecord}` : `${overallRecord}`;
-
             return {
                 name: getCustomTeamName(team.team.shortDisplayName),
                 score: team.score || "0",
                 logo: team.team.logo || '',
                 rank: team.curatedRank?.current || null,
-                record: formattedRecord, // Ensure conference name is assigned
-                conferenceId: parseInt(team.team.conferenceId, 10),
-                conferenceName: conferenceName, 
+                record: overallRecord,
             };
         }),
         status: event.status.type.shortDetail || "Scheduled",
     };
 });
 
-top25Data = games.filter(game => game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25));
-conferenceData = games;
-
 console.log("Mapped Games:", games);
-console.log("Top 25 Games:", top25Data);
-    
-            
-            conferenceData = games;
-            
-            populateConferenceDropdown(conferenceData);
 
-            setTimeout(() => {
-            console.log("Starting Top 25 Cycle...");
-            startTop25Cycle();
-        }, 500); // Small delay to ensure dropdown is populated
-            
-            startTop25Cycle();
-            startConferenceCycle();
+    
+
+            updateScores(games);
         } catch (error) {
             console.error('Error fetching scores:', error);
-            top25Scores.innerHTML = '<p>Error loading Top 25 scores</p>';
-            conferenceScores.innerHTML = '<p>Error loading scores</p>';
+            scoresContainer.innerHTML = '<p>Error loading scores</p>';
         }
     }
     
-    // Populate the conference dropdown
-    function populateConferenceDropdown(games) {
-        const uniqueConferences = [];
-    
+
+    function updateScores(games) {
+        scorescontainer.innerHTML = '';
         games.forEach(game => {
-            game.teams.forEach(team => {
-                if (
-                    team.conferenceId &&
-                    !uniqueConferences.some(conf => conf.id === team.conferenceId)
-                ) {
-                    uniqueConferences.push({
-                        id: team.conferenceId,
-                        name: team.conferenceName || conferenceMapping[team.conferenceId] || `Conference ${team.conferenceId}`,
-                    });
-                }
-            });
-        });
-    
-        uniqueConferences.sort((a, b) => a.name.localeCompare(b.name));
-    
-        conferenceFilter.innerHTML = '<option value="all">All Conferences</option>'; // Ensure 'All Conferences' is always first
-        uniqueConferences.forEach(({ id, name }) => {
-            const option = document.createElement('option');
-            option.value = id;
-            option.textContent = name;
-            conferenceFilter.appendChild(option);
+            const card = createGameCard(game);
+            scoresContainer.appendChild(card);
         });
     }
-    
 
-// Rotate Top 25 Scores
-   function startTop25Cycle() {
-    if (!top25Data.length) {
-        top25Scores.innerHTML = '<p>No games available for Top 25.</p>';
-        return;
-    }
-
-    const totalPages = Math.ceil(top25Data.length / pageSize);
-    let currentPage = 0;
-
-    function updateScores() {
-        top25Scores.innerHTML = '';
-        const start = currentPage * pageSize;
-        const end = start + pageSize;
-        top25Data.slice(start, end).forEach(game => {
-            const card = createGameCard(game, true);
-            top25Scores.appendChild(card);
-        });
-        currentPage = (currentPage + 1) % totalPages;
-    }
-
-    updateScores();
-    setInterval(updateScores, 10000);
-}
-
-
-      // Rotate Conference Scores
-      function startConferenceCycle() {
-        if (conferenceIntervalId) clearInterval(conferenceIntervalId); // Clear any existing interval
-    
-        // Filter games based on the selected conference
-        const filteredGames = selectedConference === 'all'
-            ? conferenceData // Show all games if "All Conferences" is selected
-            : conferenceData.filter(game =>
-                  game.teams.some(team => team.conferenceId === parseInt(selectedConference))
-              );
-    
-        if (!filteredGames.length) {
-            // If no games match the selected conference
-            conferenceScores.innerHTML = '<p>No games available for this conference.</p>';
-            conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
-            return;
-        }
-    
-        if (filteredGames.length <= pageSize) {
-            // Display all games without cycling if games are fewer than or equal to the page size
-            conferenceScores.innerHTML = '';
-            filteredGames.forEach(game => {
-                const card = createGameCard(game, false);
-                conferenceScores.appendChild(card);
-            });
-            conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
-            return;
-        }
-    
-        // Cycle through pages for conferences with more games
-        const totalPages = Math.ceil(filteredGames.length / pageSize);
-        let currentPage = 0;
-    
-        function updateScores() {
-            conferenceScores.classList.add('fade'); // Start fade-out effect
-    
-            setTimeout(() => {
-                // Clear current scores and populate with the next page of games
-                conferenceScores.innerHTML = '';
-    
-                const start = currentPage * pageSize;
-                const end = start + pageSize;
-                filteredGames.slice(start, end).forEach(game => {
-                    const card = createGameCard(game, false);
-                    conferenceScores.appendChild(card);
-                });
-    
-                // Update the conference title
-                conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
-    
-                conferenceScores.classList.remove('fade'); // Remove fade-out effect
-                conferenceScores.classList.add('visible'); // Add fade-in effect
-            }, 500); // Wait for fade-out to complete
-    
-            currentPage = (currentPage + 1) % totalPages; // Cycle to the next page
-        }
-    
-        updateScores(); // Initial update
-        conferenceIntervalId = setInterval(updateScores, 10000); // Cycle every 10 seconds
-    }
-    
-
-    // Mapping for modified conference names
-const conferenceNameOverrides = {
-    "Atlantic Coast": "ACC",
-    "Coastal Athletic": "CAA",
-    "Metro Atlantic Athletic": "MAAC",
-    "Mid-American": "MAC",
-    "Mid-Eastern Athletic": "MEAC",
-    "Missouri Valley": "MVC",
-    "Northeast": "NEC",
-    "Ohio Valley": "OVC",
-    "Southeastern": "SEC",
-    "Southern": "SoCon",
-    "Southland": "SLC",
-    "Southwestern Athletic": "SWAC",
-    "Sun Belt": "Sun Belt Conference",
-    "West Coast": "WCC",
-    "Western Athletic": "WAC",
-    "Atlantic Sun": "ASUN",
-    "American Athletic": "AAC"
-};
-
-// Utility to get the modified conference name
-function getConferenceName(conferenceId) {
-    const selected = conferenceFilter.querySelector(`option[value="${conferenceId}"]`);
-    if (selected) {
-        const originalName = selected.textContent;
-        return conferenceNameOverrides[originalName] || originalName;
-    }
-    return conferenceMapping[conferenceId] || "Unknown Conference"; // Use mapping if dropdown isn't ready
-}
-
-const conferenceMapping = {
-    1: "America East",
-    2: "Atlantic Coast",
-    3: "Atlantic 10",
-    4: "Big East",
-    5: "Big Sky",
-    6: "Big South",
-    7: "Big Ten",
-    8: "Big 12",
-    9: "Big West",
-    10: "Coastal Athletic",
-    11: "Conference USA",
-    12: "Ivy League",
-    13: "Metro Atlantic Athletic",
-    14: "Mid-American",
-    16: "Mid-Eastern Athletic",
-    18: "Missouri Valley",
-    19: "Northeast",
-    20: "Ohio Valley",
-    22: "Patriot League",
-    23: "Southeastern",
-    24: "Southern",
-    25: "Southland",
-    26: "Southwestern Athletic",
-    27: "Sun Belt",
-    29: "West Coast",
-    30: "Western Athletic",
-    44: "Mountain West",
-    45: "Horizon League",
-    46: "Atlantic Sun",
-    49: "Summit League",
-    62: "American Athletic",
-};
-
-// Example usage when updating conference title
-conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
-
-
-    // Create a Game Card with Gradient Background
-    function createGameCard(game, isTop25) {
+function createGameCard(game) {
         const [team1, team2] = game.teams;
 
-        // Get team colors or use defaults
         const team1Color = teamColors[team1.name] || defaultColor1;
         const team2Color = teamColors[team2.name] || defaultColor2;
 
-            // Get overridden team names
         const team1Name = getCustomTeamName(team1.name);
         const team2Name = getCustomTeamName(team2.name);
-
 
         const card = document.createElement('div');
         card.className = 'game-card';
         card.style.background = `linear-gradient(135deg, ${team2Color}, ${team1Color})`;
 
+        function convertToLocalTime(estTime) {
+            const [time, period] = estTime.split(' ').slice(0, 2);
+            if (!time || !period) return "Invalid Time";
 
-     // Function to convert EST time to user's local time
-function convertToLocalTime(estTime) {
-    const [time, period] = estTime.split(' ').slice(0, 2); // Extract "5:00 PM"
-    if (!time || !period) return "Invalid Time"; // Fallback for unexpected formats
+            const [hours, minutes] = time.split(':').map(Number);
 
-    // Extract hours and minutes
-    const [hours, minutes] = time.split(':').map(Number);
+            let estHours = hours;
+            if (period === "PM" && hours !== 12) estHours += 12;
+            if (period === "AM" && hours === 12) estHours = 0;
 
-    let estHours = hours;
-    if (period === "PM" && hours !== 12) estHours += 12; // Convert PM hours
-    if (period === "AM" && hours === 12) estHours = 0; // Convert 12 AM to 0
+            const now = new Date();
 
-    // Get today's date
-    const now = new Date();
+            const estDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), estHours + 5, minutes));
 
-    // Create a date object in UTC based on EST (Eastern Time is UTC-5 or UTC-4 with DST)
-    const estDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), estHours + 5, minutes));
+            return estDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
 
-    // Convert to the user's local timezone
-    return estDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
-}
+        let displayStatus = '';
+        if (game.status.includes('1st') || game.status.includes('2nd') || game.status.includes('3rd') || game.status.includes('4th') || game.status.includes('OT') || game.status.includes('2OT')) {
+            displayStatus = game.status;
+        } else if (game.status.includes('-')) {
+            const timeString = game.status.split('-')[1]?.trim();
+            displayStatus = convertToLocalTime(timeString);
+        } else {
+            displayStatus = game.status;
+        }
 
-      // Determine what to display in the status
-let displayStatus = '';
-if (game.status.includes('1st') || game.status.includes('2nd') || game.status.includes('3rd') || game.status.includes('4th') || game.status.includes('OT') || game.status.includes('2OT') || game.status.includes('3OT') || game.status.includes('4OT')) {
-    // Ongoing game (e.g., "1st - 12:34", "2nd - 8:15", or "Overtime")
-    displayStatus = game.status; // Display full status for ongoing games
-} else if (game.status.includes('-')) {
-    // Scheduled game (e.g., "1/8 - 9:00 PM EST")
-    const timeString = game.status.split('-')[1]?.trim(); // Extract "5:00 PM EST"
-    displayStatus = convertToLocalTime(timeString); // Convert EST to local time
-} else {
-    // Default case for unrecognized statuses
-    displayStatus = game.status;
-}
+        card.innerHTML = `
+            <div class="team-left">
+                <div class="team-logo-container">
+                    <img src="${team2.logo}" alt="${team2.name}" class="team-logo" />
+                    <div class="record">${team2.record}</div>
+                </div>
+                <div>
+                    <div class="team-name">#${team2.rank} ${team2.name}</div>
+                    <div class="score">${team2.score}</div>
+                </div>
+            </div>
+            <div class="status-wrapper">
+                <div class="status">${displayStatus}</div>
+            </div>
+            <div class="team-right">
+                <div class="team-logo-container">
+                    <img src="${team1.logo}" alt="${team1.name}" class="team-logo" />
+                    <div class="record">${team1.record}</div>
+                </div>
+                <div>
+                    <div class="team-name">#${team1.rank} ${team1.name}</div>
+                    <div class="score">${team1.score}</div>
+                </div>
+            </div>
+        `;
+        return card;
+    }
 
-
-
-
- card.innerHTML = `
-    <div class="team-left">
-        <div class="team-logo-container">
-            <img src="${team2.logo}" alt="${team2.name}" class="team-logo" />
-            <div class="record">${team2.record.replace('\n', '<br>')}</div> <!-- Record is under the logo -->
-        </div>
-        <div>
-            <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2.name}</div>
-            <div class="score">${team2.score}</div>
-        </div>
-    </div>
-
-    <div class="status-wrapper">
-        <div class="status">${displayStatus}</div>
-    </div>
-
-    <div class="team-right">
-        <div class="team-logo-container">
-            <img src="${team1.logo}" alt="${team1.name}" class="team-logo" />
-            <div class="record">${team1.record.replace('\n', '<br>')}</div> <!-- Record is under the logo -->
-        </div>
-        <div>
-           <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1.name}</div>
-            <div class="score">${team1.score}</div>
-        </div>
-    </div>
-`;
-    return card;
-}
+    fetchScores();
+});
 
     // Handle Conference Filter Change
     conferenceFilter.addEventListener('change', () => {
