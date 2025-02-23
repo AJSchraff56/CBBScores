@@ -138,9 +138,9 @@ body.sbscores, body.sbindex {
 .scoresContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 100vw; /* Full viewport width */
+    width: calc(100vw - 40px); /* Full viewport width */
     height: 100vh; /* Full viewport height */
     padding: 20px;
     box-sizing: border-box;
