@@ -3,6 +3,9 @@ console.log("script.js loaded");
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM content loaded");
 
+     // Define scoresContainer
+    const scoresContainer = document.getElementById('scores-container'); // Replace 'scores-container' with the actual ID of your container element
+
  // Custom team names mapping
 const customTeamNames = {
     "E Illinois": "Eastern Illinois",
