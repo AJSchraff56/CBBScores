@@ -559,35 +559,8 @@ function createGameCard(game) {
         return card;
     }
 
-    fetchScores();
-});
-
-    // Handle Conference Filter Change
-    conferenceFilter.addEventListener('change', () => {
-        selectedConference = conferenceFilter.value;
-        conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
-        startConferenceCycle();
-    });
-
-    let mouseMoveTimeout = null; // Declare the timeout variable globally
-
-    // Hide dropdown when idle
-    document.addEventListener('mousemove', () => {
-        if (!conferenceFilter) return; // Safety check if conferenceFilter is undefined
-        conferenceFilter.classList.remove('hidden'); // Show dropdown
-        clearTimeout(mouseMoveTimeout); // Clear the existing timeout
-        mouseMoveTimeout = setTimeout(() => {
-            conferenceFilter.classList.add('hidden'); // Hide dropdown after 3 seconds
-        }, 3000); // 3 seconds of inactivity
-    });
-    
-    // Ensure dropdown is visible when the page loads
-    if (conferenceFilter) {
-        conferenceFilter.classList.remove('hidden');
-    }
-   
-// Fetch scores on page load and start auto-refresh only after fetching scores
     fetchScores().then(() => {
         startAutoRefresh();
     });
 });
+
