@@ -133,6 +133,42 @@ body.sbscores, body.sbindex {
     scrollbar-color: #444 #1e1e1e;
     
 }
+
+/* Full screen container for scores */
+.scoresContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Container for individual sides */
+.scoresContainer .side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 45%; /* Each side takes up 45% of the width */
+    height: 100%;
+}
+
+/* Individual score styling */
+.scoresContainer .score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    font-size: 24px;
+}
+
 /* Fade effect for smooth transitions */
 .fade {
     opacity: 0;
