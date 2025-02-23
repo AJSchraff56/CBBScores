@@ -1,27 +1,8 @@
 console.log("script.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
-    
-});
-
-document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM content loaded");
 
-    const top25Scores = document.getElementById('top25Scores');
-    const conferenceScores = document.getElementById('conferenceScores');
-    const conferenceFilter = document.getElementById('conferenceFilter');
-    const conferenceTitle = document.getElementById('conferenceTitle');
-
-    if (!top25Scores || !conferenceScores || !conferenceFilter) {
-        console.error('Required elements not found. Exiting script.');
-        return;
-    }
-
-    let selectedConference = 'all';
-    const pageSize = 4;
-    let top25Data = [], conferenceData = [];
-    let conferenceIntervalId = null; // Track conference cycling interval
-    
  // Custom team names mapping
 const customTeamNames = {
     "E Illinois": "Eastern Illinois",
