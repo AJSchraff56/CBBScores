@@ -540,6 +540,17 @@ function createGameCard(game) {
         return card;
     }
 
+    function startAutoRefresh() {
+    if (refreshIntervalId) clearInterval(refreshIntervalId);
+    const refreshInterval = 20000; // 20 seconds in milliseconds
+    console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
+    refreshIntervalId = setInterval(() => {
+        fetchScores().then(() => {
+            // No need to adjust refresh interval since it's constant
+        });
+    }, refreshInterval);
+}
+
     fetchScores().then(() => {
         startAutoRefresh();
     });
