@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM content loaded");
 
      // Define scoresContainer
-    const scoresContainer = document.getElementById('scoresContainer'); // Replace 'scores-container' with the actual ID of your container element
+    const scoresContainer = document.getElementById('allScoresContainer'); // Replace 'scores-container' with the actual ID of your container element
 
  // Custom team names mapping
 const customTeamNames = {
