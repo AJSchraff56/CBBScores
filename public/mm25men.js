@@ -465,7 +465,7 @@ console.log("Mapped Games:", games);
     
 
     function updateScores(games) {
-        scorescontainer.innerHTML = '';
+        scoresContainer.innerHTML = '';
         games.forEach(game => {
             const card = createGameCard(game);
             scoresContainer.appendChild(card);
