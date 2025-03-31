@@ -18,6 +18,11 @@ body.mscores, body.wscores {
     background-image: url('https://i.ibb.co/4Z5JKsSf/basketball-and-hardwood-basketball-court-floor-vie-2025-01-08-03-36-06-utc.png');
 }
 
+/* Background image for 25fbscores.html */
+body.25fbscores {
+    background-image: url('https://i.ibb.co/YFy3z3yy/american-football-ball-on-dark-background-2023-11-27-05-25-21-utc.jpg');
+}
+
 /* Background image for index.html */
 body.index {
     background-image: url('https://i.ibb.co/N6rt46Xz/football-stadium-in-lights-2024-10-18-03-31-02-utc.jpg');
