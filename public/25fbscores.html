@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L9WKQBPXSW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-L9WKQBPXSW');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Basketball Scores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="mscores">
+    <div class="content-wrapper">
+        <div class="container" id="top25Container">
+            <img src="https://i.ibb.co/v6ghPbjR/GBD-logo-header-light.png" class="logo-above-title" alt="Logo">
+            <h1 class="section-title">Top 25 Scores</h1>
+            <div class="score-container" id="top25Scores"></div>
+        </div>
+        <div class="container" id="conferenceContainer">
+            <img src="https://i.ibb.co/v6ghPbjR/GBD-logo-header-light.png" class="logo-above-title" alt="Logo">
+            <h1 class="section-title" id="conferenceTitle">Filter by Conference</h1>
+            <div class="score-container" id="conferenceScores"></div>
+            <select id="conferenceFilter">
+                <option value="all">All Conferences</option>
+            </select>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
