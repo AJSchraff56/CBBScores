@@ -443,7 +443,7 @@ function getCustomTeamName(name) {
     async function fetchScores() {
         try {
             console.log("Fetching scores...");
-            const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?limit=500&groups=50');
+            const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
