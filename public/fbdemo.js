@@ -1,8 +1,6 @@
 console.log("script.js loaded");
 
-document.addEventListener('DOMContentLoaded', () => {
-     // Define custom Top 25 rankings
-    const customTop25 = [
+ const customTop25 = [
     { rank: 1, name: "Ohio State" },
     { rank: 2, name: "Texas" },
     { rank: 3, name: "Penn State" },
@@ -29,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
     { rank: 24, name: "Boise State" },
     { rank: 25, name: "Ole Miss" }
 ];
+
+
+document.addEventListener('DOMContentLoaded', () => {
+     // Define custom Top 25 rankings
+   
 
     conferenceScores.classList.add('visible');
 });
