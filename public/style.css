@@ -38,7 +38,7 @@ body.fbdemo::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 100rem; /* Adjust size as needed */
+    font-size: 30rem; /* Adjust size as needed */
     color: rgba(255, 255, 255, 0.2); /* Black text with 20% opacity */
     z-index: 1000; /* Ensures it appears above other content */
     pointer-events: none; /* Allows clicks to pass through */
