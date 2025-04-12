@@ -1,11 +1,5 @@
 console.log("script.js loaded");
 
-
-console.log(`API Team Name: ${team.team.shortDisplayName}`);
-console.log(`Normalized Name: ${getCustomTeamName(team.team.shortDisplayName)}`);
-const customRank = customTop25.find(entry => entry.name === getCustomTeamName(team.team.shortDisplayName))?.rank || 99;
-console.log(`Matched Rank: ${customRank}`);
-
 document.addEventListener('DOMContentLoaded', () => {
      // Define custom Top 25 rankings
     const customTop25 = [
