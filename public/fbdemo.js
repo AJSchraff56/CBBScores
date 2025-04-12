@@ -495,8 +495,8 @@ function getCustomTeamName(name) {
             const formattedRecord = confRecord ? `${overallRecord}\n${confRecord}` : `${overallRecord}`;
 
             // Find the rank based on customTop25
-            const customRank = customTop25.find(entry => entry.name === getCustomTeamName(team.team.shortDisplayName))?.rank || null;
-
+            const customRank = customTop25.find(entry => entry.name === getCustomTeamName(team.team.shortDisplayName))?.rank || 99;
+            team.rank = customRank; // Override the rank with the custom rank
             return {
                 name: getCustomTeamName(team.team.shortDisplayName),
                 score: team.score || "0",
@@ -513,8 +513,9 @@ function getCustomTeamName(name) {
 
 
             // Use custom Top 25 rankings
-            top25Data = games.filter(game => game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25));
-            conferenceData = games;
+            top25Data = games.filter(game => 
+                 game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25)
+            );
 
             console.log("Mapped Games:", games);
             console.log("Top 25 Games:", top25Data);
