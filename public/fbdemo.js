@@ -1,6 +1,15 @@
 console.log("script.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
+     // Define custom Top 25 rankings
+    const customTop25 = [
+        "Ohio State", "Texas", "Penn State", "Notre Dame", "Georgia", "Oregon", 
+        "Alabama", "LSU", "Clemson", "Tennessee", "Florida State", 
+        "Arizona State", "Utah", "Oklahoma", "SMU", "Kansas State", 
+        "Indiana", "Florida", "Tennessee", "Louisville", "Michigan", 
+        "Texas A&M", "Miami", "Boise State", "Ole Miss"
+    ];
+
     conferenceScores.classList.add('visible');
 });
 
@@ -451,50 +460,48 @@ function getCustomTeamName(name) {
             const data = await response.json();
             console.log("API Data Fetched:", data);
 
-           top25Data = [];
-conferenceData = [];
+            top25Data = [];
+            conferenceData = [];
 
-const games = data.events.map(event => {
-    const competition = event.competitions[0];
-    return {
-        matchup: event.name,
-        teams: competition.competitors.map(team => {
-            const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "N/A";
-            const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
-            const conferenceName = getConferenceName(team.team.conferenceId); // Ensure it's assigned here
+            const games = data.events.map(event => {
+                const competition = event.competitions[0];
+                return {
+                    matchup: event.name,
+                    teams: competition.competitors.map(team => {
+                        const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "N/A";
+                        const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
+                        const conferenceName = getConferenceName(team.team.conferenceId);
 
-            const formattedRecord = confRecord ? `${overallRecord}\n${confRecord}` : `${overallRecord}`;
+                        const formattedRecord = confRecord ? `${overallRecord}\n${confRecord}` : `${overallRecord}`;
 
-            return {
-                name: getCustomTeamName(team.team.shortDisplayName),
-                score: team.score || "0",
-                logo: team.team.logo || '',
-                rank: team.curatedRank?.current || null,
-                record: formattedRecord, // Ensure conference name is assigned
-                conferenceId: parseInt(team.team.conferenceId, 10),
-                conferenceName: conferenceName, 
-            };
-        }),
-        status: event.status.type.shortDetail || "Scheduled",
-    };
-});
+                        return {
+                            name: getCustomTeamName(team.team.shortDisplayName),
+                            score: team.score || "0",
+                            logo: team.team.logo || '',
+                            rank: customTop25.indexOf(getCustomTeamName(team.team.shortDisplayName)) + 1 || null, // Use custom ranking
+                            record: formattedRecord,
+                            conferenceId: parseInt(team.team.conferenceId, 10),
+                            conferenceName: conferenceName,
+                        };
+                    }),
+                    status: event.status.type.shortDetail || "Scheduled",
+                };
+            });
 
-top25Data = games.filter(game => game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25));
-conferenceData = games;
-
-console.log("Mapped Games:", games);
-console.log("Top 25 Games:", top25Data);
-    
-            
+            // Use custom Top 25 rankings
+            top25Data = games.filter(game => game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25));
             conferenceData = games;
-            
+
+            console.log("Mapped Games:", games);
+            console.log("Top 25 Games:", top25Data);
+
             populateConferenceDropdown(conferenceData);
 
             setTimeout(() => {
-            console.log("Starting Top 25 Cycle...");
-            startTop25Cycle();
-        }, 500); // Small delay to ensure dropdown is populated
-            
+                console.log("Starting Top 25 Cycle...");
+                startTop25Cycle();
+            }, 500); // Small delay to ensure dropdown is populated
+
             startTop25Cycle();
             startConferenceCycle();
         } catch (error) {
