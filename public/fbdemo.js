@@ -3,12 +3,32 @@ console.log("script.js loaded");
 document.addEventListener('DOMContentLoaded', () => {
      // Define custom Top 25 rankings
     const customTop25 = [
-        "Ohio State", "Texas", "Penn State", "Notre Dame", "Georgia", "Oregon", 
-        "Alabama", "LSU", "Clemson", "Tennessee", "Florida State", 
-        "Arizona State", "Utah", "Oklahoma", "SMU", "Kansas State", 
-        "Indiana", "Florida", "Tennessee", "Louisville", "Michigan", 
-        "Texas A&M", "Miami", "Boise State", "Ole Miss"
-    ];
+    { rank: 1, name: "Ohio State" },
+    { rank: 2, name: "Texas" },
+    { rank: 3, name: "Penn State" },
+    { rank: 4, name: "Notre Dame" },
+    { rank: 5, name: "Georgia" },
+    { rank: 6, name: "Oregon" },
+    { rank: 7, name: "Alabama" },
+    { rank: 8, name: "LSU" },
+    { rank: 9, name: "Clemson" },
+    { rank: 10, name: "Tennessee" },
+    { rank: 11, name: "Florida State" },
+    { rank: 12, name: "Arizona State" },
+    { rank: 13, name: "Utah" },
+    { rank: 14, name: "Oklahoma" },
+    { rank: 15, name: "SMU" },
+    { rank: 16, name: "Kansas State" },
+    { rank: 17, name: "Indiana" },
+    { rank: 18, name: "Florida" },
+    { rank: 19, name: "Tennessee" },
+    { rank: 20, name: "Louisville" },
+    { rank: 21, name: "Michigan" },
+    { rank: 22, name: "Texas A&M" },
+    { rank: 23, name: "Miami" },
+    { rank: 24, name: "Boise State" },
+    { rank: 25, name: "Ole Miss" }
+];
 
     conferenceScores.classList.add('visible');
 });
@@ -464,29 +484,33 @@ function getCustomTeamName(name) {
             conferenceData = [];
 
             const games = data.events.map(event => {
-                const competition = event.competitions[0];
-                return {
-                    matchup: event.name,
-                    teams: competition.competitors.map(team => {
-                        const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "N/A";
-                        const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
-                        const conferenceName = getConferenceName(team.team.conferenceId);
+    const competition = event.competitions[0];
+    return {
+        matchup: event.name,
+        teams: competition.competitors.map(team => {
+            const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "N/A";
+            const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
+            const conferenceName = getConferenceName(team.team.conferenceId);
 
-                        const formattedRecord = confRecord ? `${overallRecord}\n${confRecord}` : `${overallRecord}`;
+            const formattedRecord = confRecord ? `${overallRecord}\n${confRecord}` : `${overallRecord}`;
 
-                        return {
-                            name: getCustomTeamName(team.team.shortDisplayName),
-                            score: team.score || "0",
-                            logo: team.team.logo || '',
-                            rank: customTop25.indexOf(getCustomTeamName(team.team.shortDisplayName)) + 1 || null, // Use custom ranking
-                            record: formattedRecord,
-                            conferenceId: parseInt(team.team.conferenceId, 10),
-                            conferenceName: conferenceName,
-                        };
-                    }),
-                    status: event.status.type.shortDetail || "Scheduled",
-                };
-            });
+            // Find the rank based on customTop25
+            const customRank = customTop25.find(entry => entry.name === getCustomTeamName(team.team.shortDisplayName))?.rank || null;
+
+            return {
+                name: getCustomTeamName(team.team.shortDisplayName),
+                score: team.score || "0",
+                logo: team.team.logo || '',
+                rank: customRank, // Use custom rank
+                record: formattedRecord,
+                conferenceId: parseInt(team.team.conferenceId, 10),
+                conferenceName: conferenceName,
+            };
+        }),
+        status: event.status.type.shortDetail || "Scheduled",
+    };
+});
+
 
             // Use custom Top 25 rankings
             top25Data = games.filter(game => game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25));
