@@ -23,7 +23,7 @@ console.log("script.js loaded");
     { rank: 20, name: "Louisville" },
     { rank: 21, name: "Michigan" },
     { rank: 22, name: "Texas A&M" },
-    { rank: 23, name: "Miami" },
+    { rank: 23, name: "USC" },
     { rank: 24, name: "Boise State" },
     { rank: 25, name: "Ole Miss" }
 ];
