@@ -236,7 +236,7 @@ body.sbscores, body.sbindex {
     padding: 20px 20px;
     border-radius: 10px;
     height: calc(100% / 4 - 10px); /* Ensure 4 cards fit with spacing */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden; /* Prevent overflow */
     position: relative; /* Ensure child elements stay contained */
 }
