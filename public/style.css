@@ -122,7 +122,6 @@ body.sbscores, body.sbindex {
     padding: 5px;
     display: flex;
     flex-direction: column;
-    background-color: #1e1e1e;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     overflow: hidden;
