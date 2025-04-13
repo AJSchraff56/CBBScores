@@ -514,6 +514,8 @@ function getCustomTeamName(name) {
     };
 });
 
+conferenceData = games; // 🧩 This is the missing piece
+
 
             // Use custom Top 25 rankings
             top25Data = games.filter(game => 
