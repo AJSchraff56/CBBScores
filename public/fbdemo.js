@@ -486,7 +486,7 @@ function getCustomTeamName(name) {
             top25Data = [];
             conferenceData = [];
 
-            const games = data.events.map(event => {
+           const games = data.events.map(event => {
     const competition = event.competitions[0];
     return {
         matchup: event.name,
@@ -514,34 +514,21 @@ function getCustomTeamName(name) {
     };
 });
 
+// Filter out conference games
+conferenceData = games.filter(game => 
+    game.teams.some(team => team.conferenceId)
+);
 
-            // Use custom Top 25 rankings
-            top25Data = games.filter(game => 
-                 game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25)
-            );
+top25Data = games.filter(game => 
+    game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25)
+);
 
-            console.log("Mapped Games:", games);
-            console.log("Top 25 Games:", top25Data);
+console.log("Mapped Games:", games);
+console.log("Conference Games:", conferenceData);
+console.log("Top 25 Games:", top25Data);
 
-            populateConferenceDropdown(conferenceData);
-
-            setTimeout(() => {
-                console.log("Starting Top 25 Cycle...");
-                startTop25Cycle();
-            }, 500); // Small delay to ensure dropdown is populated
-
-            startTop25Cycle();
-            startConferenceCycle();
-        } catch (error) {
-            console.error('Error fetching scores:', error);
-            top25Scores.innerHTML = '<p>Error loading Top 25 scores</p>';
-            conferenceScores.innerHTML = '<p>Error loading scores</p>';
-        }
-    }
-    
-    // Populate the conference dropdown
-    function populateConferenceDropdown(games) {
-        const uniqueConferences = [];
+// Populate the conference dropdown
+populateConferenceDropdown(conferenceData);
     
         games.forEach(game => {
             game.teams.forEach(team => {
