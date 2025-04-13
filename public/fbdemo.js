@@ -510,7 +510,35 @@ function getCustomTeamName(name) {
                 conferenceName: conferenceName,
             };
         }),
-        status: event.status.type.shortDetail === "TBD" ? "Week 1" : event.status.type.shortDetail || "Scheduled",
+        status: event.status.type.shortDetail === "TBD" 
+    ? getRandomStatus() 
+    : event.status.type.shortDetail || "Scheduled",
+
+// Helper function to generate random status
+function getRandomStatus() {
+    const randomOptions = [
+        "1:00 PM",
+        "4:00 PM",
+        "7:30 PM",
+        generateRandomQuarterTime() // Random quarter with random time
+    ];
+
+    // Select a random option from the array
+    return randomOptions[Math.floor(Math.random() * randomOptions.length)];
+}
+
+// Helper function to generate a random quarter and random time
+function generateRandomQuarterTime() {
+    const quarters = ["1ST", "2ND", "3RD", "4TH"];
+    const randomQuarter = quarters[Math.floor(Math.random() * quarters.length)];
+
+    // Generate a random time between 00:00 and 15:59
+    const randomHour = Math.floor(Math.random() * 16); // Hours between 0 and 15
+    const randomMinute = Math.floor(Math.random() * 60); // Minutes between 0 and 59
+    const formattedTime = `${randomHour}:${randomMinute.toString().padStart(2, '0')}`;
+
+    return `${randomQuarter} | ${formattedTime}`;
+}
     };
 });
 
