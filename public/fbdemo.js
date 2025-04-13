@@ -510,7 +510,7 @@ function getCustomTeamName(name) {
                 conferenceName: conferenceName,
             };
         }),
-        status: event.status.type.shortDetail || "Scheduled",
+        status: event.status.type.shortDetail === "TBD" ? "Week 1" : event.status.type.shortDetail || "Scheduled",
     };
 });
 
