@@ -31,7 +31,28 @@ console.log("script.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
      // Define custom Top 25 rankings
-   
+    
+    // Create a button for the payment page
+    const paymentButton = document.createElement('button');
+    paymentButton.textContent = 'Go to Payment Page';
+    paymentButton.style.padding = '10px 20px';
+    paymentButton.style.backgroundColor = '#007BFF';
+    paymentButton.style.color = '#FFF';
+    paymentButton.style.border = 'none';
+    paymentButton.style.borderRadius = '5px';
+    paymentButton.style.cursor = 'pointer';
+    paymentButton.style.fontSize = '16px';
+    paymentButton.style.marginTop = '20px';
+
+    // Add click event listener to redirect to the payment page
+    paymentButton.addEventListener('click', () => {
+        window.location.href = 'https://buy.stripe.com/5kA9BI923cmIchy8wy';
+    });
+
+    // Append the button to the body or a specific container
+    const container = document.getElementById('paymentContainer') || document.body;
+    container.appendChild(paymentButton);
+});
 
     conferenceScores.classList.add('visible');
 });
