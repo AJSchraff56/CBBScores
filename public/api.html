@@ -34,6 +34,7 @@
 
         // Fetch and display the API data
         async function fetchAndDisplayAPI() {
+            console.log("Fetching API data...");
             try {
                 const response = await fetch(API_URL);
                 if (!response.ok) {
