@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    let selectedConference = 'all';
+    let selectedConference = 'SEC';
     const pageSize = 4;
     let top25Data = [], conferenceData = [];
     let conferenceIntervalId = null; // Track conference cycling interval
