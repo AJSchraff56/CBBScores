@@ -524,7 +524,7 @@ console.log("Top 25 Games:", top25Data);
     
         uniqueConferences.sort((a, b) => a.name.localeCompare(b.name));
     
-        conferenceFilter.innerHTML = '<option value="Southeastern"></option>'; // Ensure 'All Conferences' is always first
+        conferenceFilter.innerHTML = '<option value="SEC"></option>'; // Ensure 'All Conferences' is always first
         uniqueConferences.forEach(({ id, name }) => {
             const option = document.createElement('option');
             option.value = id;
