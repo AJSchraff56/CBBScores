@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    let selectedConference = 'SEC';
+    let selectedConference = 'all';
     const pageSize = 4;
     let top25Data = [], conferenceData = [];
     let conferenceIntervalId = null; // Track conference cycling interval
@@ -565,7 +565,7 @@ console.log("Top 25 Games:", top25Data);
         if (conferenceIntervalId) clearInterval(conferenceIntervalId); // Clear any existing interval
     
         // Filter games based on the selected conference
-        const filteredGames = selectedConference === 'all'
+        const filteredGames = selectedConference === 'SEC'
             ? conferenceData // Show all games if "All Conferences" is selected
             : conferenceData.filter(game =>
                   game.teams.some(team => team.conferenceId === parseInt(selectedConference))
