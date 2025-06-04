@@ -490,13 +490,17 @@ console.log("Top 25 Games:", top25Data);
             
             populateConferenceDropdown(conferenceData);
 
+            // Set the default conference (e.g., Big Ten, which is id 5)
+            let defaultConferenceId = 5; // Change this to any valid conference ID
+            selectedConference = defaultConferenceId.toString();
+            conferenceFilter.value = selectedConference;
+            conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
+
             setTimeout(() => {
             console.log("Starting Top 25 Cycle...");
             startTop25Cycle();
-        }, 500); // Small delay to ensure dropdown is populated
-            
-            startTop25Cycle();
-            startConferenceCycle();
+            startConferenceCycle(); // Start with default conference
+        }, 500);
         } catch (error) {
             console.error('Error fetching scores:', error);
             top25Scores.innerHTML = '<p>Error loading Top 25 scores</p>';
