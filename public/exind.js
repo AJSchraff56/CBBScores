@@ -568,6 +568,7 @@ console.log("Top 25 Games:", top25Data);
       // Rotate Conference Scores
       function startConferenceCycle() {
         if (conferenceIntervalId) clearInterval(conferenceIntervalId); // Clear any existing interval
+        conferenceIntervalId = setInterval(updateScores, 10000); // Cycle every 10 seconds
     
         // Filter games based on the selected conference
         const filteredGames = selectedConference === 'all'
