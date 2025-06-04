@@ -524,7 +524,7 @@ console.log("Top 25 Games:", top25Data);
     
         uniqueConferences.sort((a, b) => a.name.localeCompare(b.name));
     
-        conferenceFilter.innerHTML = '<option value="SEC"></option>'; // Ensure 'All Conferences' is always first
+        conferenceFilter.innerHTML = '<option value="all">All Conferences</option>'; // Ensure 'All Conferences' is always first
         uniqueConferences.forEach(({ id, name }) => {
             const option = document.createElement('option');
             option.value = id;
@@ -565,7 +565,7 @@ console.log("Top 25 Games:", top25Data);
         if (conferenceIntervalId) clearInterval(conferenceIntervalId); // Clear any existing interval
     
         // Filter games based on the selected conference
-        const filteredGames = selectedConference === 'SEC'
+        const filteredGames = selectedConference === 'all'
             ? conferenceData // Show all games if "All Conferences" is selected
             : conferenceData.filter(game =>
                   game.teams.some(team => team.conferenceId === parseInt(selectedConference))
