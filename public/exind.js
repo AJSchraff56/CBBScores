@@ -490,12 +490,13 @@ console.log("Top 25 Games:", top25Data);
             
             populateConferenceDropdown(conferenceData);
 
-            // Set the default conference (e.g., Big Ten, which is id 5)
-            let defaultConferenceId = 5; // Change this to any valid conference ID
+            // Set the default only if it's the initial load (not every refresh!)
+        if (!selectedConference || selectedConference === 'all') {
+            let defaultConferenceId = 5; // Big 10
             selectedConference = defaultConferenceId.toString();
             conferenceFilter.value = selectedConference;
             conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
-
+        }
             setTimeout(() => {
             console.log("Starting Top 25 Cycle...");
             startTop25Cycle();
