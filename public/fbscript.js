@@ -443,6 +443,8 @@ function getCustomTeamName(name) {
 // On page load:
 fetchScores().then(() => {
     startAutoRefresh();
+    startTop25Cycle();
+    startConferenceCycle();
 });
     // Fetch scores from the backend
     async function fetchScores() {
@@ -496,12 +498,8 @@ console.log("Top 25 Games:", top25Data);
             populateConferenceDropdown(conferenceData);
 
             setTimeout(() => {
-            console.log("Starting Top 25 Cycle...");
-            startTop25Cycle();
-        }, 500); // Small delay to ensure dropdown is populated
             
-            startTop25Cycle();
-            startConferenceCycle();
+           
         } catch (error) {
             console.error('Error fetching scores:', error);
             top25Scores.innerHTML = '<p>Error loading Top 25 scores</p>';
@@ -540,7 +538,11 @@ console.log("Top 25 Games:", top25Data);
     
 
 // Rotate Top 25 Scores
-   function startTop25Cycle() {
+ let top25IntervalId = null;
+
+function startTop25Cycle() {
+    if (top25IntervalId) clearInterval(top25IntervalId); // Add this line!
+
     if (!top25Data.length) {
         top25Scores.innerHTML = '<p>No games available for Top 25.</p>';
         return;
@@ -549,7 +551,6 @@ console.log("Top 25 Games:", top25Data);
     const totalPages = Math.ceil(top25Data.length / pageSize);
     let currentPage = 0;
 
-    console.log('Cycling conference:', selectedConference, 'Page:', currentPage + 1, 'of', totalPages);
     function updateScores() {
         top25Scores.innerHTML = '';
         const start = currentPage * pageSize;
@@ -562,9 +563,8 @@ console.log("Top 25 Games:", top25Data);
     }
 
     updateScores();
-    setInterval(updateScores, 10000);
+    top25IntervalId = setInterval(updateScores, 10000); // Save the interval ID
 }
-
 
       // Rotate Conference Scores
       function startConferenceCycle() {
