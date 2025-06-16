@@ -497,9 +497,7 @@ console.log("Top 25 Games:", top25Data);
             
             populateConferenceDropdown(conferenceData);
 
-            setTimeout(() => {
             
-           
         } catch (error) {
             console.error('Error fetching scores:', error);
             top25Scores.innerHTML = '<p>Error loading Top 25 scores</p>';
