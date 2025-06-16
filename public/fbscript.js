@@ -6,9 +6,9 @@ let currentRefreshInterval = null;
 console.log("script.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
-    conferenceScores.classList.add('visible');
     const top25Scores = document.getElementById('top25Scores');
     const conferenceScores = document.getElementById('conferenceScores');
+    conferenceScores.classList.add('visible');
     const conferenceFilter = document.getElementById('conferenceFilter');
     const conferenceTitle = document.getElementById('conferenceTitle');
 
