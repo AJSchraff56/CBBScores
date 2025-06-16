@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedConference = 'all';
     const pageSize = 4;
     let top25Data = [], conferenceData = [];
-    let conferenceIntervalId = null; // Track conference cycling interval
+   
     
  // Custom team names mapping
 const customTeamNames = {
@@ -424,8 +424,6 @@ function getCustomTeamName(name) {
     }
 
    // Function to start auto-refresh
-    let refreshIntervalId = null;
-    let currentRefreshInterval = null;
     
     function startAutoRefresh() {
     const refreshInterval = calculateRefreshInterval();
@@ -536,7 +534,6 @@ console.log("Top 25 Games:", top25Data);
     
 
 // Rotate Top 25 Scores
- let top25IntervalId = null;
 
 function startTop25Cycle() {
     if (top25IntervalId) clearInterval(top25IntervalId); // Add this line!
