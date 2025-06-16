@@ -424,21 +424,26 @@ function getCustomTeamName(name) {
     }
 
    // Function to start auto-refresh
-    let refreshIntervalId;
+    let refreshIntervalId = null;
+    let currentRefreshInterval = null;
+    
     function startAutoRefresh() {
-        if (refreshIntervalId) clearInterval(refreshIntervalId);
-        const refreshInterval = calculateRefreshInterval();
-        console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
-        refreshIntervalId = setInterval(() => {
-            fetchScores().then(() => {
-                // Adjust refresh interval if data size changes
-                const newRefreshInterval = calculateRefreshInterval();
-                if (newRefreshInterval !== refreshInterval) {
-                    startAutoRefresh();
-                }
-            });
-        }, refreshInterval);
-    }
+    const refreshInterval = calculateRefreshInterval();
+
+    // Only reset the interval if the interval has actually changed
+    if (refreshIntervalId && currentRefreshInterval === refreshInterval) return;
+
+    if (refreshIntervalId) clearInterval(refreshIntervalId);
+
+    currentRefreshInterval = refreshInterval;
+    console.log(`Setting refresh interval to ${refreshInterval / 1000} seconds`);
+    refreshIntervalId = setInterval(fetchScores, refreshInterval);
+}
+
+// On page load:
+fetchScores().then(() => {
+    startAutoRefresh();
+});
     // Fetch scores from the backend
     async function fetchScores() {
         try {
