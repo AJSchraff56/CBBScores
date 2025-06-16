@@ -544,6 +544,7 @@ console.log("Top 25 Games:", top25Data);
     const totalPages = Math.ceil(top25Data.length / pageSize);
     let currentPage = 0;
 
+    console.log('Cycling conference:', selectedConference, 'Page:', currentPage + 1, 'of', totalPages);
     function updateScores() {
         top25Scores.innerHTML = '';
         const start = currentPage * pageSize;
