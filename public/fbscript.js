@@ -1,3 +1,6 @@
+let top25IntervalId = null;
+let conferenceIntervalId = null;
+
 console.log("script.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
