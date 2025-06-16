@@ -419,9 +419,10 @@ function getCustomTeamName(name) {
 
     // Function to calculate the refresh interval
      function calculateRefreshInterval() {
-        const totalPages = Math.ceil(top25Data.length / pageSize);
-        return totalPages * 10000; // 10 seconds per page
-    }
+    const totalPages = Math.ceil(top25Data.length / pageSize);
+    if (totalPages === 0) return 10000; // 10 seconds fallback
+    return totalPages * 10000;
+}
 
    // Function to start auto-refresh
     
