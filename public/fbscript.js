@@ -800,8 +800,5 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
         conferenceFilter.classList.remove('hidden');
     }
    
-// Fetch scores on page load and start auto-refresh only after fetching scores
-    fetchScores().then(() => {
-        startAutoRefresh();
-    });
+
 });
