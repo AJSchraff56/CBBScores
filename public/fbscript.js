@@ -1,15 +1,12 @@
 let top25IntervalId = null;
 let conferenceIntervalId = null;
+let refreshIntervalId = null;
+let currentRefreshInterval = null;
 
 console.log("script.js loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
     conferenceScores.classList.add('visible');
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM content loaded");
-
     const top25Scores = document.getElementById('top25Scores');
     const conferenceScores = document.getElementById('conferenceScores');
     const conferenceFilter = document.getElementById('conferenceFilter');
