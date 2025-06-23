@@ -723,6 +723,11 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     function createGameCard(game, isTop25) {
         const [team1, team2] = game.teams;
 
+       // Mock: Give possession to team1 (right side) for demo
+       team1.hasPossession = true;
+       team2.hasPossession = false;
+       // (Or swap as needed for testing left side)
+
         // Get team colors or use defaults
         const team1Color = teamColors[team1.name] || defaultColor1;
         const team2Color = teamColors[team2.name] || defaultColor2;
@@ -773,8 +778,8 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
     displayStatus = game.status;
 }
 
-
-
+// --- (rest of your code) ---
+const footballIcon = `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt="Football" style="height:20px;vertical-align:middle;margin-left:4px;" />`;
 
  card.innerHTML = `
     <div class="team-left">
@@ -784,6 +789,7 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
         </div>
         <div>
             <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2.name}</div>
+            ${team2.hasPossession ? footballIcon : ''}
             <div class="score">${team2.score}</div>
         </div>
     </div>
@@ -799,6 +805,7 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
         </div>
         <div>
            <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1.name}</div>
+           ${team1.hasPossession ? footballIcon : ''}
             <div class="score">${team1.score}</div>
         </div>
     </div>
