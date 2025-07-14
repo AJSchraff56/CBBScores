@@ -741,6 +741,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         card.className = 'game-card';
         card.style.background = `linear-gradient(135deg, ${team2Color}, ${team1Color})`;
 
+     const randomSituation = getRandomSituation(team1, team2);
 
      // Function to convert EST time to user's local time
 function convertToLocalTime(estTime) {
@@ -781,6 +782,34 @@ if (game.status.includes('1st') || game.status.includes('2nd') || game.status.in
 // --- (rest of your code) ---
 const footballIcon = `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt="Football" style="height:20px;vertical-align:middle;margin-left:4px;" />`;
 
+function getRandomSituation(team1, team2) {
+    // Pick a random abbreviation from the two teams
+    const teams = [team1, team2];
+    const abbreviations = teams.map(team => {
+        // Simple abbreviation: use first 2 uppercase letters or whatever you prefer
+        // You can also use team.name.slice(0,2).toUpperCase()
+        return team.name
+            .split(' ')
+            .map(word => word[0]) // take first letter of each word
+            .join('')
+            .toUpperCase()
+            .slice(0, 4); // up to 4 letters, e.g. OHST for Ohio State
+    });
+
+    // Pick random abbreviation
+    const randomAbbr = abbreviations[Math.floor(Math.random() * abbreviations.length)];
+
+    // Situation options
+    const situations = [
+        `1st and 10 on ${randomAbbr} 45`,
+        `2nd and 5 on ${randomAbbr} 32`,
+        `3rd and 1 on ${randomAbbr} 12`,
+    ];
+
+    // Pick one randomly
+    return situations[Math.floor(Math.random() * situations.length)];
+}
+     
  card.innerHTML = `
     <div class="team-left">
         <div class="team-logo-container">
@@ -795,8 +824,11 @@ const footballIcon = `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-
     </div>
 
     <div class="status-wrapper">
-        <div class="status">${displayStatus}</div>
-    </div>
+        <div class="status">
+          ${displayStatus}
+          <div class="situation">${randomSituation}</div>
+        </div>
+
 
     <div class="team-right">
         <div class="team-logo-container">
