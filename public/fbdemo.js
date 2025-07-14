@@ -789,11 +789,7 @@ function getRandomSituation(team1, team2) {
         // Simple abbreviation: use first 2 uppercase letters or whatever you prefer
         // You can also use team.name.slice(0,2).toUpperCase()
         return team.name
-            .split(' ')
-            .map(word => word[0]) // take first letter of each word
-            .join('')
-            .toUpperCase()
-            .slice(0, 4); // up to 4 letters, e.g. OHST for Ohio State
+            
     });
 
     // Pick random abbreviation
