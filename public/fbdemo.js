@@ -507,6 +507,7 @@ function getCustomTeamName(name) {
                 record: formattedRecord,
                 conferenceId: parseInt(team.team.conferenceId, 10),
                 conferenceName: conferenceName,
+                abbreviation: team.team.abbreviation,
             };
         }),
         status: event.status.type.shortDetail === "TBD" ? "Week 1 | Time TBD" : event.status.type.shortDetail || "Scheduled",
