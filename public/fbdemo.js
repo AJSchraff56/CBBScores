@@ -786,7 +786,7 @@ const footballIcon = `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-
 function getRandomSituation(team1, team2) {
     // Pick a random abbreviation from the two teams
     const teams = [team1, team2];
-    const abbreviations = [team1.abbreviation, team2.abbreviation];
+    const abbreviations = teams.map(team => {
         // Simple abbreviation: use first 2 uppercase letters or whatever you prefer
         // You can also use team.name.slice(0,2).toUpperCase()
         return team.name
