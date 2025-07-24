@@ -524,7 +524,7 @@ name: team.conferenceName || conferenceMapping[team.conferenceId] || `Conference
 
 uniqueConferences.sort((a, b) => a.name.localeCompare(b.name));
 
-conferenceFilter.innerHTML = '<option value="4">Big 12</option>'; // Big 12 always first
+conferenceFilter.innerHTML = '<option value=>All</option>'; // All Conferences first
 uniqueConferences.forEach(({ id, name }) => {
 const option = document.createElement('option');
 option.value = id;
@@ -532,6 +532,11 @@ option.textContent = name;
 conferenceFilter.appendChild(option);
 });
 }
+    
+conferenceFilter.value = "4"; // Ensure Big 12 is selected
+selectedConference = conferenceFilter.value;
+conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
+startConferenceCycle();
 
 
 // Rotate Top 25 Scores
