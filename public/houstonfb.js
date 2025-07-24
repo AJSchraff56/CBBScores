@@ -652,7 +652,6 @@ function getConferenceName(conferenceId) {
         const originalName = selected.textContent;
         return conferenceNameOverrides[originalName] || originalName;
     }
-    return conferenceMapping[conferenceId] || "Unknown Conference"; // Use mapping if dropdown isn't ready
 }
 
 const conferenceMapping = {
