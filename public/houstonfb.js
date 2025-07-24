@@ -17,7 +17,7 @@ console.error('Required elements not found. Exiting script.');
 return;
 }
 
-let selectedConference = 'all';
+let selectedConference = '4';
 const pageSize = 4;
 let top25Data = [], conferenceData = [];
 
