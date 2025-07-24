@@ -532,11 +532,6 @@ option.textContent = name;
 conferenceFilter.appendChild(option);
 });
 }
-    
-conferenceFilter.value = "4"; // Ensure Big 12 is selected
-selectedConference = conferenceFilter.value;
-conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
-startConferenceCycle();
 
 
 // Rotate Top 25 Scores
