@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AJ Schraffenberger | Creative Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: #fff;
+      padding: 15px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* Featured Video */
+    .featured-video {
+      position: relative;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .featured-video iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+    }
+
+    .featured-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: white;
+      background: rgba(0,0,0,0.6);
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+
+    /* Video Grid */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 0 20px 40px;
+    }
+
+    .video-card {
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .video-card iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+    }
+
+    .video-info {
+      padding: 15px;
+    }
+
+    .video-info h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .video-info p {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="navbar">
+    <a href="#">Series</a>
+    <a href="#">Topics</a>
+    <a href="#">Picks</a>
+    <a href="#">Digital Festival</a>
+    <a href="#">Special Programs</a>
+    <a href="#">Awards</a>
+  </div>
+
+  <!-- Featured Video -->
+  <div class="featured-video">
+    <iframe src="https://www.youtube.com/embed/YOUR_FEATURED_VIDEO_ID" allowfullscreenion">Meditative visuals to ease your mind into the new year</div>
+  </div>
+
+  <!-- Video Grid -->
+  <div class="video-grid">
+    <div class="video-card">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" allowfullscreen></iframe <h4>CHANEL Connects</h4>
+        <p>January 13</p>
+      </div>
+    </div>
+    <div class="video-card">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" allowideo-info">
+        <h4>Phoria | Fall</h4>
+        <p>January 12</p>
+      </div>
+    </div>
+    <!-- Add more video cards as needed -->
+  </div>
+
+</body>
+</html>
