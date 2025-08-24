@@ -449,7 +449,7 @@ fetchScores().then(() => {
     async function fetchScores() {
         try {
             console.log("Fetching scores...");
-            const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard');
+            const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates=20250823-20250902');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
