@@ -726,16 +726,32 @@ function convertToLocalTime(estTime) {
 }
 
       // Determine what to display in the status
+
 let displayStatus = '';
-if (game.status.includes('1st') || game.status.includes('2nd') || game.status.includes('3rd') || game.status.includes('4th') || game.status.includes('OT') || game.status.includes('2OT') || game.status.includes('3OT') || game.status.includes('4OT')) {
-    // Ongoing game (e.g., "1st - 12:34", "2nd - 8:15", or "Overtime")
-    displayStatus = game.status; // Display full status for ongoing games
+
+if (
+    game.status.includes('1st') || 
+    game.status.includes('2nd') || 
+    game.status.includes('3rd') || 
+    game.status.includes('4th') || 
+    game.status.includes('OT') || 
+    game.status.includes('2OT') || 
+    game.status.includes('3OT') || 
+    game.status.includes('4OT')
+) {
+    // Ongoing game
+    displayStatus = game.status;
+
+    // Add down & distance if available
+    if (game.downDistanceText && game.downDistanceText.trim() !== '') {
+        displayStatus += ` — ${game.downDistanceText.replace(/&amp;/g, '&')}`;
+    }
 } else if (game.status.includes('-')) {
-    // Scheduled game (e.g., "1/8 - 9:00 PM EST")
-    const timeString = game.status.split('-')[1]?.trim(); // Extract "5:00 PM EST"
-    displayStatus = convertToLocalTime(timeString); // Convert EST to local time
+    // Scheduled game
+    const timeString = game.status.split('-')[1]?.trim();
+    displayStatus = convertToLocalTime(timeString);
 } else {
-    // Default case for unrecognized statuses
+    // Default case
     displayStatus = game.status;
 }
 
