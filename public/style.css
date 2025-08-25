@@ -331,7 +331,7 @@ body.sbscores, body.sbindex {
 
 /* Game status (e.g., Final, Scheduled) */
 .status {
-    font-size: 20px; /* Adjust font size as needed */
+    font-size: 30px; /* Adjust font size as needed */
     color: #ffffff;
     text-align: center;
     min-width: 100%; /* Ensure it takes up the full width */
