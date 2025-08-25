@@ -337,6 +337,13 @@ body.sbscores, body.sbindex {
     min-width: 100%; /* Ensure it takes up the full width */
 }
 
+.down-distance {
+    font-size: 20px; /* Adjust font size as needed */
+    color: #ffffff;
+    text-align: center;
+    min-width: 100%; /* Ensure it takes up the full width */
+}
+
 /* Dropdown styling */
 select {
     padding: 10px;
