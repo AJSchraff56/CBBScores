@@ -758,11 +758,12 @@ if (
 
 
 
- card.innerHTML = `
+ 
+card.innerHTML = `
     <div class="team-left">
         <div class="team-logo-container">
             <img src="${team2.logo}" alt="${team2.name}" class="team-logo" />
-            <div class="record">${team2.record.replace('\n', '<br>')}</div> <!-- Record is under the logo -->
+            <div class="record">${team2.record.replace('\n', '<br>')}</div>
         </div>
         <div>
             <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2.name}</div>
@@ -772,19 +773,22 @@ if (
 
     <div class="status-wrapper">
         <div class="status">${displayStatus}</div>
+        ${game.downDistanceText && game.downDistanceText.trim() !== '' ? 
+            `<div class="down-distance">${game.downDistanceText.replace(/&amp;/g, '&')}</div>` : ''}
     </div>
 
     <div class="team-right">
         <div class="team-logo-container">
             <img src="${team1.logo}" alt="${team1.name}" class="team-logo" />
-            <div class="record">${team1.record.replace('\n', '<br>')}</div> <!-- Record is under the logo -->
+            <div class="record">${team1.record.replace('\n', '<br>')}</div>
         </div>
         <div>
-           <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1.name}</div>
+            <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1.name}</div>
             <div class="score">${team1.score}</div>
         </div>
     </div>
 `;
+
     return card;
 }
 
