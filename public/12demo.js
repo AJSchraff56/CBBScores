@@ -755,13 +755,16 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     // Create card
     const card = document.createElement('div');
     card.className = 'game-card';
-    // REMOVE old gradient background assignment! The glass effect is now in CSS.
 
-    // Helper function to create logo + accent circle
-    function createTeamLogoWrapper(team, teamColor) {
+    // Set diagonal background using a CSS variable
+    card.style.setProperty(
+        '--diagonal-bg',
+        `linear-gradient(135deg, ${team2Color} 0%, ${team2Color} 49%, ${team1Color} 51%, ${team1Color} 100%)`
+    );
+
+    function createTeamLogoWrapper(team) {
         return `
             <div class="team-logo-wrapper">
-                <div class="accent-circle" style="background: ${teamColor};"></div>
                 <img src="${team.logo}" alt="${team.name}" class="team-logo" />
                 <div class="record">${team.record.replace('\n', '<br>')}</div>
             </div>
@@ -770,7 +773,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
 
     card.innerHTML = `
         <div class="team-left">
-            ${createTeamLogoWrapper(team2, team2Color)}
+            ${createTeamLogoWrapper(team2)}
             <div>
                 <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2Name}</div>
                 <div class="score">${team2.score}</div>
@@ -784,7 +787,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         </div>
 
         <div class="team-right">
-            ${createTeamLogoWrapper(team1, team1Color)}
+            ${createTeamLogoWrapper(team1)}
             <div>
                 <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1Name}</div>
                 <div class="score">${team1.score}</div>
