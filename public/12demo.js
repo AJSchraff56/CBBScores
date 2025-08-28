@@ -482,6 +482,7 @@ const games = data.events.map(event => {
             };
         }),
         status: event.status.type.shortDetail || "Scheduled",
+        date: event.date // <<<<<<<<<<<<<<<<<<<<<<<<<<< Add this line!
     };
 });
 
