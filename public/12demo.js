@@ -483,7 +483,7 @@ const games = data.events.map(event => {
         }),
         status: event.status.type.shortDetail || "Scheduled",
         date: event.date,
-        downDistanceText: event.downDistanceText || "",
+        downDistanceText: competition.situation?.downDistanceText || "",
     };
 });
 
