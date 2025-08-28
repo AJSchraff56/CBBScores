@@ -741,11 +741,10 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         game.status.includes('3OT') || 
         game.status.includes('4OT')
     ) {
-        // Ongoing game
-        displayStatus = game.status;
-        if (game.downDistanceText && game.downDistanceText.trim() !== '') {
-            displayStatus += ` — ${game.downDistanceText.replace(/&amp;/g, '&')}`;
-        }
+       // Ongoing game
+        if (game.status) {
+        displayStatus = game.status; // Just the status, no downDistanceText here!
+}
     } else if (game.status.includes('-')) {
         // Scheduled game
         displayStatus = formatScheduledDateTime(game.date); // <-- uses scheduled date
@@ -782,9 +781,10 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         </div>
 
         <div class="status-wrapper">
-             <div class="status">${displayStatus}</div>
-            ${game.downDistanceText && game.downDistanceText.trim() !== '' ? 
-                `<div class="down-distance">${game.downDistanceText.replace(/&amp;/g, '&')}</div>` : ''}
+            <div class="status">${displayStatus}</div>
+            ${game.downDistanceText && game.downDistanceText.trim() !== ''
+                ? `<div class="down-distance">${game.downDistanceText.replace(/&amp;/g, '&')}</div>` 
+                : ''}
         </div>
 
         <div class="team-right">
