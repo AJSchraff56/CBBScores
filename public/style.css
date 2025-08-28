@@ -314,7 +314,7 @@ body.sbscores, body.sbindex {
 }
 
 /* Logo container for both sides */
-..team-logo-wrapper {
+.team-logo-wrapper {
     position: relative;
     width: 20px;
     height: 20px;
