@@ -263,7 +263,6 @@ body.sbscores, body.sbindex {
 
 /* Team logo styling */
 .team-logo {
-    border-radius: 50%;
     width: 100%; /* Set a fixed width for the logo */
     height: 100%; /* Set a fixed height for the logo */
     
