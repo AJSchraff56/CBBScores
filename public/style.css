@@ -258,13 +258,14 @@ body.sbscores, body.sbindex {
     justify-content: space-between;
     gap: 20px;
     flex: 1;
+    z-index: 2;
 }
 
 /* Team logo styling */
 .team-logo {
     width: 48px; /* Set a fixed width for the logo */
     height: 48px; /* Set a fixed height for the logo */
-    z-index: 1;
+    z-index: 2;
     filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.75)); /* Additional depth */
   
 }
@@ -276,25 +277,17 @@ body.sbscores, body.sbindex {
     color: #ffffff; /* Adjust color if necessary */
     text-align: center; /* Align text properly */
     flex: 1;
+    z-index: 2;
    
 }
-.accent-circle {
-    position: absolute;
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    filter: blur(8px);
-    opacity: 0.5;
-    z-index: 0;
-    top: 0;
-    left: 0;
-}
+
 
 /* Left-side team alignment */
 .team-left {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    z-index: 2;
     gap: 25px; /* Space between logo and text */
 }
 
@@ -315,6 +308,7 @@ body.sbscores, body.sbindex {
     display: flex;
     align-items: center;
     justify-self: flex-end;
+    z-index: 2;
     gap: 25px; /* Add spacing between text and logo */
     flex-direction: row-reverse; /* Place the text to the left of the logo */
     text-align: right; /* Ensure the text is aligned properly */
@@ -333,6 +327,7 @@ body.sbscores, body.sbindex {
     font-weight: bold;
     text-align: center;
     margin: 0 10px;
+    z-index: 2;
 }
 
 /* Logo container for positioning logo and record */
@@ -345,6 +340,7 @@ body.sbscores, body.sbindex {
     margin-top: 7px; /* Add space between logo and record */
     text-align: center; /* Center-align the text */
     white-space: nowrap; /* Ensure the record shows on one line */
+    z-index: 2;
 }
 
 
@@ -355,6 +351,7 @@ body.sbscores, body.sbindex {
     color: #ffffff;
     text-align: center;
     min-width: 100%; /* Ensure it takes up the full width */
+    z-index: 2;
 }
 
 .down-distance {
@@ -362,6 +359,7 @@ body.sbscores, body.sbindex {
     color: #ffffff;
     text-align: center;
     min-width: 100%; /* Ensure it takes up the full width */
+    z-index: 2;
 }
 
 /* Dropdown styling */
