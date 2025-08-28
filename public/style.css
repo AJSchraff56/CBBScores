@@ -272,7 +272,7 @@ body.sbscores, body.sbindex {
 
 /* Team name styling */
 .team-name {
-    font-size: 14px; /* Adjust this value for desired size */
+    font-size: 12px; /* Adjust this value for desired size */
     font-weight: bold; /* Ensure it's visually distinct */
     color: #ffffff; /* Adjust color if necessary */
     text-align: center; /* Align text properly */
@@ -323,7 +323,7 @@ body.sbscores, body.sbindex {
 }
 /* Score styling */
 .score {
-    font-size: 40px; /* Increase the font size */
+    font-size: 30px; /* Increase the font size */
     font-weight: bold;
     text-align: center;
     margin: 0 10px;
@@ -335,7 +335,7 @@ body.sbscores, body.sbindex {
 
 /* Team record styling under logo */
 .record {
-    font-size: 18px;
+    font-size: 10px;
     color: #ffffff; /* Light gray color */
     margin-top: 7px; /* Add space between logo and record */
     text-align: center; /* Center-align the text */
