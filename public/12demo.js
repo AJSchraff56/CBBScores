@@ -782,9 +782,10 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         </div>
 
         <div class="status-wrapper">
-            <div class="status">${game.status}</div>
-        ${game.downDistanceText ? `<div class="down-distance">${game.downDistanceText}</div>` : ''}
-    </div>
+             <div class="status">${displayStatus}</div>
+            ${game.downDistanceText && game.downDistanceText.trim() !== '' ? 
+                `<div class="down-distance">${game.downDistanceText.replace(/&amp;/g, '&')}</div>` : ''}
+        </div>
 
         <div class="team-right">
             ${createTeamLogoWrapper(team1)}
