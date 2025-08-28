@@ -264,9 +264,9 @@ body.sbscores, body.sbindex {
 /* Team logo styling */
 .team-logo {
     border-radius: 50%;
-    width: 60px; /* Set a fixed width for the logo */
-    height: 60px; /* Set a fixed height for the logo */
-    background-color: #ffffff; /* Fallback color for missing images */
+    width: 100%; /* Set a fixed width for the logo */
+    height: 100%; /* Set a fixed height for the logo */
+    
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 15px rgba(0, 128, 255, 0.75); /* Glowing effect */
     filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.75)); /* Additional depth */
   
