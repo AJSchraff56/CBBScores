@@ -225,16 +225,19 @@ body.sbscores, body.sbindex {
 
 /* Game card styling */
 .game-card {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr; /* Three columns: team-left, status, team-right */
+    position: relative;
+    padding: 24px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
     align-items: center;
-    background: #333;
-    padding: 20px 20px;
-    border-radius: 10px;
-    height: calc(100% / 4 - 10px); /* Ensure 4 cards fit with spacing */
-    overflow: hidden; /* Prevent overflow */
-    position: relative; /* Ensure child elements stay contained */
+    gap: 32px;
 }
+
 
 /* Team details inside the card */
 .team {
@@ -247,11 +250,9 @@ body.sbscores, body.sbindex {
 
 /* Team logo styling */
 .team-logo {
-    border-radius: 50%;
-    width: 60px; /* Set a fixed width for the logo */
-    height: 60px; /* Set a fixed height for the logo */
-    background-color: #ffffff; /* Fallback color for missing images */
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 15px rgba(0, 128, 255, 0.75); /* Glowing effect */
+    width: 48px; /* Set a fixed width for the logo */
+    height: 48px; /* Set a fixed height for the logo */
+    z-index: 1;
     filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.75)); /* Additional depth */
   
 }
@@ -265,7 +266,17 @@ body.sbscores, body.sbindex {
     flex: 1;
    
 }
-
+.accent-circle {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    filter: blur(8px);
+    opacity: 0.5;
+    z-index: 0;
+    top: 0;
+    left: 0;
+}
 
 /* Left-side team alignment */
 .team-left {
@@ -276,15 +287,15 @@ body.sbscores, body.sbindex {
 }
 
 /* Logo container for both sides */
-.team-logo-container {
+..team-logo-wrapper {
+    position: relative;
+    width: 72px;
+    height: 72px;
     display: flex;
-    width: 70px; /* Set a fixed width for the logo */
-    height: 70px; /* Set a fixed height for the logo */
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; /* Prevent shrinking */
-    overflow: visible; /* Clips anything outside the boundaries */
+    flex-direction: column; /* Stack the logo and record vertically */
+    align-items: center; /* Center-align the logo and record */
 }
 
 /* Team styling for right alignment */
@@ -313,11 +324,7 @@ body.sbscores, body.sbindex {
 }
 
 /* Logo container for positioning logo and record */
-.team-logo-container {
-    display: flex;
-    flex-direction: column; /* Stack the logo and record vertically */
-    align-items: center; /* Center-align the logo and record */
-}
+
 
 /* Team record styling under logo */
 .record {
