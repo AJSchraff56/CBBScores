@@ -315,7 +315,7 @@ body.sbscores, body.sbindex {
     align-items: center;
     justify-content: center;
     flex-shrink: 0; /* Prevent shrinking */
-    overflow: visible; /* Clips anything outside the boundaries */
+    
 }
 
 
