@@ -264,6 +264,8 @@ body.sbscores, body.sbindex {
 /* Team logo styling */
 .team-logo {
     /* Sticker Border */
+    height: 100%;
+    width: 100%;   
     background: #fff;
     padding: 6px; /* thickness of white border */
     border-radius: 50%; /* or 20px for rounded rectangle, adjust as needed */
