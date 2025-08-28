@@ -273,8 +273,6 @@ body.sbscores, body.sbindex {
                 0 4px 16px 0 rgba(0,0,0,0.16); /* soft shadow for "lift" */
     position: relative;
     z-index: 2;
-    width: calc(48px * var(--scale-factor));
-    height: calc(48px * var(--scale-factor));
     object-fit: contain;
     /* Optional: texture overlay (see below) */
 }
