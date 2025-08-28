@@ -368,7 +368,7 @@ body.sbscores, body.sbindex {
 }
 
 .down-distance {
-    font-size: 20px; /* Adjust font size as needed */
+    font-size: 10px; /* Adjust font size as needed */
     color: #ffffff;
     text-align: center;
     min-width: 100%; /* Ensure it takes up the full width */
