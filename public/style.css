@@ -263,17 +263,12 @@ body.sbscores, body.sbindex {
 
 /* Team logo styling */
 .team-logo {
-    /* Sticker Border */
+    width: 100%;
     height: 100%;
-    width: 100%;   
-    background: #fff;
-    border-radius: 50%; /* or 20px for rounded rectangle, adjust as needed */
-    box-shadow: 0 2px 10px 2px rgba(0,0,0,0.10), 
-                0 4px 16px 0 rgba(0,0,0,0.16); /* soft shadow for "lift" */
-    position: relative;
-    z-index: 2;
     object-fit: contain;
-    /* Optional: texture overlay (see below) */
+    background: transparent;
+    border-radius: 50%;
+    padding: 0; /* No extra padding inside image itself! */
 }
 
 .team-logo::after {
@@ -312,14 +307,14 @@ body.sbscores, body.sbindex {
 
 /* Logo container for both sides */
 .team-logo-wrapper {
-    position: relative;
     width: 60px;
     height: 60px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column; /* Stack the logo and record vertically */
-    align-items: center; /* Center-align the logo and record */
+    border-radius: 50%;
+    overflow: hidden; /* hides overflow for non-square images */
+    background: #fff;
+    box-shadow: 0 2px 10px 2px rgba(0,0,0,0.10),
+                0 4px 16px 0 rgba(0,0,0,0.16);
+    position: relative;
 }
 
 /* Team styling for right alignment */
