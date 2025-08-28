@@ -263,11 +263,31 @@ body.sbscores, body.sbindex {
 
 /* Team logo styling */
 .team-logo {
-    width: 48px; /* Set a fixed width for the logo */
-    height: 48px; /* Set a fixed height for the logo */
+    /* Sticker Border */
+    background: #fff;
+    padding: 6px; /* thickness of white border */
+    border-radius: 50%; /* or 20px for rounded rectangle, adjust as needed */
+    box-shadow: 0 2px 10px 2px rgba(0,0,0,0.10), 
+                0 4px 16px 0 rgba(0,0,0,0.16); /* soft shadow for "lift" */
+    position: relative;
     z-index: 2;
-    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.75)); /* Additional depth */
-  
+    width: calc(48px * var(--scale-factor));
+    height: calc(48px * var(--scale-factor));
+    object-fit: contain;
+    /* Optional: texture overlay (see below) */
+}
+
+.team-logo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 2;
+    /* Use a PNG texture, seamless sticker surface, paper grain etc */
+    background: url('https://i.ibb.co/xq3XchV8/Texturelabs-Paper-310-S.jpg'); /* Example: subtle paper texture */
+    opacity: 0.18; /* adjust for desired intensity */
+    mix-blend-mode: multiply; /* helps blend with underlying image */
 }
 
 /* Team name styling */
@@ -296,7 +316,7 @@ body.sbscores, body.sbindex {
     position: relative;
     width: 72px;
     height: 72px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-direction: column; /* Stack the logo and record vertically */
