@@ -719,7 +719,7 @@ function convertToLocalTime(estTime) {
     const now = new Date();
 
     // Create a date object in UTC based on EST (Eastern Time is UTC-5 or UTC-4 with DST)
-    const estDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), estHours + 5, minutes));
+    const estDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), estHours + 4, minutes));
 
     // Convert to the user's local timezone
     return estDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
