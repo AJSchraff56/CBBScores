@@ -686,113 +686,111 @@ const conferenceMapping = {
 conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
 
 
-    // Create a Game Card with Gradient Background
-    function createGameCard(game, isTop25) {
-        const [team1, team2] = game.teams;
+    // Create a Game Card
+   function createGameCard(game, isTop25) {
+    const [team1, team2] = game.teams;
 
-        // Get team colors or use defaults
-        const team1Color = teamColors[team1.name] || defaultColor1;
-        const team2Color = teamColors[team2.name] || defaultColor2;
+    // Get team colors or use defaults
+    const team1Color = teamColors[team1.name] || defaultColor1;
+    const team2Color = teamColors[team2.name] || defaultColor2;
 
-            // Get overridden team names
-        const team1Name = getCustomTeamName(team1.name);
-        const team2Name = getCustomTeamName(team2.name);
+    // Get overridden team names
+    const team1Name = getCustomTeamName(team1.name);
+    const team2Name = getCustomTeamName(team2.name);
 
+    // Function to convert EST time to user's local time
+    function convertToLocalTime(estTime) {
+        const [time, period] = estTime.split(' ').slice(0, 2); // Extract "5:00 PM"
+        if (!time || !period) return "Invalid Time"; // Fallback for unexpected formats
 
-        const card = document.createElement('div');
-        card.className = 'game-card';
-        card.style.background = `linear-gradient(135deg, ${team2Color}, ${team1Color})`;
+        // Extract hours and minutes
+        const [hours, minutes] = time.split(':').map(Number);
 
+        let estHours = hours;
+        if (period === "PM" && hours !== 12) estHours += 12; // Convert PM hours
+        if (period === "AM" && hours === 12) estHours = 0; // Convert 12 AM to 0
 
-     // Function to convert EST time to user's local time
-function convertToLocalTime(estTime) {
-    const [time, period] = estTime.split(' ').slice(0, 2); // Extract "5:00 PM"
-    if (!time || !period) return "Invalid Time"; // Fallback for unexpected formats
+        // Get today's date
+        const now = new Date();
 
-    // Extract hours and minutes
-    const [hours, minutes] = time.split(':').map(Number);
+        // Create a date object in UTC based on EST (Eastern Time is UTC-5 or UTC-4 with DST)
+        const estDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), estHours + 4, minutes));
 
-    let estHours = hours;
-    if (period === "PM" && hours !== 12) estHours += 12; // Convert PM hours
-    if (period === "AM" && hours === 12) estHours = 0; // Convert 12 AM to 0
-
-    // Get today's date
-    const now = new Date();
-
-    // Create a date object in UTC based on EST (Eastern Time is UTC-5 or UTC-4 with DST)
-    const estDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), estHours + 4, minutes));
-
-    // Convert to the user's local timezone
-    return estDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
-}
+        // Convert to the user's local timezone
+        return estDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+    }
 
     function formatScheduledDateTime(gameDateTimeString) {
-    // gameDateTimeString should be an ISO string like "2025-08-28T21:30Z"
-    const date = new Date(gameDateTimeString);
-    const dayAbbr = date.toLocaleDateString([], { weekday: 'short' }); // e.g. "Thu"
-    const time = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
-    return `${dayAbbr}. - ${time}`; // e.g. "Thu. - 5:30 PM"
-}
-
-      // Determine what to display in the status
-
-let displayStatus = '';
-
-if (
-    game.status.includes('1st') || 
-    game.status.includes('2nd') || 
-    game.status.includes('3rd') || 
-    game.status.includes('4th') || 
-    game.status.includes('OT') || 
-    game.status.includes('2OT') || 
-    game.status.includes('3OT') || 
-    game.status.includes('4OT')
-) {
-    // Ongoing game
-    displayStatus = game.status;
-    if (game.downDistanceText && game.downDistanceText.trim() !== '') {
-        displayStatus += ` — ${game.downDistanceText.replace(/&amp;/g, '&')}`;
+        // gameDateTimeString should be an ISO string like "2025-08-28T21:30Z"
+        const date = new Date(gameDateTimeString);
+        const dayAbbr = date.toLocaleDateString([], { weekday: 'short' }); // e.g. "Thu"
+        const time = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+        return `${dayAbbr}. - ${time}`; // e.g. "Thu. - 5:30 PM"
     }
-} else if (game.status.includes('-')) {
-    // Scheduled game
-    displayStatus = formatScheduledDateTime(game.date); // <-- uses scheduled date
-} else {
-    displayStatus = game.status;
-}
 
+    // Determine what to display in the status
+    let displayStatus = '';
+    if (
+        game.status.includes('1st') || 
+        game.status.includes('2nd') || 
+        game.status.includes('3rd') || 
+        game.status.includes('4th') || 
+        game.status.includes('OT') || 
+        game.status.includes('2OT') || 
+        game.status.includes('3OT') || 
+        game.status.includes('4OT')
+    ) {
+        // Ongoing game
+        displayStatus = game.status;
+        if (game.downDistanceText && game.downDistanceText.trim() !== '') {
+            displayStatus += ` — ${game.downDistanceText.replace(/&amp;/g, '&')}`;
+        }
+    } else if (game.status.includes('-')) {
+        // Scheduled game
+        displayStatus = formatScheduledDateTime(game.date); // <-- uses scheduled date
+    } else {
+        displayStatus = game.status;
+    }
 
+    // Create card
+    const card = document.createElement('div');
+    card.className = 'game-card';
+    // REMOVE old gradient background assignment! The glass effect is now in CSS.
 
+    // Helper function to create logo + accent circle
+    function createTeamLogoWrapper(team, teamColor) {
+        return `
+            <div class="team-logo-wrapper">
+                <div class="accent-circle" style="background: ${teamColor};"></div>
+                <img src="${team.logo}" alt="${team.name}" class="team-logo" />
+                <div class="record">${team.record.replace('\n', '<br>')}</div>
+            </div>
+        `;
+    }
 
- 
-card.innerHTML = `
-    <div class="team-left">
-        <div class="team-logo-container">
-            <img src="${team2.logo}" alt="${team2.name}" class="team-logo" />
-            <div class="record">${team2.record.replace('\n', '<br>')}</div>
+    card.innerHTML = `
+        <div class="team-left">
+            ${createTeamLogoWrapper(team2, team2Color)}
+            <div>
+                <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2Name}</div>
+                <div class="score">${team2.score}</div>
+            </div>
         </div>
-        <div>
-            <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2.name}</div>
-            <div class="score">${team2.score}</div>
-        </div>
-    </div>
 
-    <div class="status-wrapper">
-        <div class="status">${displayStatus}</div>
-        ${game.downDistanceText && game.downDistanceText.trim() !== '' ? 
-            `<div class="down-distance">${game.downDistanceText.replace(/&amp;/g, '&')}</div>` : ''}
-    </div>
+        <div class="status-wrapper">
+            <div class="status">${displayStatus}</div>
+            ${game.downDistanceText && game.downDistanceText.trim() !== '' ? 
+                `<div class="down-distance">${game.downDistanceText.replace(/&amp;/g, '&')}</div>` : ''}
+        </div>
 
-    <div class="team-right">
-        <div class="team-logo-container">
-            <img src="${team1.logo}" alt="${team1.name}" class="team-logo" />
-            <div class="record">${team1.record.replace('\n', '<br>')}</div>
+        <div class="team-right">
+            ${createTeamLogoWrapper(team1, team1Color)}
+            <div>
+                <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1Name}</div>
+                <div class="score">${team1.score}</div>
+            </div>
         </div>
-        <div>
-            <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1.name}</div>
-            <div class="score">${team1.score}</div>
-        </div>
-    </div>
-`;
+    `;
 
     return card;
 }
