@@ -725,6 +725,14 @@ function convertToLocalTime(estTime) {
     return estDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
 }
 
+    function formatScheduledDateTime(gameDateTimeString) {
+    // gameDateTimeString should be an ISO string like "2025-08-28T21:30Z"
+    const date = new Date(gameDateTimeString);
+    const dayAbbr = date.toLocaleDateString([], { weekday: 'short' }); // e.g. "Thu"
+    const time = date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+    return `${dayAbbr}. - ${time}`; // e.g. "Thu. - 5:30 PM"
+}
+
       // Determine what to display in the status
 
 let displayStatus = '';
@@ -741,17 +749,13 @@ if (
 ) {
     // Ongoing game
     displayStatus = game.status;
-
-    // Add down & distance if available
     if (game.downDistanceText && game.downDistanceText.trim() !== '') {
         displayStatus += ` — ${game.downDistanceText.replace(/&amp;/g, '&')}`;
     }
 } else if (game.status.includes('-')) {
     // Scheduled game
-    const timeString = game.status.split('-')[1]?.trim();
-    displayStatus = convertToLocalTime(timeString);
+    displayStatus = formatScheduledDateTime(game.date); // <-- uses scheduled date
 } else {
-    // Default case
     displayStatus = game.status;
 }
 
