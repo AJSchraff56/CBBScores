@@ -765,18 +765,10 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         `linear-gradient(135deg, ${team2Color} 0%, ${team2Color} 49%, ${team1Color} 51%, ${team1Color} 100%)`
     );
 
-    function createTeamLogoWrapper(team) {
-        return `
-            <div class="team-logo-wrapper">
-                <img src="${team.logo}" alt="${team.name}" class="team-logo" />
-                <div class="record">${team.record.replace('\n', '<br>')}</div>
-            </div>
-        `;
-    }
-
-        const possessionIcon = (possessionTeamId && team.id == possessionTeamId)
-        ? `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt="Football" class="possession-icon" style="width:20px;vertical-align:middle;">`
-        : '';
+    
+function createTeamLogoWrapper(team) {
+    const possessionIcon = (possessionTeamId && team.id == possessionTeamId)
+        ? `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt
     return `
         <div class="team-logo-wrapper">
             <img src="${team.logo}" alt="${team.name}" class="team-logo" />
@@ -785,6 +777,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         </div>
     `;
 }
+
     card.innerHTML = `
         <div class="team-left">
             ${createTeamLogoWrapper(team2)}
