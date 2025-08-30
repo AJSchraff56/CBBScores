@@ -557,6 +557,7 @@ function startTop25Cycle() {
         const end = start + pageSize;
         top25Data.slice(start, end).forEach(game => {
             const card = createGameCard(game, true);
+            
             top25Scores.appendChild(card);
         });
         currentPage = (currentPage + 1) % totalPages;
@@ -693,6 +694,9 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
    function createGameCard(game, isTop25) {
     const [team1, team2] = game.teams;
     const possessionTeamId = game.possessionTeamId;
+    const possessionIcon = (possessionTeamId && team.id == possessionTeamId)
+        ? `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt="Football" class="possession-icon" style="width:20px;vertical-align:middle;">`
+        : '';
 
     // Get team colors or use defaults
     const team1Color = teamColors[team1.name] || defaultColor1;
@@ -775,9 +779,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     `;
 }
 
-        const possessionIcon = (possessionTeamId && team.id == possessionTeamId)
-        ? `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt="Football" class="possession-icon" style="width:20px;vertical-align:middle;">`
-        : '';
+        
        
     card.innerHTML = `
         <div class="team-left">
