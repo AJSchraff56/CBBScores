@@ -782,7 +782,8 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
             ${createTeamLogoWrapper(team2)}
             <div>
                 <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2Name}</div>
-                <div class="score">${team2.score}</div>
+                <div class="score">
+                ${team2.score}
                 ${getPossessionIcon(team2.id)} <!-- Icon to the right of Team Two's score -->
             </div>
         </div>
@@ -798,8 +799,9 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
             ${createTeamLogoWrapper(team1)}
             <div>
                 <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1Name}</div>
-                <div class="score">${team1.score}</div>
+                <div class="score">
                 ${getPossessionIcon(team1.id)} <!-- Icon to the left of Team One's score -->
+                ${team1.score}
             </div>
         </div>
     `;
