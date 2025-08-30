@@ -766,9 +766,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     );
 
     function createTeamLogoWrapper(team) {
-        const possessionIcon = (possessionTeamId && team.id == possessionTeamId)
-        ? `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt="Football" class="possession-icon" style="width:20px;vertical-align:middle;">`
-        : '';
+       
     return `
         <div class="team-logo-wrapper">
             <img src="${team.logo}" alt="${team.name}" class="team-logo" />
@@ -776,6 +774,11 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         </div>
     `;
 }
+
+        const possessionIcon = (possessionTeamId && team.id == possessionTeamId)
+        ? `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt="Football" class="possession-icon" style="width:20px;vertical-align:middle;">`
+        : '';
+       
     card.innerHTML = `
         <div class="team-left">
             ${createTeamLogoWrapper(team2)}
