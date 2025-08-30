@@ -472,6 +472,7 @@ const games = data.events.map(event => {
             const formattedRecord = confRecord ? `${overallRecord}\n${confRecord}` : `${overallRecord}`;
 
             return {
+                id: team.team.id,
                 name: getCustomTeamName(team.team.shortDisplayName),
                 score: team.score || "0",
                 logo: team.team.logo || '',
@@ -484,6 +485,7 @@ const games = data.events.map(event => {
         status: event.status.type.shortDetail || "Scheduled",
         date: event.date,
         downDistanceText: competition.situation?.downDistanceText || "",
+        possessionTeamId: competition.situation?.possession || null,
     };
 });
 
@@ -690,6 +692,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     // Create a Game Card
    function createGameCard(game, isTop25) {
     const [team1, team2] = game.teams;
+    const possessionTeamId = game.possessionTeamId;
 
     // Get team colors or use defaults
     const team1Color = teamColors[team1.name] || defaultColor1;
@@ -763,14 +766,17 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     );
 
     function createTeamLogoWrapper(team) {
-        return `
-            <div class="team-logo-wrapper">
-                <img src="${team.logo}" alt="${team.name}" class="team-logo" />
-                <div class="record">${team.record.replace('\n', '<br>')}</div>
-            </div>
-        `;
-    }
-
+        const possessionIcon = (possessionTeamId && team.id == possessionTeamId)
+        ? `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt="Football" class="possession-icon" style="width:20px;vertical-align:middle;">`
+        : '';
+    return `
+        <div class="team-logo-wrapper">
+            <img src="${team.logo}" alt="${team.name}" class="team-logo" />
+            ${possessionIcon}
+            <div class="record">${team.record.replace('\n', '<br>')}</div>
+        </div>
+    `;
+}
     card.innerHTML = `
         <div class="team-left">
             ${createTeamLogoWrapper(team2)}
