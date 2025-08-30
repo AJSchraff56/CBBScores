@@ -772,7 +772,6 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     return `
         <div class="team-logo-wrapper">
             <img src="${team.logo}" alt="${team.name}" class="team-logo" />
-            ${possessionIcon}
             <div class="record">${team.record.replace('\n', '<br>')}</div>
         </div>
     `;
@@ -784,7 +783,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
                 <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2Name}</div>
                 <div class="score">
                 ${team2.score}
-                ${getPossessionIcon(team2.id)} <!-- Icon to the right of Team Two's score -->
+                ${PossessionIcon(team2.id)} <!-- Icon to the right of Team Two's score -->
             </div>
         </div>
 
@@ -800,7 +799,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
             <div>
                 <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1Name}</div>
                 <div class="score">
-                ${getPossessionIcon(team1.id)} <!-- Icon to the left of Team One's score -->
+                ${PossessionIcon(team1.id)} <!-- Icon to the left of Team One's score -->
                 ${team1.score}
             </div>
         </div>
