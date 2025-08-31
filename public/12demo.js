@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedConference = 'all';
     const pageSize = 4;
     let top25Data = [], conferenceData = [];
-
-
+   
+    
  // Custom team names mapping
 const customTeamNames = {
     "E Illinois": "Eastern Illinois",
@@ -425,7 +425,7 @@ function getCustomTeamName(name) {
 }
 
    // Function to start auto-refresh
-
+    
     function startAutoRefresh() {
     const refreshInterval = calculateRefreshInterval();
 
@@ -472,7 +472,6 @@ const games = data.events.map(event => {
             const formattedRecord = confRecord ? `${overallRecord}\n${confRecord}` : `${overallRecord}`;
 
             return {
-                id: team.team.id,
                 name: getCustomTeamName(team.team.shortDisplayName),
                 score: team.score || "0",
                 logo: team.team.logo || '',
@@ -485,7 +484,6 @@ const games = data.events.map(event => {
         status: event.status.type.shortDetail || "Scheduled",
         date: event.date,
         downDistanceText: competition.situation?.downDistanceText || "",
-        possessionTeamId: competition.situation?.possession || null,
     };
 });
 
@@ -494,24 +492,24 @@ conferenceData = games;
 
 console.log("Mapped Games:", games);
 console.log("Top 25 Games:", top25Data);
-
-
+    
+            
             conferenceData = games;
-
+            
             populateConferenceDropdown(conferenceData);
 
-
+            
         } catch (error) {
             console.error('Error fetching scores:', error);
             top25Scores.innerHTML = '<p>Error loading Top 25 scores</p>';
             conferenceScores.innerHTML = '<p>Error loading scores</p>';
         }
     }
-
+    
     // Populate the conference dropdown
     function populateConferenceDropdown(games) {
         const uniqueConferences = [];
-
+    
         games.forEach(game => {
             game.teams.forEach(team => {
                 if (
@@ -525,9 +523,9 @@ console.log("Top 25 Games:", top25Data);
                 }
             });
         });
-
+    
         uniqueConferences.sort((a, b) => a.name.localeCompare(b.name));
-
+    
         conferenceFilter.innerHTML = '<option value="all">All Conferences</option>'; // Ensure 'All Conferences' is always first
         uniqueConferences.forEach(({ id, name }) => {
             const option = document.createElement('option');
@@ -536,7 +534,7 @@ console.log("Top 25 Games:", top25Data);
             conferenceFilter.appendChild(option);
         });
     }
-
+    
 
 // Rotate Top 25 Scores
 
@@ -569,21 +567,21 @@ function startTop25Cycle() {
       // Rotate Conference Scores
       function startConferenceCycle() {
         if (conferenceIntervalId) clearInterval(conferenceIntervalId); // Clear any existing interval
-
+    
         // Filter games based on the selected conference
         const filteredGames = selectedConference === 'all'
             ? conferenceData // Show all games if "All Conferences" is selected
             : conferenceData.filter(game =>
                   game.teams.some(team => team.conferenceId === parseInt(selectedConference))
               );
-
+    
         if (!filteredGames.length) {
             // If no games match the selected conference
             conferenceScores.innerHTML = '<p>No games available for this conference.</p>';
             conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
             return;
         }
-
+    
         if (filteredGames.length <= pageSize) {
             // Display all games without cycling if games are fewer than or equal to the page size
             conferenceScores.innerHTML = '';
@@ -594,39 +592,39 @@ function startTop25Cycle() {
             conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
             return;
         }
-
+    
         // Cycle through pages for conferences with more games
         const totalPages = Math.ceil(filteredGames.length / pageSize);
         let currentPage = 0;
-
+    
         function updateScores() {
             conferenceScores.classList.add('fade'); // Start fade-out effect
-
+    
             setTimeout(() => {
                 // Clear current scores and populate with the next page of games
                 conferenceScores.innerHTML = '';
-
+    
                 const start = currentPage * pageSize;
                 const end = start + pageSize;
                 filteredGames.slice(start, end).forEach(game => {
                     const card = createGameCard(game, false);
                     conferenceScores.appendChild(card);
                 });
-
+    
                 // Update the conference title
                 conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
-
+    
                 conferenceScores.classList.remove('fade'); // Remove fade-out effect
                 conferenceScores.classList.add('visible'); // Add fade-in effect
             }, 500); // Wait for fade-out to complete
-
+    
             currentPage = (currentPage + 1) % totalPages; // Cycle to the next page
         }
-
+    
         updateScores(); // Initial update
         conferenceIntervalId = setInterval(updateScores, 10000); // Cycle every 10 seconds
     }
-
+    
 
     // Mapping for modified conference names
 const conferenceNameOverrides = {
@@ -692,7 +690,6 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     // Create a Game Card
    function createGameCard(game, isTop25) {
     const [team1, team2] = game.teams;
-    const possessionTeamId = game.possessionTeamId;
 
     // Get team colors or use defaults
     const team1Color = teamColors[team1.name] || defaultColor1;
@@ -765,18 +762,14 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         `linear-gradient(135deg, ${team2Color} 0%, ${team2Color} 49%, ${team1Color} 51%, ${team1Color} 100%)`
     );
 
-    
-function createTeamLogoWrapper(team) {
-    const possessionIcon = (possessionTeamId && team.id == possessionTeamId)
-        ? `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt
-    return `
-        <div class="team-logo-wrapper">
-            <img src="${team.logo}" alt="${team.name}" class="team-logo" />
-            ${possessionIcon}
-            <div class="record">${team.record.replace('\n', '<br>')}</div>
-        </div>
-    `;
-}
+    function createTeamLogoWrapper(team) {
+        return `
+            <div class="team-logo-wrapper">
+                <img src="${team.logo}" alt="${team.name}" class="team-logo" />
+                <div class="record">${team.record.replace('\n', '<br>')}</div>
+            </div>
+        `;
+    }
 
     card.innerHTML = `
         <div class="team-left">
@@ -824,11 +817,11 @@ function createTeamLogoWrapper(team) {
             conferenceFilter.classList.add('hidden'); // Hide dropdown after 3 seconds
         }, 3000); // 3 seconds of inactivity
     });
-
+    
     // Ensure dropdown is visible when the page loads
     if (conferenceFilter) {
         conferenceFilter.classList.remove('hidden');
     }
-
+   
 
 });
