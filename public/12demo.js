@@ -464,6 +464,7 @@ const games = data.events.map(event => {
     const competition = event.competitions[0];
     return {
         matchup: event.name,
+        possessionTeamId: competition.situation?.possession || null,
         teams: competition.competitors.map(team => {
             const overallRecord = team.records?.find(r => r.name === "overall")?.summary || "0-0";
             const confRecord = team.records?.find(r => r.name === "vs. Conf.")?.summary;
