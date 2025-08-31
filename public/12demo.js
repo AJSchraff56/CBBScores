@@ -692,6 +692,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     // Create a Game Card
    function createGameCard(game, isTop25) {
     const [team1, team2] = game.teams;
+    const possessionTeamId = game.possessionTeamId;
 
     // Get team colors or use defaults
     const team1Color = teamColors[team1.name] || defaultColor1;
@@ -777,11 +778,6 @@ function createTeamLogoWrapper(team, possessionTeamId) {
     `;
 }
 
-
-
-    
-
-const possessionTeamId = competition.situation?.possession;
 
 card.innerHTML = `
     <div class="team-left">
