@@ -805,6 +805,10 @@ card.innerHTML = `
         </div>
     </div>
 `;
+       
+return card;
+}
+
 
 
     // Handle Conference Filter Change
