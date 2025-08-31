@@ -763,18 +763,22 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     );
 
     
+
 function createTeamLogoWrapper(team, possessionTeamId) {
     const hasPossession = parseInt(team.conferenceId, 10) === parseInt(possessionTeamId, 10);
     return `
         <div class="team-logo-wrapper">
             <img src="${team.logo}" alt="${team.name}" class="team-logo" />
-            ${hasPossession ? `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt="Football" class="possession-iconcord.replace('\n', '<br>')}</div>
+            ${hasPossession ? `https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png` : ''}
+            <div class="record">${team.record.replace('\n', '<br>')}</div>
         </div>
     `;
 }
 
 
+
     
+
 const possessionTeamId = competition.situation?.possession;
 
 card.innerHTML = `
@@ -802,8 +806,6 @@ card.innerHTML = `
     </div>
 `;
 
-    return card;
-}
 
     // Handle Conference Filter Change
     conferenceFilter.addEventListener('change', () => {
