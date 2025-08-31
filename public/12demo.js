@@ -762,39 +762,45 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
         `linear-gradient(135deg, ${team2Color} 0%, ${team2Color} 49%, ${team1Color} 51%, ${team1Color} 100%)`
     );
 
-    function createTeamLogoWrapper(team) {
-        return `
-            <div class="team-logo-wrapper">
-                <img src="${team.logo}" alt="${team.name}" class="team-logo" />
-                <div class="record">${team.record.replace('\n', '<br>')}</div>
-            </div>
-        `;
-    }
-
-    card.innerHTML = `
-        <div class="team-left">
-            ${createTeamLogoWrapper(team2)}
-            <div>
-                <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2Name}</div>
-                <div class="score">${team2.score}</div>
-            </div>
-        </div>
-
-        <div class="status-wrapper">
-            <div class="status">${displayStatus}</div>
-            ${game.downDistanceText && game.downDistanceText.trim() !== ''
-                ? `<div class="down-distance">${game.downDistanceText.replace(/&amp;/g, '&')}</div>` 
-                : ''}
-        </div>
-
-        <div class="team-right">
-            ${createTeamLogoWrapper(team1)}
-            <div>
-                <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1Name}</div>
-                <div class="score">${team1.score}</div>
-            </div>
+    
+function createTeamLogoWrapper(team, possessionTeamId) {
+    const hasPossession = parseInt(team.conferenceId, 10) === parseInt(possessionTeamId, 10);
+    return `
+        <div class="team-logo-wrapper">
+            <img src="${team.logo}" alt="${team.name}" class="team-logo" />
+            ${hasPossession ? `<img src="https://i.ibb.co/KcxZvnXh/Adobe-Stock-184092958-Converted.png" alt="Football" class="possession-iconcord.replace('\n', '<br>')}</div>
         </div>
     `;
+}
+
+
+    
+const possessionTeamId = competition.situation?.possession;
+
+card.innerHTML = `
+    <div class="team-left">
+        ${createTeamLogoWrapper(team2, possessionTeamId)}
+        <div>
+            <div class="team-name">${team2.rank && team2.rank < 99 ? `#${team2.rank} ` : ''}${team2Name}</div>
+            <div class="score">${team2.score}</div>
+        </div>
+    </div>
+
+    <div class="status-wrapper">
+        <div class="status">${displayStatus}</div>
+        ${game.downDistanceText && game.downDistanceText.trim() !== ''
+            ? `<div class="down-distance">${game.downDistanceText.replace(/&amp;/g, '&')}</div>` 
+            : ''}
+    </div>
+
+    <div class="team-right">
+        ${createTeamLogoWrapper(team1, possessionTeamId)}
+        <div>
+            <div class="team-name">${team1.rank && team1.rank < 99 ? `#${team1.rank} ` : ''}${team1Name}</div>
+            <div class="score">${team1.score}</div>
+        </div>
+    </div>
+`;
 
     return card;
 }
