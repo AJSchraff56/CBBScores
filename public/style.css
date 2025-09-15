@@ -152,8 +152,8 @@ body.sbscores, body.sbindex {
     height: auto;
     display: flex;
     flex-direction: column;
-    flex: 0 1 auto;
-    gap: 8px;
+    flex: 1 1 0;
+    gap: 20px;
     overflow-y: hidden; /* Enable scrolling if content overflows */
     scrollbar-width: thin;
     scrollbar-color: #444 #1e1e1e;
