@@ -807,7 +807,14 @@ card.innerHTML = `
 return card;
 }
 
-
+document.querySelectorAll('.scoresContainer .side').forEach(side => {
+  const cards = side.querySelectorAll('.game-card');
+  if (cards.length >= 3) {
+    side.classList.add('grow-cards');
+  } else {
+    side.classList.remove('grow-cards');
+  }
+});
 
     // Handle Conference Filter Change
     conferenceFilter.addEventListener('change', () => {
