@@ -239,7 +239,7 @@ body.sbscores, body.sbindex {
     border: 1px solid rgba(255,255,255,0.18);
     display: flex;
     flex: 0 1 auto;
-    max-height: 220 px;
+    max-height: 320 px;
     align-items: center;
     gap: 32px;
     overflow: hidden;
