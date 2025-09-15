@@ -238,11 +238,19 @@ body.sbscores, body.sbindex {
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.18);
     display: flex;
-    flex: 1 1 0;
+    flex: 0 1 auto;
+    max-height: 220 px;
     align-items: center;
     gap: 32px;
     overflow: hidden;
 }
+
+/* When the side column has 3 or more cards, let them flex-grow */
+.scoresContainer .side:has(.game-card:nth-child(3)) .game-card {
+  flex: 1 1 0;        /* allow vertical growth */
+  max-height: none;   /* remove cap */
+}
+
 .game-card::before {
     content: "";
     position: absolute;
