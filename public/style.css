@@ -119,7 +119,7 @@ body.sbscores, body.sbindex {
 /* Individual container styles */
 .container {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     flex: 1 1 auto;
     padding: 5px;
     display: flex;
@@ -152,7 +152,7 @@ body.sbscores, body.sbindex {
     height: auto;
     display: flex;
     flex-direction: column;
-    flex: 1 1 auto; 
+    flex: 1 1 0;
     gap: 8px;
     overflow-y: hidden; /* Enable scrolling if content overflows */
     scrollbar-width: thin;
@@ -238,6 +238,7 @@ body.sbscores, body.sbindex {
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.18);
     display: flex;
+    flex: 1 1 0;
     align-items: center;
     gap: 32px;
     overflow: hidden;
