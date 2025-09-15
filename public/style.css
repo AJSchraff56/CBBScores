@@ -120,7 +120,7 @@ body.sbscores, body.sbindex {
 .container {
     width: 100%;
     height: 100vh;
-    flex: 1;
+    flex: 1 1 auto;
     padding: 5px;
     display: flex;
     flex-direction: column;
