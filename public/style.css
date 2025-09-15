@@ -1,7 +1,7 @@
 /* General body styling */
 body {
     font-family: 'Trebuchet MS', sans-serif;
-    margin: auto;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
