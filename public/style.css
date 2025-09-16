@@ -152,7 +152,7 @@ body.sbscores, body.sbindex {
     height: auto;
     display: flex;
     flex-direction: column;
-    flex: 0.9 1 0;
+    flex: 0.95 1 0;
     gap: 15px;
     overflow-y: hidden; /* Enable scrolling if content overflows */
     scrollbar-width: thin;
@@ -254,7 +254,7 @@ body.sbscores, body.sbindex {
     z-index: 0;
     /* The background image will be set in JS */
     background: var(--diagonal-bg, none);
-    opacity: 0.2;
+    opacity: 0.3;
     filter: blur(16px);
     pointer-events: none;
     border-radius: 20px;
