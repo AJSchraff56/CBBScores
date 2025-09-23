@@ -770,7 +770,7 @@ conferenceTitle.textContent = `${getConferenceName(selectedConference)} Scores`;
     // Set diagonal background using a CSS variable
     card.style.setProperty(
         '--diagonal-bg',
-        `linear-gradient(135deg, ${team2Color} 0%, ${team2Color} 49%, ${team1Color} 51%, ${team1Color} 100%)`
+        `linear-gradient(135deg, ${team2Color} 0%, ${team2Color} 40%, ${team1Color} 60%, ${team1Color} 100%)`
     );
 
     
