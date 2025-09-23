@@ -476,7 +476,7 @@ const games = data.events.map(event => {
                 name: getCustomTeamName(team.team.shortDisplayName),
                 id: team.team.id,
                 score: team.score || "0",
-                logo: team.team.logo || '',
+                logo: team.team.logo || 'https://i.ibb.co/zhvf878M/convert.png',
                 rank: team.curatedRank?.current || null,
                 record: formattedRecord, // Ensure conference name is assigned
                 conferenceId: parseInt(team.team.conferenceId, 10),
