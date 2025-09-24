@@ -3,6 +3,7 @@ const pageSize = 5;
 const leftColumnContainer = document.getElementById('leftColumn');
 const rightColumnContainer = document.getElementById('rightColumn');
 
+
 async function fetchScores() {
   try {
     const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard');
@@ -11,17 +12,20 @@ async function fetchScores() {
 
     const games = data.events.map(event => {
       const competition = event.competitions[0];
+      const teams = competition.competitors.map(team => ({
+        name: team.team.shortDisplayName,
+        score: team.score ?? "0",
+        logo: team.team.logo ?? 'https://i.ibb.co/zhvf878M/convert.png',
+        homeAway: team.homeAway,
+      }));
+
       return {
-        matchup: event.name,
-        possessionTeamId: competition.situation?.possession ?? null,
-        teams: competition.competitors.map(team => ({
-          name: team.team.shortDisplayName,
-          score: team.score ?? "0",
-          logo: team.team.logo ?? 'https://i.ibb.co/zhvf878M/convert.png',
-        })),
-        status: event.status.type.shortDetail ?? "Scheduled",
+        name: event.name,
         date: event.date,
+        status: event.status.type.shortDetail ?? "Scheduled",
         downDistanceText: competition.situation?.downDistanceText ?? "",
+        possessionTeamId: competition.situation?.possession ?? null,
+        teams: teams,
       };
     });
 
@@ -40,6 +44,7 @@ async function fetchScores() {
     console.error('Error fetching scores:', error);
   }
 }
+
 
 function renderGames(games) {
   leftColumnContainer.innerHTML = '';
