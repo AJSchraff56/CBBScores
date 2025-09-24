@@ -5,6 +5,34 @@ let currentRefreshInterval = null;
 
 console.log("script.js loaded");
 
+const customTop25 = [
+    { rank: 1, name: "Ohio State" },
+    { rank: 2, name: "Texas" },
+    { rank: 3, name: "Penn State" },
+    { rank: 4, name: "Notre Dame" },
+    { rank: 5, name: "Georgia" },
+    { rank: 6, name: "Oregon" },
+    { rank: 7, name: "Alabama" },
+    { rank: 8, name: "LSU" },
+    { rank: 9, name: "Clemson" },
+    { rank: 10, name: "Tennessee" },
+    { rank: 11, name: "Florida State" },
+    { rank: 12, name: "Arizona State" },
+    { rank: 13, name: "Utah" },
+    { rank: 14, name: "Oklahoma" },
+    { rank: 15, name: "SMU" },
+    { rank: 16, name: "Kansas State" },
+    { rank: 17, name: "Indiana" },
+    { rank: 18, name: "Florida" },
+    { rank: 19, name: "Tennessee" },
+    { rank: 20, name: "Louisville" },
+    { rank: 21, name: "Michigan" },
+    { rank: 22, name: "Texas A&M" },
+    { rank: 23, name: "USC" },
+    { rank: 24, name: "Boise State" },
+    { rank: 25, name: "Ole Miss" }
+];
+
 document.addEventListener('DOMContentLoaded', () => {
     const top25Scores = document.getElementById('top25Scores');
     const conferenceScores = document.getElementById('conferenceScores');
