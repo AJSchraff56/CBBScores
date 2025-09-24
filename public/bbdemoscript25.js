@@ -515,7 +515,7 @@ const games = data.events.map(event => {
                 abbreviation: team.team.abbreviation,
             };
         }),
-        status: event.status.type.shortDetail === "TBD" ? "Season Tips Nov. 1" : event.status.type.shortDetail || "Scheduled",
+        status: event.status.type.shortDetail === "TBD" ? "Date/Time TBD" : event.status.type.shortDetail || "Scheduled",
     };
 });
 
