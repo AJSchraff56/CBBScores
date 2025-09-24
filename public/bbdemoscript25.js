@@ -514,7 +514,7 @@ const games = data.events.map(event => {
                 abbreviation: team.team.abbreviation,
             };
         }),
-        status: event.status.type.shortDetail === "TBD" ? "Week 1 | Time TBD" : event.status.type.shortDetail || "Scheduled",
+        status: event.status.type.shortDetail === "To Be Announced" ? "Week 1 | Time TBD" : event.status.type.shortDetail || "Scheduled",
     };
 });
 
