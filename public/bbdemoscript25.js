@@ -6,32 +6,33 @@ let currentRefreshInterval = null;
 console.log("script.js loaded");
 
 const customTop25 = [
-    { rank: 1, name: "Ohio State" },
-    { rank: 2, name: "Texas" },
-    { rank: 3, name: "Penn State" },
-    { rank: 4, name: "Notre Dame" },
-    { rank: 5, name: "Georgia" },
-    { rank: 6, name: "Oregon" },
-    { rank: 7, name: "Alabama" },
-    { rank: 8, name: "LSU" },
-    { rank: 9, name: "Clemson" },
-    { rank: 10, name: "Tennessee" },
-    { rank: 11, name: "Florida State" },
-    { rank: 12, name: "Arizona State" },
-    { rank: 13, name: "Utah" },
-    { rank: 14, name: "Oklahoma" },
-    { rank: 15, name: "SMU" },
-    { rank: 16, name: "Kansas State" },
-    { rank: 17, name: "Indiana" },
-    { rank: 18, name: "Florida" },
+    { rank: 1, name: "Houston" },
+    { rank: 2, name: "Purdue" },
+    { rank: 3, name: "Duke" },
+    { rank: 4, name: "Florida" },
+    { rank: 5, name: "Michigan" },
+    { rank: 6, name: "UConn" },
+    { rank: 7, name: "St. John's" },
+    { rank: 8, name: "BYU" },
+    { rank: 9, name: "Kentucky" },
+    { rank: 10, name: "Texas Tech" },
+    { rank: 11, name: "Louisville" },
+    { rank: 12, name: "Arizona" },
+    { rank: 13, name: "Arkansas" },
+    { rank: 14, name: "Illinois" },
+    { rank: 15, name: "UCLA" },
+    { rank: 16, name: "Auburn" },
+    { rank: 17, name: "Kansas" },
+    { rank: 18, name: "Alabama" },
     { rank: 19, name: "Tennessee" },
-    { rank: 20, name: "Louisville" },
-    { rank: 21, name: "Michigan" },
-    { rank: 22, name: "Texas A&M" },
-    { rank: 23, name: "USC" },
-    { rank: 24, name: "Boise State" },
-    { rank: 25, name: "Ole Miss" }
+    { rank: 20, name: "Iowa State" },
+    { rank: 21, name: "Michigan State" },
+    { rank: 22, name: "North Carolina" },
+    { rank: 23, name: "San Diego State" },
+    { rank: 24, name: "Creighton" },
+    { rank: 25, name: "Wisconsin" }
 ];
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const top25Scores = document.getElementById('top25Scores');
