@@ -500,20 +500,21 @@ const games = data.events.map(event => {
 
             const formattedRecord = confRecord ? `${overallRecord}\n${confRecord}` : `${overallRecord}`;
 
+           // Find the rank based on customTop25
+            const customRank = customTop25.find(entry => entry.name === getCustomTeamName(team.team.shortDisplayName))?.rank || 99;
+            team.rank = customRank; // Override the rank with the custom rank
             return {
                 name: getCustomTeamName(team.team.shortDisplayName),
-                id: team.team.id,
                 score: team.score || "0",
-                logo: team.team.logo || 'https://i.ibb.co/zhvf878M/convert.png',
-                rank: team.curatedRank?.current || null,
-                record: formattedRecord, // Ensure conference name is assigned
+                logo: team.team.logo || '',
+                rank: customRank, // Use custom rank
+                record: formattedRecord,
                 conferenceId: parseInt(team.team.conferenceId, 10),
-                conferenceName: conferenceName, 
+                conferenceName: conferenceName,
+                abbreviation: team.team.abbreviation,
             };
         }),
-        status: event.status.type.shortDetail || "Scheduled",
-        date: event.date,
-        downDistanceText: competition.situation?.downDistanceText || "",
+        status: event.status.type.shortDetail === "TBD" ? "Week 1 | Time TBD" : event.status.type.shortDetail || "Scheduled",
     };
 });
 
