@@ -507,7 +507,7 @@ const games = data.events.map(event => {
             return {
                 name: getCustomTeamName(team.team.shortDisplayName),
                 score: team.score || "0",
-                logo: team.team.logo || '',
+                logo: team.team.logo || 'https://i.ibb.co/zhvf878M/convert.png',
                 rank: customRank, // Use custom rank
                 record: formattedRecord,
                 conferenceId: parseInt(team.team.conferenceId, 10),
