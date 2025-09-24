@@ -516,8 +516,11 @@ const games = data.events.map(event => {
             };
         }),
         status: event.status.type.shortDetail === "TBD" ? "Date/Time TBD" : event.status.type.shortDetail || "Scheduled",
+        date: event.date,
+        downDistanceText: competition.situation?.downDistanceText || "",
     };
 });
+       
 
 top25Data = games.filter(game => game.teams.some(team => team.rank && team.rank >= 1 && team.rank <= 25));
 conferenceData = games;
