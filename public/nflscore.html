@@ -1,25 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?idpt>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-L9WKQBPXSW');
-  </script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-  <title>NFL Scoreboard</title>
-  style.css
+    <meta charset="UTF-8">
+    <title>NFL Scores</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background: #181818;
+            color: #ddd;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100vw;
+            min-height: 100vh;
+            padding: 20px 0;
+            gap: 24px;
+        }
+        .side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            padding: 0 20px;
+        }
+        .side h2 {
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 1.4em;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .game-card {
+            background: var(--diagonal-bg, linear-gradient(135deg, #222 0%, #444 100%));
+            border-radius: 16px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+            padding: 18px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 84px;
+            transition: background 0.5s;
+            position: relative;
+        }
+        .team-left,
+        .team-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .team-logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 6px;
+        }
+        .team-logo {
+            width: 46px;
+            height: 46px;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+        }
+        .record {
+            margin-top: 4px;
+            font-size: 0.8em;
+            color: #aaa;
+            text-align: center;
+        }
+        .team-name {
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .score {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        .status-wrapper {
+            min-width: 110px;
+            text-align: center;
+            font-size: 1em;
+            color: #fff;
+            padding: 6px 0;
+        }
+        .status {
+            font-size: 1em;
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            .side {
+                padding: 0 8px;
+            }
+        }
+    </style>
 </head>
-<body class="nflscores">
-  <div id="scoreboard">
-    <div id="leftColumn" class="column"></div>
-    <div id="rightColumn" class="column"></div>
-  </div>
+<body>
+    <div class="container">
+        <div class="side" id="leftScores">
+            <h2>Games</h2>
+            <!-- NFL game cards will appear here -->
+        </div>
+        <div class="side" id="rightScores">
+            <h2>Games</h2>
+            <!-- NFL game cards will appear here -->
+        </div>
+    </div>
 
-  <script src="nflscore</body>
+    <script src="nflscript.js"></script>
+</body>
 </html>
