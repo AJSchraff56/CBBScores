@@ -9,6 +9,23 @@
       padding: 40px;
       background-color: #f7f7f7;
       text-align: center;
+      /* Add background image */
+      background-image: url('https://i.ibb.co/fY9FrS5T/UK-BG.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      min-height: 100vh;
+      /* Optional: Add an overlay for readability */
+      position: relative;
+    }
+    /* Add an overlay for better contrast (optional) */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.82); /* Adjust opacity as needed */
+      z-index: 0;
+      pointer-events: none;
     }
     .logo {
       max-width: 220px;
@@ -17,6 +34,12 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+    h1, .nav-button {
+      position: relative;
+      z-index: 1;
     }
     .nav-button {
       display: block;
