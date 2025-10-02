@@ -80,6 +80,7 @@
   <div id="score"></div>
 
   <script>
+
     // Base coordinates (Photoshop 1920x1080), now with logo URLs
     const baseLocations = {
       valpo: { x: 1147, y: 369, logo: "https://i.ibb.co/B2Zp3mbF/valpoathletics-vertical-logo-web-HEX-full-brown.png" },
@@ -93,6 +94,14 @@
       belmont: { x: 1189, y: 646, logo: "https://i.ibb.co/9HTQ4B7R/athleticslogo-primary.png" },
       evansville: { x: 1149, y: 543, logo: "https://i.ibb.co/bMGzWtdr/Evansville-Athletics-logo-svg.png" }
     };
+
+     const logoCache = {};
+
+      for (const key in baseLocations) {
+      const img = new Image();
+      img.src = baseLocations[key].logo;
+      logoCache[key] = img;
+}
 
     const rings = [30, 60, 90, 120, 150]; // radius thresholds for 5–1 points
     const map = document.getElementById('map');
@@ -189,15 +198,16 @@
       marker.style.top = `${y}px`;
       container.appendChild(marker);
     }
+    
+    function placeLogo(x, y, logoKey) {
+      const cachedImg = logoCache[logoKey].cloneNode();
+      cachedImg.className = 'logo-marker';
+      cachedImg.style.left = `${x}px`;
+      cachedImg.style.top = `${y}px`;
+      container.appendChild(cachedImg);
+}
 
-    function placeLogo(x, y, logoUrl) {
-      const img = document.createElement('img');
-      img.src = logoUrl;
-      img.className = 'logo-marker';
-      img.style.left = `${x}px`;
-      img.style.top = `${y}px`;
-      container.appendChild(img);
-    }
+    placeLogo(actualDisplayX, actualDisplayY, selectedLocation);
 
     function clearMarkers() {
       document.querySelectorAll('.ring, .click-marker, .logo-marker').forEach(el => el.remove());
