@@ -14,37 +14,34 @@
       display: inline-block;
     }
     #map {
-      width: auto;   /* show natural size or shrink via CSS */
-      max-width: 90vw; /* shrink to fit viewport if needed */
+      max-width: 90%; /* scales down to show more */
       height: auto;
       cursor: crosshair;
+      display: block;
     }
     .ring {
       position: absolute;
       border-radius: 50%;
-      border: 2px dashed rgba(0, 0, 255, 0.3);
+      border: 2px dashed rgba(0, 0, 255, 0.5);
       pointer-events: none;
     }
     .highlight-ring {
-      border: 3px solid rgba(255, 0, 0, 0.8);
+      border: 2px solid rgba(255, 0, 0, 0.7);
     }
     .click-marker {
       position: absolute;
       width: 10px;
       height: 10px;
       background: red;
-      border: 2px solid white;
       border-radius: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
     }
-    .pin {
+    .logo-marker {
       position: absolute;
-      width: 0;
-      height: 0;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-top: 20px solid red;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
       transform: translate(-50%, -100%);
       pointer-events: none;
     }
@@ -65,26 +62,26 @@
   <h1>Map Guessing Game</h1>
   <select id="location-select">
     <option value="">Select a location</option>
-    <option value="valparaiso">Valparaiso</option>
+    <option value="valpo">Valparaiso</option>
     <option value="gym">Gym</option>
     <option value="cafeteria">Cafeteria</option>
   </select>
 
   <div id="map-container">
-    <img id="map" src="https://i.ibb.co/q39zgMc5/Map-Game.png" alt="Map-Game" border="0">
+    <img id="map" src="https://i.ibb.co/q39zgMc5/Map-Game.png" alt="Map-Game">
   </div>
 
   <div id="score"></div>
 
   <script>
-    // ✅ Define your Photoshop coordinates (1920x1080 space)
+    // Base coordinates (Photoshop 1920x1080), now with logo URLs
     const baseLocations = {
-      valparaiso: { x: 1148, y: 369 },
-      gym: { x: 1220, y: 640 },
-      cafeteria: { x: 960, y: 900 }
+      valpo: { x: 1147, y: 369, logo: "https://i.ibb.co/B2Zp3mbF/valpoathletics-vertical-logo-web-HEX-full-brown.png" },
+      gym: { x: 1220, y: 640, logo: "https://via.placeholder.com/40x40?text=G" },
+      cafeteria: { x: 960, y: 900, logo: "https://via.placeholder.com/40x40?text=C" }
     };
 
-    const rings = [30, 60, 90, 120, 150];
+    const rings = [30, 60, 90, 120, 150]; // radius thresholds for 5–1 points
     const map = document.getElementById('map');
     const container = document.getElementById('map-container');
     const scoreDisplay = document.getElementById('score');
@@ -106,24 +103,22 @@
 
       const rect = map.getBoundingClientRect();
 
-      // Raw click relative to displayed (scaled) image
-      const displayX = e.clientX - rect.left;
-      const displayY = e.clientY - rect.top;
+      // Raw click relative to displayed image
+      const rawX = e.clientX - rect.left;
+      const rawY = e.clientY - rect.top;
 
-      // Scale factors
+      // Scale back to natural image coordinates
       const scaleX = map.naturalWidth / rect.width;
       const scaleY = map.naturalHeight / rect.height;
 
-      // Convert click into Photoshop space
-      const photoX = displayX * scaleX;
-      const photoY = displayY * scaleY;
+      const clickX = rawX * scaleX;
+      const clickY = rawY * scaleY;
 
-      // Actual location in Photoshop space
+      // Get actual location in base coords
       const actual = baseLocations[selectedLocation];
 
-      // Distance math in Photoshop space
-      const dx = photoX - actual.x;
-      const dy = photoY - actual.y;
+      const dx = clickX - actual.x;
+      const dy = clickY - actual.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       let points = 0;
@@ -138,33 +133,28 @@
 
       scoreDisplay.textContent = `You scored ${points} point${points !== 1 ? 's' : ''}!`;
 
-      // Scale actual location back to display coords for drawing
+      // Adjust positions back to display scale
       const actualDisplayX = actual.x / scaleX;
       const actualDisplayY = actual.y / scaleY;
+      const clickDisplayX = clickX / scaleX;
+      const clickDisplayY = clickY / scaleY;
 
-      // Draw rings (scaled radius for display space)
-      drawRings(actualDisplayX, actualDisplayY, highlightRadius / scaleX);
-
-      // Mark user click in display coords
-      markClick(displayX, displayY);
-
-      // Place pin at actual location
-      placePin(actualDisplayX, actualDisplayY);
+      drawRings(actualDisplayX, actualDisplayY, highlightRadius);
+      markClick(clickDisplayX, clickDisplayY);
+      placeLogo(actualDisplayX, actualDisplayY, actual.logo);
     });
 
     function drawRings(x, y, highlightRadius) {
       rings.forEach((r) => {
         const ring = document.createElement('div');
         ring.className = 'ring';
-        if (highlightRadius && r === Math.round(highlightRadius * (map.naturalWidth / map.clientWidth))) {
+        if (r === highlightRadius) {
           ring.classList.add('highlight-ring');
         }
-        // Scale ring size to display space
-        const scaledR = r * (map.clientWidth / map.naturalWidth);
-        ring.style.width = `${scaledR * 2}px`;
-        ring.style.height = `${scaledR * 2}px`;
-        ring.style.left = `${x - scaledR}px`;
-        ring.style.top = `${y - scaledR}px`;
+        ring.style.width = `${r * 2}px`;
+        ring.style.height = `${r * 2}px`;
+        ring.style.left = `${x - r}px`;
+        ring.style.top = `${y - r}px`;
         container.appendChild(ring);
       });
     }
@@ -177,16 +167,17 @@
       container.appendChild(marker);
     }
 
-    function placePin(x, y) {
-      const pin = document.createElement('div');
-      pin.className = 'pin';
-      pin.style.left = `${x}px`;
-      pin.style.top = `${y}px`;
-      container.appendChild(pin);
+    function placeLogo(x, y, logoUrl) {
+      const img = document.createElement('img');
+      img.src = logoUrl;
+      img.className = 'logo-marker';
+      img.style.left = `${x}px`;
+      img.style.top = `${y}px`;
+      container.appendChild(img);
     }
 
     function clearMarkers() {
-      document.querySelectorAll('.ring, .click-marker, .pin').forEach(el => el.remove());
+      document.querySelectorAll('.ring, .click-marker, .logo-marker').forEach(el => el.remove());
     }
   </script>
 
