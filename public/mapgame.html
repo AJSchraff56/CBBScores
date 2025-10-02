@@ -199,15 +199,14 @@
       container.appendChild(marker);
     }
     
-    function placeLogo(x, y, logoKey) {
-      const cachedImg = logoCache[logoKey].cloneNode();
-      cachedImg.className = 'logo-marker';
-      cachedImg.style.left = `${x}px`;
-      cachedImg.style.top = `${y}px`;
-      container.appendChild(cachedImg);
-}
-
-    placeLogo(actualDisplayX, actualDisplayY, selectedLocation);
+    function placeLogo(x, y, logoUrl) {
+      const img = document.createElement('img');
+      img.src = logoUrl;
+      img.className = 'logo-marker';
+      img.style.left = `${x}px`;
+      img.style.top = `${y}px`;
+      container.appendChild(img);
+    }
 
     function clearMarkers() {
       document.querySelectorAll('.ring, .click-marker, .logo-marker').forEach(el => el.remove());
