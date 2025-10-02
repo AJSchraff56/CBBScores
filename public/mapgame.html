@@ -145,18 +145,28 @@
     });
 
     function drawRings(x, y, highlightRadius) {
-      rings.forEach((r) => {
-        const ring = document.createElement('div');
-        ring.className = 'ring';
-        if (r === highlightRadius) {
-          ring.classList.add('highlight-ring');
-        }
-        ring.style.width = `${r * 2}px`;
-        ring.style.height = `${r * 2}px`;
-        ring.style.left = `${x - r}px`;
-        ring.style.top = `${y - r}px`;
-        container.appendChild(ring);
-      });
+  const rect = map.getBoundingClientRect();
+  const scaleX = map.clientWidth / map.naturalWidth;
+  const scaleY = map.clientHeight / map.naturalHeight;
+
+  rings.forEach((r) => {
+    const ring = document.createElement('div');
+    ring.className = 'ring';
+
+    // Highlight if this is the matching ring
+    if (highlightRadius && r === highlightRadius) {
+      ring.classList.add('highlight-ring');
+    }
+
+    // Convert ring radius to display space
+    const scaledR = r * scaleX; // assume uniform scaling
+    ring.style.width = `${scaledR * 2}px`;
+    ring.style.height = `${scaledR * 2}px`;
+    ring.style.left = `${x - scaledR}px`;
+    ring.style.top = `${y - scaledR}px`;
+
+    container.appendChild(ring);
+  });
     }
 
     function markClick(x, y) {
