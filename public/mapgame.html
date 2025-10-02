@@ -48,7 +48,10 @@
   </select>
 
   <div id="map-container">
-    <img src="https://i.ibb.co/q39zgMc5/Map-Game.png" id="map" alt="Map</div>
+    <img src="https://39zgMc5/Map-Game.png
+  </div>
+
+  <div id="score"></div>
 
   <script>
     const locations = {
@@ -93,13 +96,12 @@
       }
 
       scoreDisplay.textContent = `You scored ${points} point${points !== 1 ? 's' : ''}!`;
-
       drawRings(actual.x, actual.y);
     });
 
     function drawRings(x, y) {
       clearRings();
-      rings.forEach((r, i) => {
+      rings.forEach((r) => {
         const ring = document.createElement('div');
         ring.className = 'ring';
         ring.style.width = `${r * 2}px`;
@@ -116,3 +118,4 @@
   </script>
 
 </body>
+</html>
