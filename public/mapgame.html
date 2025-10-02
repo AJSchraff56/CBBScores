@@ -105,23 +105,25 @@
   clearMarkers();
 
   const rect = map.getBoundingClientRect();
-  
-  // Raw click relative to the scaled element
-  const rawX = e.clientX - rect.left;
-  const rawY = e.clientY - rect.top;
 
-  // Adjust for CSS scaling
+  // Raw click relative to displayed (scaled) image
+  const displayX = e.clientX - rect.left;
+  const displayY = e.clientY - rect.top;
+
+  // Scale factors
   const scaleX = map.naturalWidth / rect.width;
   const scaleY = map.naturalHeight / rect.height;
 
-  const clickX = rawX * scaleX;
-  const clickY = rawY * scaleY;
+  // Convert click into Photoshop space
+  const photoX = displayX * scaleX;
+  const photoY = displayY * scaleY;
 
-  // Actual location in Photoshop coords (no scaling needed if width:auto)
+  // Get actual location in Photoshop space
   const actual = baseLocations[selectedLocation];
 
-  const dx = clickX - actual.x;
-  const dy = clickY - actual.y;
+  // Distance math in Photoshop space
+  const dx = photoX - actual.x;
+  const dy = photoY - actual.y;
   const distance = Math.sqrt(dx * dx + dy * dy);
 
   let points = 0;
@@ -136,9 +138,18 @@
 
   scoreDisplay.textContent = `You scored ${points} point${points !== 1 ? 's' : ''}!`;
 
-  drawRings(actual.x, actual.y, highlightRadius);
-  markClick(clickX, clickY);
-  placePin(actual.x, actual.y);
+  // Scale actual location back to display coords for drawing
+  const actualDisplayX = actual.x / scaleX;
+  const actualDisplayY = actual.y / scaleY;
+
+  // Draw rings and pin in display coords
+  drawRings(actualDisplayX, actualDisplayY, highlightRadius / scaleX);
+
+  // Mark user click in display coords
+  markClick(displayX, displayY);
+
+  // Place pin at actual location
+  placePin(actualDisplayX, actualDisplayY);
 });
 
     function drawRings(x, y, highlightRadius) {
