@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Map Guessing Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f4f4f4;
+    }
+    #map-container {
+      position: relative;
+      display: inline-block;
+    }
+    #map {
+      width: 800px;
+      height: auto;
+      cursor: crosshair;
+    }
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px dashed rgba(0, 0, 255, 0.5);
+      pointer-events: none;
+    }
+    #score {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    select {
+      margin: 20px;
+      padding: 10px;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Map Guessing Game</h1>
+  <select id="location-select">
+    <option value="">Select a location</option>
+    <option value="library">Library</option>
+    <option value="gym">Gym</option>
+    <option value="cafeteria">Cafeteria</option>
+  </select>
+
+  <div id="map-container">
+    <img src="https://i.ibb.co/q39zgMc5/Map-Game.png" id="map" alt="Map</div>
+
+  <script>
+    const locations = {
+      library: { x: 200, y: 150 },
+      gym: { x: 600, y: 300 },
+      cafeteria: { x: 400, y: 500 }
+    };
+
+    const rings = [30, 60, 90, 120, 150]; // radius thresholds for 5 to 1 points
+    const map = document.getElementById('map');
+    const container = document.getElementById('map-container');
+    const scoreDisplay = document.getElementById('score');
+    let selectedLocation = null;
+
+    document.getElementById('location-select').addEventListener('change', (e) => {
+      selectedLocation = e.target.value;
+      scoreDisplay.textContent = "Now click on the map to guess!";
+      clearRings();
+    });
+
+    map.addEventListener('click', (e) => {
+      if (!selectedLocation) {
+        alert("Please select a location first.");
+        return;
+      }
+
+      const rect = map.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+
+      const actual = locations[selectedLocation];
+      const dx = clickX - actual.x;
+      const dy = clickY - actual.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      let points = 0;
+      for (let i = 0; i < rings.length; i++) {
+        if (distance <= rings[i]) {
+          points = 5 - i;
+          break;
+        }
+      }
+
+      scoreDisplay.textContent = `You scored ${points} point${points !== 1 ? 's' : ''}!`;
+
+      drawRings(actual.x, actual.y);
+    });
+
+    function drawRings(x, y) {
+      clearRings();
+      rings.forEach((r, i) => {
+        const ring = document.createElement('div');
+        ring.className = 'ring';
+        ring.style.width = `${r * 2}px`;
+        ring.style.height = `${r * 2}px`;
+        ring.style.left = `${x - r}px`;
+        ring.style.top = `${y - r}px`;
+        container.appendChild(ring);
+      });
+    }
+
+    function clearRings() {
+      document.querySelectorAll('.ring').forEach(r => r.remove());
+    }
+  </script>
+
+</body>
