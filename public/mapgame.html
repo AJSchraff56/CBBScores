@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +21,30 @@
     .ring {
       position: absolute;
       border-radius: 50%;
-      border: 2px dashed rgba(0, 0, 255, 0.5);
+      border: 2px dashed rgba(0, 0, 255, 0.3);
+      pointer-events: none;
+    }
+    .highlight-ring {
+      border: 3px solid rgba(255, 0, 0, 0.8);
+    }
+    .click-marker {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      border: 2px solid white;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .pin {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 20px solid red;
+      transform: translate(-50%, -100%);
       pointer-events: none;
     }
     #score {
@@ -69,7 +91,7 @@
     document.getElementById('location-select').addEventListener('change', (e) => {
       selectedLocation = e.target.value;
       scoreDisplay.textContent = "Now click on the map to guess!";
-      clearRings();
+      clearMarkers();
     });
 
     map.addEventListener('click', (e) => {
@@ -77,6 +99,8 @@
         alert("Please select a location first.");
         return;
       }
+
+      clearMarkers();
 
       const rect = map.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
@@ -88,22 +112,34 @@
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       let points = 0;
+      let highlightRadius = null;
       for (let i = 0; i < rings.length; i++) {
         if (distance <= rings[i]) {
           points = 5 - i;
+          highlightRadius = rings[i];
           break;
         }
       }
 
       scoreDisplay.textContent = `You scored ${points} point${points !== 1 ? 's' : ''}!`;
-      drawRings(actual.x, actual.y);
+
+      // Draw rings, highlight the clicked one
+      drawRings(actual.x, actual.y, highlightRadius);
+
+      // Mark user click
+      markClick(clickX, clickY);
+
+      // Mark actual location with pin
+      placePin(actual.x, actual.y);
     });
 
-    function drawRings(x, y) {
-      clearRings();
+    function drawRings(x, y, highlightRadius) {
       rings.forEach((r) => {
         const ring = document.createElement('div');
         ring.className = 'ring';
+        if (r === highlightRadius) {
+          ring.classList.add('highlight-ring');
+        }
         ring.style.width = `${r * 2}px`;
         ring.style.height = `${r * 2}px`;
         ring.style.left = `${x - r}px`;
@@ -112,8 +148,24 @@
       });
     }
 
-    function clearRings() {
-      document.querySelectorAll('.ring').forEach(r => r.remove());
+    function markClick(x, y) {
+      const marker = document.createElement('div');
+      marker.className = 'click-marker';
+      marker.style.left = `${x}px`;
+      marker.style.top = `${y}px`;
+      container.appendChild(marker);
+    }
+
+    function placePin(x, y) {
+      const pin = document.createElement('div');
+      pin.className = 'pin';
+      pin.style.left = `${x}px`;
+      pin.style.top = `${y}px`;
+      container.appendChild(pin);
+    }
+
+    function clearMarkers() {
+      document.querySelectorAll('.ring, .click-marker, .pin').forEach(el => el.remove());
     }
   </script>
 
