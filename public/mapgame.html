@@ -97,43 +97,49 @@
     });
 
     map.addEventListener('click', (e) => {
-      if (!selectedLocation) {
-        alert("Please select a location first.");
-        return;
-      }
+  if (!selectedLocation) {
+    alert("Please select a location first.");
+    return;
+  }
 
-      clearMarkers();
+  clearMarkers();
 
-      const rect = map.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const clickY = e.clientY - rect.top;
+  const rect = map.getBoundingClientRect();
+  
+  // Raw click relative to the scaled element
+  const rawX = e.clientX - rect.left;
+  const rawY = e.clientY - rect.top;
 
-      const actual = locations[selectedLocation];
-      const dx = clickX - actual.x;
-      const dy = clickY - actual.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+  // Adjust for CSS scaling
+  const scaleX = map.naturalWidth / rect.width;
+  const scaleY = map.naturalHeight / rect.height;
 
-      let points = 0;
-      let highlightRadius = null;
-      for (let i = 0; i < rings.length; i++) {
-        if (distance <= rings[i]) {
-          points = 5 - i;
-          highlightRadius = rings[i];
-          break;
-        }
-      }
+  const clickX = rawX * scaleX;
+  const clickY = rawY * scaleY;
 
-      scoreDisplay.textContent = `You scored ${points} point${points !== 1 ? 's' : ''}!`;
+  // Actual location in Photoshop coords (no scaling needed if width:auto)
+  const actual = baseLocations[selectedLocation];
 
-      // Draw rings, highlight the clicked one
-      drawRings(actual.x, actual.y, highlightRadius);
+  const dx = clickX - actual.x;
+  const dy = clickY - actual.y;
+  const distance = Math.sqrt(dx * dx + dy * dy);
 
-      // Mark user click
-      markClick(clickX, clickY);
+  let points = 0;
+  let highlightRadius = null;
+  for (let i = 0; i < rings.length; i++) {
+    if (distance <= rings[i]) {
+      points = 5 - i;
+      highlightRadius = rings[i];
+      break;
+    }
+  }
 
-      // Mark actual location with pin
-      placePin(actual.x, actual.y);
-    });
+  scoreDisplay.textContent = `You scored ${points} point${points !== 1 ? 's' : ''}!`;
+
+  drawRings(actual.x, actual.y, highlightRadius);
+  markClick(clickX, clickY);
+  placePin(actual.x, actual.y);
+});
 
     function drawRings(x, y, highlightRadius) {
       rings.forEach((r) => {
