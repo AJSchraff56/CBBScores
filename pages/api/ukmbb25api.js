@@ -15,9 +15,21 @@ export default async function handler(req, res) {
   const conferenceIdFilter = q('conferenceId'); // Format: string
   const idFilter = q('id'); // Format: string
 
+  // Handle CORS preflight
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.status(204).end();
+  }
+
   try {
-    const response = await fetch(API_URL);
-    const data = await response.json();
+    const apiRes = await fetch(API_URL);
+    if (!apiRes.ok) {
+      return res.status(apiRes.status).json({ error: `Upstream API returned ${apiRes.status}` });
+    }
+
+    const data = await apiRes.json();
 
     const competitions = data?.events?.flatMap(event => event.competitions || []) || [];
 
@@ -31,58 +43,115 @@ export default async function handler(req, res) {
         : true;
 
       const matchConference = conferenceIdFilter
-        ? comp.competitors?.some(c => c.team?.conferenceId === conferenceIdFilter)
-        : true;
-
-      return matchDate && matchId && matchConference;
+        ? comp.competitors?.some(c =>
+            String(c.team?.conferenceId) === String(conferenceIdFilter)
+          )
+        matchConference;
     });
 
-    res.status(200).json({ competitions: filteredCompetitions });
-  } catch (error) {
-    console.error('Error fetching or filtering data:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-}
-
-  try {
-    // Handle CORS preflight
-    if (req.method === 'OPTIONS') {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
-      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-      return res.status(204).end();
-    }
-
-    const apiRes = await fetch(API_URL);
-    if (!apiRes.ok) {
-      return res.status(apiRes.status).json({ error: `Upstream API returned ${apiRes.status}` });
-    }
-
-    const data = await apiRes.json();
-
-    // Build a lightweight index of pointers into the JSON payload so external programs
-    // can quickly locate objects by id or uid using JSON Pointer (RFC 6901).
+    // Build index
     const index = {
       generatedAt: new Date().toISOString(),
-      byId: {}, // maps numeric/string id -> JSON Pointer (e.g. "/leagues/0/groups/0/events/1")
-      byUid: {}, // maps uid -> JSON Pointer
-      byType: {}, // maps type -> { id: pointer, ... }
-      events: {}, // friendly event summaries keyed by event id or uid
+      byId: {},
+      byUid: {},
+      byType: {},
+      events: {},
       grouped: {
-        // grouped lists of pointers by top-level segment; events also has a list
         events: [],
       },
     };
 
-    // Build the index / summaries
+    const buildIndex = (node, path, index) => {
+      if (Array.isArray(node)) {
+        node.forEach((item, i) => buildIndex(item, `${path}/${i}`, index));
+        return;
+      }
+      if (node && typeof node === 'object') {
+        const idKey = node.id !== undefined ? String(node.id) : null;
+        const uidKey = node.uid !== undefined ? String(node.uid) : null;
+        if (idKey) index.byId[idKey] = path;
+        if (uidKey) index.byUid[uidKey] = path;
+
+        const t = node.type || 'unknown';
+        if (!index.byType[t]) index.byType[t] = {};
+        if (idKey) index.byType[t][idKey] = path;
+
+        const isEventLike =
+          (typeof node.type === 'string' && node.type.toLowerCase() === 'event') ||
+          path.includes('/events/');
+        if (isEventLike) {
+          const eventId = node.id !== undefined ? String(node.id) : node.uid || null;
+          if (eventId && !index.events[eventId]) {
+            const date = node.date || node.startDate || (node.competitions && node.competitions[0]?.date) || null;
+            const status =
+              (node.status && (node.status.type?.state || node.status.type?.name || node.status.type)) ||
+              node.status?.detail ||
+              node.status?.description ||
+              null;
+
+            let name = node.name || node.shortName || node.displayName || null;
+            const competitors = [];
+
+            try {
+              const comp = node.competitions && node.competitions[0];
+              if (comp && Array.isArray(comp.competitors)) {
+                for (const c of comp.competitors) {
+                  const teamObj = c.team || {};
+                  const compId = c.id ?? teamObj.id ?? null;
+                  const compUid = c.uid ?? teamObj.uid ?? null;
+                  const teamName =
+                    teamObj.displayName ||
+                    teamObj.shortDisplayName ||
+                    teamObj.name ||
+                    c.name ||
+                    null;
+                  competitors.push({
+                    id: compId !== null ? String(compId) : null,
+                    uid: compUid !== null ? String(compUid) : null,
+                    homeAway: c.homeAway || null,
+                    pointer: compId ? index.byId[String(compId)] || null : null,
+                    teamName,
+                  });
+                }
+              }
+            } catch (e) {}
+
+            if (!name && competitors.length) {
+              const home = competitors.find(c => c.homeAway === 'home') || competitors[1] || competitors[0];
+              const away = competitors.find(c => c.homeAway === 'away') || competitors[0] || competitors[1] || competitors[0];
+              const hName = home?.teamName || 'Home';
+              const aName = away?.teamName || 'Away';
+              name = `${aName} at ${hName}`;
+            }
+
+            index.events[eventId] = {
+              pointer: path,
+              uid: node.uid || null,
+              date,
+              name,
+              status,
+              competitionsCount: node.competitions ? node.competitions.length : 0,
+              competitors,
+            };
+
+            index.grouped.events.push(path);
+          }
+        }
+
+        const seg = path.split('/').filter(Boolean)[0];
+        if (seg) {
+          if (!index.grouped[seg]) index.grouped[seg] = [];
+          if (!index.grouped[seg].includes(path)) index.grouped[seg].push(path);
+        }
+
+        for (const k of Object.keys(node)) {
+          buildIndex(node[k], `${path}/${escapePointer(k)}`, index);
+        }
+      }
+    };
+
     buildIndex(data, '', index);
 
-    // Query params to control output:
-    // - pretty=true => pretty-print entire response
-    // - pretty=index => pretty-print only index; data still included but compact
-    // - indexOnly=true => return only index (useful for quick lookups)
-    // Normalize query params
-    // Turn on pretty printing by default. Use ?pretty=false to disable.
     const prettyRaw = q('pretty');
     const pretty = (prettyRaw === undefined || prettyRaw === null) ? 'true' : prettyRaw;
 
@@ -97,7 +166,6 @@ export default async function handler(req, res) {
     res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=30');
     res.setHeader('Access-Control-Allow-Origin', '*');
 
-    // Return according to requested format
     if (indexOnlyFlag) {
       if (pretty === 'true' || pretty === '1' || pretty === 'yes') {
         return res.status(200).send(JSON.stringify(index, null, 2));
@@ -111,13 +179,13 @@ export default async function handler(req, res) {
     }
 
     if (pretty === 'true' || pretty === '1' || pretty === 'yes') {
-      return res.status(200).send(JSON.stringify({ index, data }, null, 2));
+      return res.status(200).send(JSON.stringify({ index, competitions: filteredCompetitions }, null, 2));
     }
 
-    // default: compact JSON with index + original data
-    return res.status(200).json({ index, data });
+    return res.status(200).json({ index, competitions: filteredCompetitions });
   } catch (err) {
     console.error('Proxy error:', err);
     return res.status(502).json({ error: 'Failed to fetch upstream API' });
   }
 }
+``
