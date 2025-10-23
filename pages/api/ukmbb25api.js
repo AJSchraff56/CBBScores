@@ -1,135 +1,48 @@
-// pages/api/ukmbb25api.js
 export default async function handler(req, res) {
   const API_URL =
     'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?limit=500&groups=50';
 
-  // Utility: escape a JSON Pointer segment per RFC 6901
   const escapePointer = (segment) =>
     String(segment).replace(/~/g, '~0').replace(/\//g, '~1');
 
-  // Helper to coerce query values that may be arrays (Next.js behavior)
   const q = (name) => {
     const v = req.query?.[name];
     if (Array.isArray(v)) return v[0];
     return v;
   };
 
-  // Build an index of locations (JSON Pointers) for objects that have id or uid
-  // and also build friendly groupings / event summaries for easier visual scanning.
-  const buildIndex = (node, path, index) => {
-    if (Array.isArray(node)) {
-      node.forEach((item, i) => buildIndex(item, `${path}/${i}`, index));
-      return;
-    }
-    if (node && typeof node === 'object') {
-      // Record by id/uid/type if present
-      if (node.id !== undefined || node.uid !== undefined) {
-        const idKey = node.id !== undefined ? String(node.id) : null;
-        const uidKey = node.uid !== undefined ? String(node.uid) : null;
-        if (idKey) index.byId[idKey] = path;
-        if (uidKey) index.byUid[uidKey] = path;
+  const dateFilter = q('date'); // Format: YYYY-MM-DD
+  const conferenceIdFilter = q('conferenceId'); // Format: string
+  const idFilter = q('id'); // Format: string
 
-        const t = node.type || 'unknown';
-        if (!index.byType[t]) index.byType[t] = {};
-        if (idKey) index.byType[t][idKey] = path;
-      }
+  try {
+    const response = await fetch(API_URL);
+    const data = await response.json();
 
-      // If this node looks like an "event" (by type or because it's inside /events/),
-      // capture a lightweight summary to make scanning easier.
-      const isEventLike =
-        (typeof node.type === 'string' && node.type.toLowerCase() === 'event') ||
-        path.includes('/events/');
-      if (isEventLike) {
-        // Try to derive an event id (prefer numeric id, else uid)
-        const eventId = node.id !== undefined ? String(node.id) : node.uid || null;
-        if (eventId) {
-          // Avoid overwriting if summary already exists (first one wins)
-          if (!index.events[eventId]) {
-            // Date: try well-known fields
-            const date = node.date || node.startDate || (node.competitions && node.competitions[0]?.date) || null;
+    const competitions = data?.events?.flatMap(event => event.competitions || []) || [];
 
-            // Status: try a few fields ESPN uses
-            const status =
-              (node.status && (node.status.type?.state || node.status.type?.name || node.status.type)) ||
-              node.status?.detail ||
-              node.status?.description ||
-              null;
+    const filteredCompetitions = competitions.filter(comp => {
+      const matchDate = dateFilter
+        ? comp.date?.startsWith(dateFilter)
+        : true;
 
-            // Name: prefer node.name/shortName; else try to synthesize from competitors
-            let name = node.name || node.shortName || node.displayName || null;
-            const competitors = [];
+      const matchId = idFilter
+        ? comp.id === idFilter
+        : true;
 
-            try {
-              // Many ESPN event objects contain competitions -> competitors -> team
-              const comp = node.competitions && node.competitions[0];
-              if (comp && Array.isArray(comp.competitors)) {
-                for (const c of comp.competitors) {
-                  const teamObj = c.team || {};
-                  const compId = c.id ?? teamObj.id ?? null;
-                  const compUid = c.uid ?? teamObj.uid ?? null;
-                  const teamName =
-                    teamObj.displayName ||
-                    teamObj.shortDisplayName ||
-                    teamObj.name ||
-                    c.name ||
-                    null;
-                  competitors.push({
-                    id: compId !== null ? String(compId) : null,
-                    uid: compUid !== null ? String(compUid) : null,
-                    homeAway: c.homeAway || null,
-                    pointer: compId ? index.byId[String(compId)] || null : null,
-                    teamName,
-                  });
-                }
-              }
-            } catch (e) {
-              // ignore extraction errors, keep competitors empty
-            }
+      const matchConference = conferenceIdFilter
+        ? comp.competitors?.some(c => c.team?.conferenceId === conferenceIdFilter)
+        : true;
 
-            if (!name && competitors.length) {
-              // synthesize something like "A at B" if we can determine home/away
-              const home = competitors.find((c) => c.homeAway === 'home') || competitors[1] || competitors[0];
-              const away = competitors.find((c) => c.homeAway === 'away') || competitors[0] || competitors[1] || competitors[0];
-              const hName = home?.teamName || 'Home';
-              const aName = away?.teamName || 'Away';
-              name = `${aName} at ${hName}`;
-            }
+      return matchDate && matchId && matchConference;
+    });
 
-            index.events[eventId] = {
-              pointer: path,
-              uid: node.uid || null,
-              date,
-              name,
-              status,
-              competitionsCount: node.competitions ? node.competitions.length : 0,
-              competitors,
-            };
-
-            // Help quick enumeration by top-level grouping
-            index.grouped.events.push(path);
-          }
-        } else {
-          // If there's no id, but it's event-like, still add path to grouped listing
-          if (!index.grouped.events.includes(path)) index.grouped.events.push(path);
-        }
-      }
-
-      // Group pointers by the top-level path segment for quick enumeration.
-      // Example: "/leagues/0/..." => group "leagues", "/events/..." => "events"
-      if (path) {
-        const seg = path.split('/').filter(Boolean)[0]; // first non-empty segment
-        if (seg) {
-          if (!index.grouped[seg]) index.grouped[seg] = [];
-          if (!index.grouped[seg].includes(path)) index.grouped[seg].push(path);
-        }
-      }
-
-      // Recurse into keys
-      for (const k of Object.keys(node)) {
-        buildIndex(node[k], `${path}/${escapePointer(k)}`, index);
-      }
-    }
-  };
+    res.status(200).json({ competitions: filteredCompetitions });
+  } catch (error) {
+    console.error('Error fetching or filtering data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 
   try {
     // Handle CORS preflight
