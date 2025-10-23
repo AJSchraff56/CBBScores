@@ -34,20 +34,22 @@ export default async function handler(req, res) {
     const competitions = data?.events?.flatMap(event => event.competitions || []) || [];
 
     const filteredCompetitions = competitions.filter(comp => {
-      const matchDate = dateFilter
-        ? comp.date?.startsWith(dateFilter)
-        : true;
+  const matchDate = dateFilter
+    ? comp.date?.startsWith(dateFilter)
+    : true;
 
-      const matchId = idFilter
-        ? comp.id === idFilter
-        : true;
+  const matchId = idFilter
+    ? String(comp.id) === String(idFilter)
+    : true;
 
-      const matchConference = conferenceIdFilter
-        ? comp.competitors?.some(c =>
-            String(c.team?.conferenceId) === String(conferenceIdFilter)
-          )
-        matchConference;
-    });
+  const matchConference = conferenceIdFilter
+    ? comp.competitors?.some(c =>
+        String(c.team?.conferenceId) === String(conferenceIdFilter)
+      )
+    : true;
+
+  return matchDate && matchId && matchConference;
+});
 
     // Build index
     const index = {
