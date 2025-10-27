@@ -14,6 +14,12 @@ export default async function handler(req, res) {
   const dateFilter = q('date'); // Format: YYYY-MM-DD
   const conferenceIdFilter = q('conferenceId'); // Format: string
   const idFilter = q('id'); // Format: string
+  const top25FilterRaw = q('top25');
+  const top25Filter =
+    top25FilterRaw === true ||
+    top25FilterRaw === 'true' ||
+    top25FilterRaw === '1' ||
+    (typeof top25FilterRaw === 'string' && top25FilterRaw.toLowerCase() === 'yes');
 
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -48,8 +54,16 @@ export default async function handler(req, res) {
       )
     : true;
 
-  return matchDate && matchId && matchConference;
+  const matchTop25 = top25Filter
+    ? comp.competitors?.some(c => {
+        const rank = c.team?.rank;
+        return typeof rank === 'number' && rank >= 1 && rank <= 25;
+      })
+    : true;
+
+  return matchDate && matchId && matchConference && matchTop25;
 });
+
 
     // Build index
     const index = {
