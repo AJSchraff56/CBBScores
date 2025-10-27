@@ -54,13 +54,6 @@ export default async function handler(req, res) {
       )
     : true;
 
-  const matchTop25 = top25Filter
-    ? comp.competitors?.some(c => {
-        const rank = c.team?.rank;
-        return typeof rank === 'number' && rank >= 1 && rank <= 25;
-      })
-    : true;
-
   return matchDate && matchId && matchConference && matchTop25;
 });
 
