@@ -121,12 +121,14 @@ export default async function handler(req, res) {
                     teamObj.name ||
                     c.name ||
                     null;
+                  const rank = typeof teamObj.rank === 'number' ? teamObj.rank : null;
                   competitors.push({
                     id: compId !== null ? String(compId) : null,
                     uid: compUid !== null ? String(compUid) : null,
                     homeAway: c.homeAway || null,
                     pointer: compId ? index.byId[String(compId)] || null : null,
                     teamName,
+                    rank,
                   });
                 }
               }
