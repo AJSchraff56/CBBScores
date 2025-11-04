@@ -36,8 +36,6 @@ export default async function handler(req, res) {
     const filteredCompetitions = competitions.filter(comp => {
   const matchDate = dateFilter
   ? comp.date?.slice(0, 10) === dateFilter
-  : true;
-
 
   const matchId = idFilter
     ? String(comp.id) === String(idFilter)
