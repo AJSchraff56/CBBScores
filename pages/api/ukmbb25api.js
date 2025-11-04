@@ -34,8 +34,11 @@ export default async function handler(req, res) {
     const competitions = data?.events?.flatMap(event => event.competitions || []) || [];
 
     const filteredCompetitions = competitions.filter(comp => {
+  
   const matchDate = dateFilter
-  ? comp.date?.slice(0, 10) === dateFilter
+    ? comp.date?.slice(0, 10) === dateFilter
+    : true;
+
 
   const matchId = idFilter
     ? String(comp.id) === String(idFilter)
