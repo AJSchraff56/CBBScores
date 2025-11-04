@@ -1,4 +1,10 @@
 export default async function handler(req, res) {
+  const apiRes = await fetch(API_URL, {
+  headers: {
+    'User-Agent': 'Mozilla/5.0',
+    'Accept': 'application/json',
+  },
+});
   const API_URL =
     'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?limit=500&groups=50';
 
