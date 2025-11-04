@@ -54,7 +54,7 @@ export default async function handler(req, res) {
       )
     : true;
 
-  return matchDate && matchId && matchConference && matchTop25;
+  return matchDate && matchId && matchConference;
 });
 
 
