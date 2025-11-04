@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   const API_URL =
-    'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?limit=500&groups=50';
+    'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?limit=500';
 
   const escapePointer = (segment) =>
     String(segment).replace(/~/g, '~0').replace(/\//g, '~1');
