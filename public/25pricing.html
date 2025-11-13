@@ -1,45 +1,25 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GBD Pricing</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GBD 25-26 Pricing</title>
   <style>
-    /* Reset & layout */
     html, body {
-      height: 100%;
       margin: 0;
-      background: #000; /* black background looks clean around non-16:9 images */
+      padding: 0;
+      height: 100%;
+      background-color: #000;
     }
-    .wrap {
-      /* Use dynamic viewport height to avoid mobile browser chrome issues */
-      width: 100vw;
-      height: 100dvh;
-      display: grid;
-      place-items: center;
-    }
-    /* Make the image scale to fit the entire viewport without cropping */
-    .full {
-      max-width: 100vw;
-      max-height: 100dvh;
+    img {
       width: 100%;
       height: 100%;
-      object-fit: contain;   /* keeps full image visible */
-      object-position: center;
+      object-fit: contain; /* or "cover" if you want it to fill and crop */
       display: block;
     }
-    /* Remove default link styling on focus for a clean look (optional) */
-    a { outline: none; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    https://ibb.co/8gt7WLJv
-      <img
-        class="full"
-       26-Pricing.png
-    </a>
-  </div>
+  <img src="https://i.ibb.co/zVD4yT19/GBD-25-26-Pricing.png" alt="GBD 25-26 Pricing">
 </body>
 </html>
